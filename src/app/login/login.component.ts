@@ -3,6 +3,7 @@ import { FormGroup, FormControl } from "@angular/forms";
 import { LoginService } from "./login.service";
 import { User } from '../shared/classes/user';
 import { UserService } from '../shared/services/user.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 declare var $: any;
 @Component({
   selector: "app-login",
@@ -20,7 +21,7 @@ export class LoginComponent implements OnInit {
     });
   }
   public loginForm: FormGroup;
-  constructor(public loginService: LoginService, private user: User, private userService: UserService) {
+  constructor(public loginService: LoginService, private user: User, private userService: UserService, private spinner: NgxSpinnerService) {
     this.initForm();
   }
 
@@ -42,25 +43,29 @@ export class LoginComponent implements OnInit {
       this.loginFail = true;
     }
     let { email, password } = this.loginForm.value;
-    this.showLoading = true;
+    // this.showLoading = true;
+    this.spinner.show();
     this.loginService.login(email, password).then(result => {
-      this.showLoading = false;
+      this.spinner.hide();
       if (result) {
         this.user.setUser(result.user);
         $('#login-modal').modal('hide');
         this.loginForm.reset();
       }
     }, (err) => {
-      this.showLoading = false;
+      this.spinner.hide();
       this.loginFail = true;
       this.messageError = err.message;
     })
   }
 
   loginFacebook(){
+    this.spinner.show();
     this.loginService.FacebookAuth().then((result) => {
+      this.spinner.hide();
       console.log(result);
     }, (err) => {
+      this.spinner.hide();
       this.loginFail = true;
       this.messageError = err.message;
     });

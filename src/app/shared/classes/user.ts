@@ -28,6 +28,7 @@ export class User {
         this.email = user.email ? user.email : this.email;
         this.first_name = user.first_name;
         this.last_name = user.last_name;
+        this.birthday = user.birthday;
         this.uid = user.uid ? user.uid : this.uid;
         this.phone = user.phone ? user.phone : this.phone;
         this.avatar = user.photo_url ? user.photo_url : this.avatar;

@@ -21,6 +21,7 @@ import { MenuComponent } from './menu/menu.component';
 import { ChatbotComponent } from './chatbot/chatbot.component';
 import { PersonalModule } from './personal/personal.module';
 import { SignupComponent } from './signup/signup.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { SignupComponent } from './signup/signup.component';
   , AngularFirestoreModule
   , AngularFireStorageModule
   , AngularFireMessagingModule
-  ,PersonalModule
+  ,PersonalModule,
+  NgxSpinnerModule
 ],
   providers: [],
   bootstrap: [AppComponent]

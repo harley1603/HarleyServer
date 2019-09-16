@@ -5,6 +5,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { PersonalRoutingModule } from './personal-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 
 
@@ -13,7 +14,8 @@ import { ReactiveFormsModule } from '@angular/forms';
   imports: [
     ReactiveFormsModule,
     PersonalRoutingModule,
-    CommonModule
+    CommonModule,
+    NgxSpinnerModule
   ]
 })
 export class PersonalModule { }

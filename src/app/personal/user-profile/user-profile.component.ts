@@ -3,6 +3,7 @@ import { UserService } from 'src/app/shared/services/user.service';
 import { User } from 'src/app/shared/classes/user';
 import { FormGroup, FormBuilder, ReactiveFormsModule  } from '@angular/forms';
 import { DocumentSnapshot } from '@angular/fire/firestore';
+import { NgxSpinnerService } from 'ngx-spinner';
 declare var $: any;
 
 @Component({
@@ -15,7 +16,8 @@ export class UserProfileComponent implements OnInit {
   constructor(
     private user: User, 
     private userService: UserService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private spinner: NgxSpinnerService
   ) {
     let userStorage = JSON.parse(localStorage.getItem('user'));
     if (userStorage){
@@ -31,9 +33,14 @@ export class UserProfileComponent implements OnInit {
   ngAfterViewInit(): void {
     //Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
     //Add 'implements AfterViewInit' to the class.
+    let self = this;
     $('.input-group.date').datepicker({
       'format': 'dd-mm-yyyy',
       'autoclose': true
+    }).on('change', function (e) {
+      if (e.target.value) {
+        self.setValueFromFormName('birthday', e.target.value);
+      }
     });
   }
 
@@ -50,6 +57,7 @@ export class UserProfileComponent implements OnInit {
   }
 
   bindUserData(){
+    this.spinner.show();
     this.userService.getUserDataByUid(this.user.uid).subscribe((result: DocumentSnapshot<any>) => {
       let userDetail = result.data();
       this.user.setUserDetail(userDetail);
@@ -60,12 +68,17 @@ export class UserProfileComponent implements OnInit {
         lastName: this.user.last_name,
         phoneNumber: this.user.phone,
         birthday: this.user.birthday
-      })
+      });
+      this.spinner.hide();
     });
   }
 
   getValueFromFormName(name:string){
     return this.userForm.controls[name].value;
+  }
+
+  setValueFromFormName(name:string, value: any){
+    return this.userForm.controls[name].setValue(value);
   }
 
   saveForm(): void{
