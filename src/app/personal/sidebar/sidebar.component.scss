@@ -21,9 +21,11 @@
   
   /* Style links on mouse-over */
   .sidebar a:hover {
+    cursor: pointer;
     color: #000;
     background-color: #f39c12;
-    border: 1px solid black
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
   }
   /* Style the main content */
   .main {
@@ -38,8 +40,8 @@
   }
   
   .active {
-    background-color: #000;
-    color: #ffffff;
+    background-color: #f39c12;
+    color:#000 !important;
   }
   
   

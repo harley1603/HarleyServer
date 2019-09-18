@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { User } from 'src/app/shared/classes/user';
+import { Router } from '@angular/router';
 declare var $: any;
 @Component({
   selector: 'app-sidebar',
@@ -6,8 +8,9 @@ declare var $: any;
   styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent implements OnInit {
-
-  constructor() {
+  @Output() navTo = new EventEmitter<string>();
+  url: string;
+  constructor(private user: User, private router: Router) {
     $(function(){
       $('[data-toggle="tooltip"]').tooltip();
       $(".side-nav .collapse").on("hide.bs.collapse", function() {                   
@@ -17,9 +20,17 @@ export class SidebarComponent implements OnInit {
           $(this).prev().find(".fa").eq(1).removeClass("fa-angle-down").addClass("fa-angle-right");        
       });
     }) 
+    let userStorage = JSON.parse(localStorage.getItem('user'));
+    if (userStorage){
+      this.user.setUser(userStorage);
+    }
   }
 
   ngOnInit() {
   }
 
+  navToLink(link: string){
+    this.navTo.emit(link);
+  }
+  
 }

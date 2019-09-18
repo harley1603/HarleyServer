@@ -1,93 +1,91 @@
 <nav class="navbar navbar-inverse nav-transparent" (mouseover)="focusNav($event)" (mouseout)="blurNav($event)">
     <div class="container-fluid">
-      <div class="navbar-header" >
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar" (click)="changeBackground()">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>                          
-      </button>
-        <a class="navbar-brand" (click)="navTo('/')">Harley Milk Tea</a>
-      </div>
-      <div class="collapse navbar-collapse" id="myNavbar">
-      <ul class="nav navbar-nav">
-        <li class="active"><a (click)="navTo('/')">Home</a></li>
-        <li><a  (click)="navTo('/dashboard/menu')">Menu</a></li>
-        <li><a href="#">About Us</a></li>
-        <li><a href="#">Contact</a></li>
-      </ul>
-      <ul *ngIf="!user.uid" class="nav navbar-nav navbar-right">
-        <li>
-          <a href="#signup-modal" data-toggle="modal"><span class="glyphicon glyphicon-user"></span> Sign Up</a>
-        </li>
-        <li>
-          <a href="#login-modal" data-toggle="modal"
-            ><span class="glyphicon glyphicon-log-in"></span> Login</a
-          >
-        </li>
-      </ul>
-      <ul *ngIf="user.uid" class="nav navbar-nav navbar-right dropdown">
-        <li>
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img *ngIf="user.avatar" class="avatar" [src]="user.avatar"> {{ user.display_name }} <span class="caret"></span>
-          </a>
-          <ul class="dropdown-menu black">
-              <li><a (click)="navTo('/personal/profile')"><i class="fas fa-user-circle"></i>  My Profile</a></li>
-              <li><a href="#"><i class="fas fa-coffee"></i> My Orders</a></li>
-              <li><a href="#" (click)="logout()"><i class="fas fa-sign-out-alt"></i>  Logout</a></li>
+        <div class="navbar-header" >
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar" (click)="changeBackground()">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>                          
+        </button>
+            <a class="navbar-brand" (click)="navTo('/')">Harley Milk Tea</a>
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav">
+                <li class="active"><a (click)="navTo('/')">Home</a></li>
+                <li><a  (click)="navTo('/dashboard/menu')">Menu</a></li>
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">Contact</a></li>
             </ul>
-        </li>
-        
-      </ul>
-      
+            <ul *ngIf="!user.uid" class="nav navbar-nav navbar-right">
+                <li>
+                <a href="#signup-modal" data-toggle="modal"><span class="glyphicon glyphicon-user"></span> Sign Up</a>
+                </li>
+                <li>
+                <a href="#login-modal" data-toggle="modal"
+                    ><span class="glyphicon glyphicon-log-in"></span> Login</a
+                >
+                </li>
+            </ul>
+            <ul *ngIf="user.uid" class="nav navbar-nav navbar-right dropdown">
+                <li>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    <img class="avatar" [src]="user.avatar ? user.avatar: '../../assets/images/user-avatar.jpg'"> {{ user.display_name }} <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu black">
+                    <li><a (click)="navTo('/personal/profile')"><i class="fas fa-user-circle"></i>  My Profile</a></li>
+                    <li><a href="#"><i class="fas fa-coffee"></i> My Orders</a></li>
+                    <li><a href="#" (click)="logout()"><i class="fas fa-sign-out-alt"></i>  Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
     </div>
-    </div>
-  </nav>
+</nav>
   
 <!-- Login Modal -->
 <!-- Modal -->
 <div id="login-modal" class="modal fade" role="dialog">
     <div class="modal-dialog">
       <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">
-            &times;
-          </button>
-          <h4 class="modal-title">Login</h4>
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    &times;
+                </button>
+                <h4 class="modal-title">Login</h4>
+            </div>
+            <div class="modal-body">
+                <app-login></app-login>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">
+                    Close
+                </button>
+            </div>
         </div>
-        <div class="modal-body">
-          <app-login></app-login>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-dismiss="modal">
-            Close
-          </button>
-        </div>
-      </div>
     </div>
-  </div>
+</div>
   
 
   <!-- Sign Up Modal -->
 <!-- Modal -->
 <div id="signup-modal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">
-          &times;
-        </button>
-        <h4 class="modal-title">Sign Up</h4>
-      </div>
-      <div class="modal-body">
-        <app-signup></app-signup>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">
-          Close
-        </button>
-      </div>
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">
+            &times;
+            </button>
+            <h4 class="modal-title">Sign Up</h4>
+        </div>
+        <div class="modal-body">
+            <app-signup></app-signup>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">
+            Close
+            </button>
+        </div>
+        </div>
     </div>
-  </div>
 </div>

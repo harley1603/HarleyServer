@@ -24,7 +24,7 @@
                 <div class="form-group">
                     <label class="control-label col-sm-3" for="email">First Name</label>
                     <div class="col-sm-9">
-                        <input type="email" class="form-control" placeholder="Enter email" formControlName="firstName">
+                        <input type="email" class="form-control" placeholder="Enter First Name" formControlName="firstName">
                     </div>
                 </div>
             </div>
@@ -32,7 +32,7 @@
                 <div class="form-group">
                     <label class="control-label col-sm-3" for="email">Last Name</label>
                     <div class="col-sm-9">
-                        <input type="email" class="form-control" placeholder="Enter email" formControlName="lastName">
+                        <input type="email" class="form-control" placeholder="Enter Last Name" formControlName="lastName">
                     </div>
                 </div>
             </div>
@@ -51,17 +51,62 @@
                     <div class="col-sm-9 input-group date" date-format="dd-mm-yyyy" style="padding-left: 15px; padding-right: 15px">
                         <input type="text" class="form-control" placeholder="Select Birthday" formControlName="birthday">
                         <div class="input-group-addon">
-                            <span class="glyphicon glyphicon-th" ></span>
+                            <span class="glyphicon glyphicon-calendar" ></span>
                         </div>
                     </div>
+                    <div> {{ birthdayError }}</div>
                 </div>
             </div>
         </form>
+
+        <button type="button" class="btn btn-warning" data-toggle="collapse" data-target="#change-password-form" (click)="clearPasswordForm()" style="margin-bottom: 10px;">Change Password</button>
+
+        <div id="change-password-form" class="collapse" style="width:50%; padding-left: 15px; padding-right: 15px;" >
+            <form class="form-horizontal" [formGroup] = "changePasswordForm">
+                <div class="form-group">
+                    <label class="control-label col-sm-3">Old Password<span class="required">*</span></label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" placeholder="Enter old password" formControlName="oldPassword">
+                    </div>
+                    <div class="alert alert-danger" *ngIf="errorChangePassword && changePasswordForm.controls.oldPassword.hasError('required')">Old Password is required.</div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-3">New Password<span class="required">*</span></label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" placeholder="Enter new password" formControlName="newPassword">
+                    </div>
+                    <div class="alert alert-danger" *ngIf="errorChangePassword && changePasswordForm.controls.newPassword.hasError('required')">New Password is required.</div>
+                </div>
+                <div class="form-group has-feedback" 
+                    [ngClass]="{'has-success': changePasswordForm.controls['newPassword'].value && changePasswordForm.controls['newPassword'].value === changePasswordForm.controls['confirmPassword'].value}"
+                    [ngClass]="{'has-error': changePasswordForm.controls['newPassword'].value && changePasswordForm.controls['newPassword'].value !== changePasswordForm.controls['confirmPassword'].value}">>
+                    <label class="control-label col-sm-3">Confirm Password<span class="required">*</span></label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" placeholder="Confirm new password" formControlName="confirmPassword">
+                    </div>
+                    <span [ngClass]="{'glyphicon glyphicon-ok form-control-feedback': changePasswordForm.controls['newPassword'].value && changePasswordForm.controls['newPassword'].value === changePasswordForm.controls['confirmPassword'].value}"
+                        [ngClass]="{'glyphicon glyphicon-remove form-control-feedback': changePasswordForm.controls['newPassword'].value && changePasswordForm.controls['newPassword'].value !== changePasswordForm.controls['confirmPassword'].value}">
+                    </span>
+                </div>
+                <div class="alert alert-danger" *ngIf="errorChangePassword && errorMessage">
+                    {{ errorMessage }}
+                </div>
+                <div class="col-sm-9" style="float:right;">
+                    <button type="button" class="btn btn-success" (click)="changePassword()">Change</button>
+                </div>
+            </form>
+        </div>
     </div>
+
+    
+    <!-- Address -->
+    <h2 class="title">
+        Address
+    </h2> 
 </div>
 
 
-<button type="button" class="btn btn-success" (click)="saveForm()">Save</button>
+<button type="button" class="btn btn-success" (click)="saveForm()" style="margin-left: 30px">Save</button>
 <ngx-spinner type="ball-clip-rotate-multiple" color="rgb(204, 138, 18)"></ngx-spinner>
 
 

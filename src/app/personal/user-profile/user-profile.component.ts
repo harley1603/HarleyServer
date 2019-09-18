@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/shared/services/user.service';
 import { User } from 'src/app/shared/classes/user';
-import { FormGroup, FormBuilder, ReactiveFormsModule  } from '@angular/forms';
+import { FormGroup, FormBuilder, ReactiveFormsModule, Validators  } from '@angular/forms';
 import { DocumentSnapshot } from '@angular/fire/firestore';
 import { NgxSpinnerService } from 'ngx-spinner';
+import * as moment from 'moment';
+import { LoginService } from 'src/app/login/login.service';
 declare var $: any;
 
 @Component({
@@ -13,8 +15,13 @@ declare var $: any;
 })
 export class UserProfileComponent implements OnInit {
   userForm: FormGroup;
+  changePasswordForm: FormGroup;
+  isError = false;
+  errorMessage = '';
+  errorChangePassword = false;
   constructor(
-    private user: User, 
+    private user: User,
+    private loginService: LoginService, 
     private userService: UserService,
     private formBuilder: FormBuilder,
     private spinner: NgxSpinnerService
@@ -35,11 +42,15 @@ export class UserProfileComponent implements OnInit {
     //Add 'implements AfterViewInit' to the class.
     let self = this;
     $('.input-group.date').datepicker({
-      'format': 'dd-mm-yyyy',
-      'autoclose': true
+      'format': 'dd/mm/yyyy',
+      'autoclose': true,
+      'startDate': '-200y',
+      'endDate': '0d'
     }).on('change', function (e) {
       if (e.target.value) {
-        self.setValueFromFormName('birthday', e.target.value);
+        if (self.validateDate(e.target.value)){
+          self.setValueFromFormName('birthday', e.target.value);
+        }
       }
     });
   }
@@ -53,7 +64,13 @@ export class UserProfileComponent implements OnInit {
       lastName: [''],
       phoneNumber: [''],
       birthday: ['']
-    })
+    });
+
+    this.changePasswordForm = this.formBuilder.group({
+      oldPassword: ['', Validators.required],
+      newPassword: ['', Validators.required],
+      confirmPassword: ['', Validators.required]
+    });
   }
 
   bindUserData(){
@@ -82,11 +99,13 @@ export class UserProfileComponent implements OnInit {
   }
 
   saveForm(): void{
+    this.spinner.show();
     let data = this.getDataUpload();
     let uid = this.user.uid;
 
     this.userService.updateUserByUid(uid, data).then((result) => {
-      console.log('Updated user successfully');
+      this.spinner.hide();
+      alert('Updated user successfully');
     }, err => {
       console.error(err);
     });
@@ -102,5 +121,32 @@ export class UserProfileComponent implements OnInit {
       birthday: this.getValueFromFormName('birthday')
     }
     return data;
+  }
+
+  validateDate(date: string){
+    return moment(date).isValid();
+  }
+
+  clearPasswordForm(): void {
+    this.changePasswordForm.reset();
+  }
+  
+  changePassword(): void {
+    let oldPassword = this.getValueFromPasswordFormName('oldPassword');
+    let newPassword = this.getValueFromPasswordFormName('newPassword');
+    let confirmPassword = this.getValueFromPasswordFormName('confirmPassword');
+    if (this.changePasswordForm.invalid){
+      this.errorChangePassword = true;
+      return;
+    }
+    if (newPassword !== confirmPassword){
+      this.errorMessage = 'Password does not match.'
+      this.errorChangePassword = true;
+      return;
+    }
+  }
+
+  getValueFromPasswordFormName(name: string) {
+    return this.changePasswordForm.controls[name].value;
   }
 }
