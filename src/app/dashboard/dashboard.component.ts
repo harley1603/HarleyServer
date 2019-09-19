@@ -17,11 +17,17 @@ export class DashboardComponent implements OnInit {
 
   ngAfterViewInit() {
     // viewChild is set after the view has been initialized
-        if (window.location.pathname == "/dashboard/menu"){
-        this.scrollToElement('menu');
-        // setTimeout(() => {
-      //   this.scrollToElement('menu');
-      // }, 1000);
+    switch (window.location.pathname) {
+      case '/dashboard/menu':
+        setTimeout(() => {
+          this.scrollToElement('menu');
+        }, 1000);
+        break;
+      case '/dashboard/contact':
+          this.scrollToElement('contact');
+        break;
+      default:
+        break;
     }
   }
 

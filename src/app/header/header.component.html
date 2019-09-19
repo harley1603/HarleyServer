@@ -13,7 +13,7 @@
                 <li class="active"><a (click)="navTo('/')">Home</a></li>
                 <li><a  (click)="navTo('/dashboard/menu')">Menu</a></li>
                 <li><a href="#">About Us</a></li>
-                <li><a href="#">Contact</a></li>
+                <li><a (click)="navTo('/dashboard/contact')">Contact</a></li>
             </ul>
             <ul *ngIf="!user.uid" class="nav navbar-nav navbar-right">
                 <li>
