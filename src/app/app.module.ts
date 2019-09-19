@@ -22,10 +22,11 @@ import { ChatbotComponent } from './chatbot/chatbot.component';
 import { PersonalModule } from './personal/personal.module';
 import { SignupComponent } from './signup/signup.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { ContactCompoment } from './contact/contact.component';
 
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, HeaderComponent, DashboardComponent, MenuComponent, ChatbotComponent, SignupComponent],
+  declarations: [AppComponent, LoginComponent, HeaderComponent, DashboardComponent, MenuComponent, ChatbotComponent, SignupComponent, ContactCompoment],
   imports: [BrowserModule, AppRoutingModule, ReactiveFormsModule
   ,AngularFireModule.initializeApp(environment.firebase)
   ,AngularFireAuthModule

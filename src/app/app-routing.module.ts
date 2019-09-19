@@ -4,6 +4,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { PersonalComponent } from './personal/personal.component';
 import { UserProfileComponent } from './personal/user-profile/user-profile.component';
 import { UserManagementComponent } from './personal/user-management/user-management.component';
+import { ContactCompoment } from './contact/contact.component';
+
 
 
 const routes: Routes = [
@@ -15,6 +17,7 @@ const routes: Routes = [
       { path: 'user-management/user', component: UserManagementComponent}
     ] 
   },
+  { path: 'contact', component: ContactCompoment},
 ];
 
 @NgModule({
