@@ -6,6 +6,7 @@ import { DocumentSnapshot } from '@angular/fire/firestore';
 import { NgxSpinnerService } from 'ngx-spinner';
 import * as moment from 'moment';
 import { LoginService } from 'src/app/login/login.service';
+import { CrudType } from 'src/app/shared/enums/crud-type.enum';
 declare var $: any;
 
 @Component({
@@ -14,11 +15,21 @@ declare var $: any;
   styleUrls: ['./user-profile.component.scss']
 })
 export class UserProfileComponent implements OnInit {
+  shippingAddressHeaders = ['No.','Receiver', 'Phone Number', 'Street', 'Ward', 'District', 'City',''];
   userForm: FormGroup;
+
   changePasswordForm: FormGroup;
   isError = false;
+  // Change password
+  successChangePassword = false;
   errorMessage = '';
   errorChangePassword = false;
+  // Shipping Address Form
+  CrudType = CrudType;
+  shippingAddress = {
+    title: '',
+    mode: CrudType.VIEW
+  }
   constructor(
     private user: User,
     private loginService: LoginService, 
@@ -26,10 +37,7 @@ export class UserProfileComponent implements OnInit {
     private formBuilder: FormBuilder,
     private spinner: NgxSpinnerService
   ) {
-    let userStorage = JSON.parse(localStorage.getItem('user'));
-    if (userStorage){
-      this.user.setUser(userStorage);
-    }
+
    }
 
   ngOnInit() {
@@ -128,10 +136,15 @@ export class UserProfileComponent implements OnInit {
   }
 
   clearPasswordForm(): void {
+    this.successChangePassword = false;
+    this.errorMessage = '';
+    this.errorChangePassword = false;
     this.changePasswordForm.reset();
   }
   
   changePassword(): void {
+    this.errorChangePassword = false;
+    this.errorMessage = '';
     let oldPassword = this.getValueFromPasswordFormName('oldPassword');
     let newPassword = this.getValueFromPasswordFormName('newPassword');
     let confirmPassword = this.getValueFromPasswordFormName('confirmPassword');
@@ -144,9 +157,31 @@ export class UserProfileComponent implements OnInit {
       this.errorChangePassword = true;
       return;
     }
+    this.loginService.changePassword(this.user.email, oldPassword, newPassword).then( () => {
+      this.clearPasswordForm();
+      this.successChangePassword = true;
+    }).catch(err => {
+      this.errorChangePassword = true;
+      this.errorMessage = 'The old password is invalid. Please try again!';
+    });
   }
 
   getValueFromPasswordFormName(name: string) {
     return this.changePasswordForm.controls[name].value;
+  }
+
+  showShippingAddressModal(crudType) {
+    switch (crudType) {
+      case CrudType.CREATE:
+        this.shippingAddress.title = CrudType.ADD_TITLE;
+        this.shippingAddress.mode = CrudType.CREATE;
+        break;
+      case CrudType.UPDATE:
+        this.shippingAddress.title = CrudType.UPDATE_TITLE;
+        this.shippingAddress.mode = CrudType.UPDATE;
+        break;
+      default:
+        break;
+    }
   }
 }

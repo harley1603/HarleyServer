@@ -51,4 +51,14 @@ export class LoginService {
         alert("Error!"  +  e.message);
     }
   }
+
+  changePassword(email: string, oldPassword: string, newPassword: string){
+    try {
+      return this.login(email, oldPassword).then( () => {
+        return this.afAuth.auth.currentUser.updatePassword(newPassword);
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  }
 }

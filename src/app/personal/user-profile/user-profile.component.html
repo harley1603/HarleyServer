@@ -59,38 +59,45 @@
             </div>
         </form>
 
-        <button type="button" class="btn btn-warning" data-toggle="collapse" data-target="#change-password-form" (click)="clearPasswordForm()" style="margin-bottom: 10px;">Change Password</button>
+        
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <button type="button" class="btn btn-warning" data-toggle="collapse" data-target="#change-password-form" (click)="clearPasswordForm()" style="margin-bottom: 10px; margin-left: -10px;">Change Password</button>
+        </div>
 
         <div id="change-password-form" class="collapse" style="width:50%; padding-left: 15px; padding-right: 15px;" >
             <form class="form-horizontal" [formGroup] = "changePasswordForm">
                 <div class="form-group">
                     <label class="control-label col-sm-3">Old Password<span class="required">*</span></label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control" placeholder="Enter old password" formControlName="oldPassword">
+                        <input type="password" class="form-control" placeholder="Enter old password" formControlName="oldPassword">
                     </div>
                     <div class="alert alert-danger" *ngIf="errorChangePassword && changePasswordForm.controls.oldPassword.hasError('required')">Old Password is required.</div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-sm-3">New Password<span class="required">*</span></label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control" placeholder="Enter new password" formControlName="newPassword">
+                        <input type="password" class="form-control" placeholder="Enter new password" formControlName="newPassword">
                     </div>
                     <div class="alert alert-danger" *ngIf="errorChangePassword && changePasswordForm.controls.newPassword.hasError('required')">New Password is required.</div>
                 </div>
                 <div class="form-group has-feedback" 
                     [ngClass]="{'has-success': changePasswordForm.controls['newPassword'].value && changePasswordForm.controls['newPassword'].value === changePasswordForm.controls['confirmPassword'].value}"
-                    [ngClass]="{'has-error': changePasswordForm.controls['newPassword'].value && changePasswordForm.controls['newPassword'].value !== changePasswordForm.controls['confirmPassword'].value}">>
+                    [ngClass]="{'has-error': changePasswordForm.controls['confirmPassword'].value && changePasswordForm.controls['newPassword'].value !== changePasswordForm.controls['confirmPassword'].value}">
                     <label class="control-label col-sm-3">Confirm Password<span class="required">*</span></label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control" placeholder="Confirm new password" formControlName="confirmPassword">
-                    </div>
-                    <span [ngClass]="{'glyphicon glyphicon-ok form-control-feedback': changePasswordForm.controls['newPassword'].value && changePasswordForm.controls['newPassword'].value === changePasswordForm.controls['confirmPassword'].value}"
-                        [ngClass]="{'glyphicon glyphicon-remove form-control-feedback': changePasswordForm.controls['newPassword'].value && changePasswordForm.controls['newPassword'].value !== changePasswordForm.controls['confirmPassword'].value}">
+                        <input type="password" class="form-control" placeholder="Confirm new password" formControlName="confirmPassword">
+                        <span [ngClass]="{'glyphicon glyphicon-ok form-control-feedback': changePasswordForm.controls['newPassword'].value && changePasswordForm.controls['newPassword'].value === changePasswordForm.controls['confirmPassword'].value}"
+                        [ngClass]="{'glyphicon glyphicon-remove form-control-feedback': changePasswordForm.controls['confirmPassword'].value && changePasswordForm.controls['newPassword'].value !== changePasswordForm.controls['confirmPassword'].value}">
                     </span>
+                    </div>
+                    
                 </div>
                 <div class="alert alert-danger" *ngIf="errorChangePassword && errorMessage">
                     {{ errorMessage }}
                 </div>
+                <div class="alert alert-success" *ngIf="successChangePassword">
+                    Changed password successfully.
+                  </div>
                 <div class="col-sm-9" style="float:right;">
                     <button type="button" class="btn btn-success" (click)="changePassword()">Change</button>
                 </div>
@@ -98,15 +105,51 @@
         </div>
     </div>
 
-    
     <!-- Address -->
     <h2 class="title">
-        Address
-    </h2> 
+        Shipping Address
+    </h2>
+    
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <button type="button" class="btn btn-success" style="margin-bottom:10px" data-toggle="modal" data-target="#modal-shipping-address" (click)="showShippingAddressModal(CrudType.CREATE)"><i class="fas fa-truck"></i> Add New</button>
+        <button type="button" class="btn btn-success" style="margin-bottom:10px" *ngIf="selectedAddress"><i class="fas fa-minus-square"></i> Delete</button>
+        <table class="table table-hover table-bordered" *ngIf="user.shipping_address; else noShippingAddress">
+            <thead>
+                <tr>
+                    <th *ngFor="let header of shippingAddressHeaders"> {{ header }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+        <ng-template #noShippingAddress><p class="no-available"><b>No Available</b></p></ng-template>
+    </div>
+</div>
+<div class="footer">
+    <button type="button" class="btn btn-success" (click)="saveForm()" style="margin-left: 30px">Save</button>
 </div>
 
 
-<button type="button" class="btn btn-success" (click)="saveForm()" style="margin-left: 30px">Save</button>
-<ngx-spinner type="ball-clip-rotate-multiple" color="rgb(204, 138, 18)"></ngx-spinner>
-
-
+<!-- Shipping Address Detail -->
+<!-- Modal -->
+<div id="modal-shipping-address" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">{{ shippingAddress.title }} Shipping Address</h4>
+      </div>
+      <div class="modal-body">
+            <app-shipping-address-detail></app-shipping-address-detail>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-success">Save</button>
+      </div>
+    </div>
+  </div>
+</div>

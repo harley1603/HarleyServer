@@ -7,11 +7,13 @@ import { PersonalRoutingModule } from './personal-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { UserManagementComponent } from './user-management/user-management.component';
+import { ShippingAddressDetailComponent } from './user-profile/shipping-address-detail/shipping-address-detail.component';
+import { ShippingAddressComponent } from './user-profile/shipping-address/shipping-address.component';
 
 
 
 @NgModule({
-  declarations: [PersonalComponent, SidebarComponent, UserProfileComponent, UserManagementComponent],
+  declarations: [PersonalComponent, SidebarComponent, UserProfileComponent, UserManagementComponent, ShippingAddressDetailComponent, ShippingAddressComponent],
   imports: [
     ReactiveFormsModule,
     PersonalRoutingModule,

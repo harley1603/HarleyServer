@@ -4,6 +4,7 @@ import { LoginService } from "./login.service";
 import { User } from '../shared/classes/user';
 import { UserService } from '../shared/services/user.service';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { Router } from '@angular/router';
 declare var $: any;
 @Component({
   selector: "app-login",
@@ -21,8 +22,19 @@ export class LoginComponent implements OnInit {
     });
   }
   public loginForm: FormGroup;
-  constructor(public loginService: LoginService, private user: User, private userService: UserService, private spinner: NgxSpinnerService) {
+  constructor(public loginService: LoginService, private user: User, 
+    private userService: UserService, 
+    private router: Router,
+    private spinner: NgxSpinnerService) 
+  {
     this.initForm();
+    let userStorage = JSON.parse(localStorage.getItem('user'));
+    if (userStorage){
+      this.user.setUser(userStorage);
+    }
+    else {
+      this.router.navigateByUrl('/');
+    }
   }
 
   ngOnInit() {}
