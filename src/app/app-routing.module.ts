@@ -5,12 +5,17 @@ import { PersonalComponent } from './personal/personal.component';
 import { UserProfileComponent } from './personal/user-profile/user-profile.component';
 import { UserManagementComponent } from './personal/user-management/user-management.component';
 import { ContactCompoment } from './contact/contact.component';
+import { MenuComponent } from './menu/menu.component';
 
 
 
 const routes: Routes = [
   { path: '', component: DashboardComponent },
-  { path: 'dashboard', component: DashboardComponent },
+  { path: 'dashboard', component: DashboardComponent,
+    children: [
+      { path: 'menu', component: MenuComponent},
+      { path: 'contact', component: ContactCompoment}
+    ] },
   { path: 'personal', component: PersonalComponent, 
     children: [
       { path: 'profile', component: UserProfileComponent},
