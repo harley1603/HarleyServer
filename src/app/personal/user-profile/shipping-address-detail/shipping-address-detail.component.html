@@ -1,49 +1,66 @@
 
-<form class="form-horizontal" [formGroup] = 'shippingAddressDetailForm'>        
-    <div class="form-group">
-        <label class="control-label col-sm-3">Receiver Name</label>
-        <div class="col-sm-9">
-            <input type="email" class="form-control" placeholder="Enter receiver name" formControlName="receiverName">
+<!-- Modal -->
+<div id="modal-shipping-address" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">{{ title }} Shipping Address</h4>
+        </div>
+        <div class="modal-body">
+            <form class="form-horizontal" [formGroup] = 'shippingAddressDetailForm'>        
+                <div class="form-group text-left">
+                    <label class="control-label col-sm-3">Receiver Name<span class="required">*</span></label>
+                    <div class="col-sm-9">
+                        <input type="email" class="form-control" placeholder="Enter receiver name" formControlName="receiverName">
+                    </div>
+                </div>
+                <div class="form-group text-left">
+                    <label class="control-label col-sm-3">Phone Number<span class="required">*</span></label>
+                    <div class="col-sm-9">
+                        <input type="email" class="form-control" placeholder="Enter phone number" formControlName="phoneNumber">
+                    </div>
+                </div>
+                <div class="form-group text-left">
+                    <label class="control-label col-sm-3">City<span class="required">*</span></label>
+                    <div class="col-sm-9">
+                        <select class="form-control" formControlName="city" (change)="onSelectOption($event, 'city')">
+                            <option value ="" selected disabled>Select City</option>
+                            <option *ngFor="let city of cities" [value] = "city.id">{{ city.title }}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group text-left">
+                    <label class="control-label col-sm-3">District<span class="required">*</span></label>
+                    <div class="col-sm-9">
+                        <select class="form-control" formControlName="district" (change)="onSelectOption($event, 'district')">
+                            <option value ="" selected disabled>Select District</option>
+                            <option *ngFor="let district of districts" [value] = "district.id">{{ district.title }}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group text-left">
+                    <label class="control-label col-sm-3">Ward</label>
+                    <div class="col-sm-9">
+                        <select class="form-control" formControlName="ward">
+                            <option value ="" selected disabled>Select Ward</option>
+                            <option *ngFor="let ward of wards" [value] = "ward.id">{{ ward.title }}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group text-left">
+                    <label class="control-label col-sm-3">Street<span class="required">*</span></label>
+                    <div class="col-sm-9">
+                        <textarea class="form-control no-resize" rows="3" required="required" formControlName="street"></textarea>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-success" (click)="saveForm()">Save</button>
+        </div>
         </div>
     </div>
-    <div class="form-group">
-        <label class="control-label col-sm-3">Phone Number</label>
-        <div class="col-sm-9">
-            <input type="email" class="form-control" placeholder="Enter phone number" formControlName="phoneNumber">
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label col-sm-3">City</label>
-        <div class="col-sm-9">
-            <select class="form-control">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-            </select>
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label col-sm-3">District</label>
-        <div class="col-sm-9">
-            <input type="email" class="form-control" placeholder="Enter display name" formControlName="displayName">
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label col-sm-3">Ward</label>
-        <div class="col-sm-9">
-            <input type="email" class="form-control" placeholder="Enter display name" formControlName="displayName">
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label col-sm-3" for="email">Street</label>
-        <div class="col-sm-9">
-            <input type="email" class="form-control" placeholder="Enter display name" formControlName="displayName">
-        </div>
-    </div>
-</form>
-
-            <!-- <div class="col-sm-10 col-sm-offset-2">
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </div> -->
-
+</div>

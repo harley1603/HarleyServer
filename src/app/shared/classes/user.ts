@@ -1,5 +1,6 @@
 import { ROLE } from '../enums/role.enum';
 import { Injectable } from '@angular/core';
+import { Address } from './address';
 
 @Injectable({
     providedIn: 'root'
@@ -16,6 +17,7 @@ export class User {
     status: string;
     user_role: ROLE;
     avatar: string;
+    shipping_address: Address[];
     content: Object[] = [];
     // User(uid? : string, 
     //     display_name? : string, 
@@ -58,6 +60,7 @@ export class User {
         this.status = user.status ? user.status : 'Blocked';
         this.avatar = user.photo_url ? user.photo_url : this.avatar;
         this.user_role = user.role ? user.role : this.user_role;
+        this.shipping_address = user.shipping_address ? user.shipping_address : [];
         let roleTitle = '';
         switch (this.user_role) {
             case ROLE.ADMIN:

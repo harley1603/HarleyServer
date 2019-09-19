@@ -7,6 +7,8 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import * as moment from 'moment';
 import { LoginService } from 'src/app/login/login.service';
 import { CrudType } from 'src/app/shared/enums/crud-type.enum';
+import { Address } from 'src/app/shared/classes/address';
+import { TouchSequence } from 'selenium-webdriver';
 declare var $: any;
 
 @Component({
@@ -27,8 +29,10 @@ export class UserProfileComponent implements OnInit {
   // Shipping Address Form
   CrudType = CrudType;
   shippingAddress = {
+    listAddress: new Array<Address>(),
     title: '',
-    mode: CrudType.VIEW
+    mode: CrudType.VIEW,
+    selectedAddress: new Address()
   }
   constructor(
     private user: User,
@@ -94,6 +98,7 @@ export class UserProfileComponent implements OnInit {
         phoneNumber: this.user.phone,
         birthday: this.user.birthday
       });
+      this.shippingAddress.listAddress = this.user.shipping_address;
       this.spinner.hide();
     });
   }
@@ -119,15 +124,15 @@ export class UserProfileComponent implements OnInit {
     });
   }
 
-  getDataUpload(): any {
-    let data = {
-      displayName: this.getValueFromFormName('displayName'),
-      email: this.getValueFromFormName('email'),
-      firstName: this.getValueFromFormName('firstName'),
-      lastName: this.getValueFromFormName('lastName'),
-      phoneNumber: this.getValueFromFormName('phoneNumber'),
-      birthday: this.getValueFromFormName('birthday')
-    }
+  getDataUpload(): User {
+    let data = new User();
+      data.display_name = this.getValueFromFormName('displayName'),
+      data.email = this.getValueFromFormName('email'),
+      data.first_name = this.getValueFromFormName('firstName'),
+      data.last_name = this.getValueFromFormName('lastName'),
+      data.phone = this.getValueFromFormName('phoneNumber'),
+      data.birthday = this.getValueFromFormName('birthday'),
+      data.shipping_address = this.shippingAddress.listAddress
     return data;
   }
 
@@ -183,5 +188,20 @@ export class UserProfileComponent implements OnInit {
       default:
         break;
     }
+  }
+
+  updateShippingAddress(address: Address){
+    switch (this.shippingAddress.mode) {
+      case CrudType.CREATE:
+        this.shippingAddress.listAddress.push(address);
+      case CrudType.UPDATE:
+        break;
+      default:
+        break;
+    }
+  }
+
+  selectShippingAddress(shippingAddress: Address){
+    this.shippingAddress.selectedAddress = shippingAddress;
   }
 }

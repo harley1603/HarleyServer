@@ -22,7 +22,7 @@ import { ChatbotComponent } from './chatbot/chatbot.component';
 import { PersonalModule } from './personal/personal.module';
 import { SignupComponent } from './signup/signup.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
-
+import { HttpClientModule }    from '@angular/common/http';
 
 @NgModule({
   declarations: [AppComponent, LoginComponent, HeaderComponent, DashboardComponent, MenuComponent, ChatbotComponent, SignupComponent],
@@ -33,7 +33,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
   , AngularFireStorageModule
   , AngularFireMessagingModule
   ,PersonalModule,
-  NgxSpinnerModule
+  NgxSpinnerModule,
+  HttpClientModule
 ],
   providers: [],
   bootstrap: [AppComponent]
