@@ -58,9 +58,8 @@ export class LoginService {
       //   return this.afAuth.auth.currentUser.updatePassword(newPassword);
       // });
       let credentail = auth.EmailAuthProvider.credential(email, oldPassword);
-      return this.afAuth.auth.currentUser.reauthenticateWithCredential(credentail).then( (result) => {
-        return this.afAuth.auth.currentUser.updatePassword(newPassword);
-      })
+      return this.afAuth.auth.currentUser.reauthenticateWithCredential(credentail)
+        .then( result => this.afAuth.auth.currentUser.updatePassword(newPassword));
     } catch (err) {
       console.error(err);
     }

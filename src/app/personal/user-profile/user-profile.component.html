@@ -111,7 +111,7 @@
     </h2>
     
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-        <button type="button" class="btn btn-success" style="margin-bottom:10px" data-toggle="modal" data-target="#modal-shipping-address" (click)="showShippingAddressModal(CrudType.CREATE)"><i class="fas fa-truck"></i> Add New</button>
+        <button type="button" class="btn btn-success" style="margin-bottom:10px" (click)="showShippingAddressModal(CrudType.CREATE)"><i class="fas fa-truck"></i> Add New</button>
         <button type="button" class="btn btn-success" style="margin-bottom:10px" *ngIf="selectedAddress"><i class="fas fa-minus-square"></i> Delete</button>
         <table class="table table-hover table-bordered" *ngIf="shippingAddress.listAddress && shippingAddress.listAddress.length > 0 ; else noShippingAddress">
             <thead>
@@ -134,9 +134,9 @@
                             Action
                             </button>
                             <ul class="dropdown-menu">
-                                <li><a>View</a></li>
-                                <li><a>Edit</a></li>
-                                <li><a>Delete</a></li>
+                                <li><a (click)="showShippingAddressModal(CrudType.VIEW)">View</a></li>
+                                <li><a (click)="showShippingAddressModal(CrudType.UPDATE)">Edit</a></li>
+                                <li><a (click)="showShippingAddressModal(CrudType.DELETE)">Delete</a></li>
                             </ul>
                         </div>
                     </td>
@@ -155,5 +155,6 @@
 <app-shipping-address-detail 
     [title]="shippingAddress.title" 
     [mode]="shippingAddress.mode"
+    [selectedAddress] = "shippingAddress.selectedAddress"
     (updateData)="updateShippingAddress($event)">
 </app-shipping-address-detail>

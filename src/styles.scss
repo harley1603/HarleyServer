@@ -58,3 +58,11 @@ body {
 .no-resize {
   resize: none;
 }
+
+.view {
+  pointer-events: none;
+}
+
+.dropdown-menu > li > a {
+  cursor: pointer;
+}

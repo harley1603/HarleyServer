@@ -8,7 +8,7 @@ import * as moment from 'moment';
 import { LoginService } from 'src/app/login/login.service';
 import { CrudType } from 'src/app/shared/enums/crud-type.enum';
 import { Address } from 'src/app/shared/classes/address';
-import { TouchSequence } from 'selenium-webdriver';
+import { Router } from '@angular/router';
 declare var $: any;
 
 @Component({
@@ -39,7 +39,8 @@ export class UserProfileComponent implements OnInit {
     private loginService: LoginService, 
     private userService: UserService,
     private formBuilder: FormBuilder,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private router: Router
   ) {
 
    }
@@ -118,6 +119,7 @@ export class UserProfileComponent implements OnInit {
 
     this.userService.updateUserByUid(uid, data).then((result) => {
       this.spinner.hide();
+      this.reloadComponent();
       alert('Updated user successfully');
     }, err => {
       console.error(err);
@@ -177,6 +179,10 @@ export class UserProfileComponent implements OnInit {
 
   showShippingAddressModal(crudType) {
     switch (crudType) {
+      case CrudType.VIEW:
+        this.shippingAddress.title = CrudType.VIEW_TITLE;
+        this.shippingAddress.mode = CrudType.VIEW;
+        break;
       case CrudType.CREATE:
         this.shippingAddress.title = CrudType.ADD_TITLE;
         this.shippingAddress.mode = CrudType.CREATE;
@@ -188,6 +194,7 @@ export class UserProfileComponent implements OnInit {
       default:
         break;
     }
+    $('#modal-shipping-address').modal('show');
   }
 
   updateShippingAddress(address: Address){
@@ -203,5 +210,9 @@ export class UserProfileComponent implements OnInit {
 
   selectShippingAddress(shippingAddress: Address){
     this.shippingAddress.selectedAddress = shippingAddress;
+  }
+
+  reloadComponent(): void {
+    this.router.navigateByUrl(this.router.url);
   }
 }
