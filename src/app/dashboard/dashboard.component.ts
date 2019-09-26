@@ -24,8 +24,14 @@ export class DashboardComponent implements OnInit {
         }, 1000);
         break;
       case '/dashboard/contact':
-          this.scrollToElement('contact');
+        this.scrollToElement('contact');
         break;
+      case '/dashboard/contact':
+        this.scrollToElement('about');
+        break;
+      case '/dashboard/contact':
+        this.scrollToElement('contact');
+        break; 
       default:
         break;
     }

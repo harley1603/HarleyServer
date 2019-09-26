@@ -7300,7 +7300,8 @@ h1, h2, h3, h4, h5,
   line-height: 1.4;
   color: #fff;
   font-weight: 400;
-  font-family: "Josefin Sans", Arial, sans-serif; }
+  /* font-family: "Josefin Sans", Arial, sans-serif;  */
+  }
 
 .text-primary {
   color: #fac564 !important; }
@@ -7314,7 +7315,8 @@ h1, h2, h3, h4, h5,
       position: relative; } }
   .ftco-navbar-light .navbar-brand {
     color: #fff;
-    font-family: "Josefin Sans", Arial, sans-serif; }
+    /* font-family: "Josefin Sans", Arial, sans-serif;  */
+  }
     @media (min-width: 768px) {
       .ftco-navbar-light .navbar-brand {
         color: #fff; } }

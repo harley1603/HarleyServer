@@ -6,5 +6,5 @@ export enum CrudType {
     VIEW_TITLE = 'View',
     ADD_TITLE = 'Add',
     UPDATE_TITLE = 'Update',
-    DELETE_TITLe = 'Delete'
+    DELETE_TITLE = 'Delete'
 }

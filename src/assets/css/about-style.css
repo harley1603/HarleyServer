@@ -747,7 +747,8 @@ h2, h3 {
   line-height: 1.4;
   color: #fff;
   font-weight: 400;
-  font-family: "Josefin Sans", Arial, sans-serif; }
+  /* font-family: "Josefin Sans", Arial, sans-serif;  */
+}
 
 .btn {
   cursor: pointer;
