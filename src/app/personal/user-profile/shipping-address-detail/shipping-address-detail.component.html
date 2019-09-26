@@ -8,7 +8,7 @@
             <button type="button" class="close" data-dismiss="modal">&times;</button>
             <h4 class="modal-title">{{ title }} Shipping Address</h4>
         </div>
-        <div class="modal-body">
+        <div class="modal-body" [ngClass]="{'view': mode === CrudType.VIEW}">
             <form class="form-horizontal" [formGroup] = 'shippingAddressDetailForm'>        
                 <div class="form-group text-left">
                     <label class="control-label col-sm-3">Receiver Name<span class="required">*</span></label>
@@ -27,7 +27,7 @@
                     <div class="col-sm-9">
                         <select class="form-control" formControlName="city" (change)="onSelectOption($event, 'city')">
                             <option value ="" selected disabled>Select City</option>
-                            <option *ngFor="let city of cities" [value] = "city.id">{{ city.title }}</option>
+                            <option *ngFor="let city of cities" [value] = "city.title">{{ city.title }}</option>
                         </select>
                     </div>
                 </div>
@@ -36,7 +36,7 @@
                     <div class="col-sm-9">
                         <select class="form-control" formControlName="district" (change)="onSelectOption($event, 'district')">
                             <option value ="" selected disabled>Select District</option>
-                            <option *ngFor="let district of districts" [value] = "district.id">{{ district.title }}</option>
+                            <option *ngFor="let district of districts" [value] = "district.title">{{ district.title }}</option>
                         </select>
                     </div>
                 </div>
@@ -45,7 +45,7 @@
                     <div class="col-sm-9">
                         <select class="form-control" formControlName="ward">
                             <option value ="" selected disabled>Select Ward</option>
-                            <option *ngFor="let ward of wards" [value] = "ward.id">{{ ward.title }}</option>
+                            <option *ngFor="let ward of wards" [value] = "ward.title">{{ ward.title }}</option>
                         </select>
                     </div>
                 </div>
@@ -59,7 +59,7 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-success" (click)="saveForm()">Save</button>
+            <button *ngIf="mode !== CrudType.VIEW"  type="button" class="btn btn-success" (click)="saveForm()">{{ title }}</button>
         </div>
         </div>
     </div>
