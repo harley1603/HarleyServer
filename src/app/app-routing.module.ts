@@ -6,6 +6,7 @@ import { UserProfileComponent } from './personal/user-profile/user-profile.compo
 import { UserManagementComponent } from './personal/user-management/user-management.component';
 import { ContactCompoment } from './contact/contact.component';
 import { MenuComponent } from './menu/menu.component';
+import { AboutCompoment } from './about/about.component';
 
 
 
@@ -23,6 +24,7 @@ const routes: Routes = [
     ] 
   },
   { path: 'contact', component: ContactCompoment},
+  { path: 'about', component: AboutCompoment},
 ];
 
 @NgModule({
