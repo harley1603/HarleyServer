@@ -138,7 +138,6 @@ export class ShippingAddressDetailComponent implements OnInit {
     this.updateData.emit(this.getDataUpload());
     $('#modal-shipping-address').modal('hide');
     this.shippingAddressDetailForm.reset();
-
   }
 
   getDataUpload(): Address {
