@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { LoginService } from '../login/login.service';
 import { UserService } from '../shared/services/user.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 declare var $: any;
 @Component({
@@ -13,7 +14,10 @@ export class SignupComponent implements OnInit {
   signUpForm: FormGroup;
   errorForm = false;
   errorMessage = '';
-  constructor(private formBuilder: FormBuilder, private loginService: LoginService, private userService: UserService) { }
+  constructor(private formBuilder: FormBuilder, 
+    private loginService: LoginService, 
+    private userService: UserService,
+    private spinner: NgxSpinnerService) { }
 
   ngOnInit() {
     this.initForm();
@@ -43,7 +47,7 @@ export class SignupComponent implements OnInit {
       this.errorMessage = 'Password does not match. Please type again.';
       return;
     }
-    
+    this.spinner.show();
     let signUpData = this.getDataUpload();
 
     this.loginService.signUp(signUpData.email, signUpData.password).then( result => {
@@ -51,15 +55,21 @@ export class SignupComponent implements OnInit {
       this.userService.updateUserByUid(user.uid, signUpData).then(value => {
         console.log('Created Successfully');
         this.signUpForm.reset();
+        this.spinner.hide();
         $("#signup-modal").modal('hide');
       });
-    }, err => console.error(err));
+    })
+    .catch(err => {
+      this.errorForm = true;
+      this.errorMessage = err.message;
+      console.error(err.message);
+    });
   }
 
   getDataUpload(): any {
     let data = {
-      firstName: this.getValueFromFormName('firstName'),
-      lastName: this.getValueFromFormName('lastName'),
+      first_name: this.getValueFromFormName('firstName'),
+      last_name: this.getValueFromFormName('lastName'),
       email: this.getValueFromFormName('email'),
       password: this.getValueFromFormName('password')
     }
