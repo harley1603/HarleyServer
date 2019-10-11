@@ -7,6 +7,8 @@ import { UserManagementComponent } from './personal/user-management/user-managem
 import { ContactCompoment } from './contact/contact.component';
 import { MenuComponent } from './menu/menu.component';
 import { AboutCompoment } from './about/about.component';
+import { OrderManagementComponent } from './personal/order-management/order-management.component';
+import { BeverageManagementComponent } from './personal/beverage-management/beverage-management.component';
 
 
 
@@ -21,7 +23,9 @@ const routes: Routes = [
   { path: 'personal', component: PersonalComponent, 
     children: [
       { path: 'profile', component: UserProfileComponent},
-      { path: 'user-management/user', component: UserManagementComponent}
+      { path: 'user-management/user', component: UserManagementComponent},
+      { path: 'order-management', component: OrderManagementComponent},
+      { path: 'beverage-management', component: BeverageManagementComponent}
     ] 
   },
   { path: 'contact', component: ContactCompoment},

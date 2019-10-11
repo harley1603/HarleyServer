@@ -17,6 +17,7 @@
     <a (click)="navToLink('profile')" [ngClass]="{'active': router.url.includes('profile')}" class="active"><i class="fa fa-fw fa-user "></i>&nbsp;My Profile</a>
     <a (click)="navToLink('user-management/user')" [ngClass]="{'active': router.url.includes('user-management/user')}"><i class="fas fa-users"></i>&nbsp;User Management</a>
     <a href="#services"><i class="fas fa-list"></i>&nbsp;My Orders</a>
-    <a href="#"><i class="fas fa-coffee"></i>&nbsp;Beverage Management</a>
+    <a (click)="navToLink('order-management')" [ngClass]="{'active': router.url.includes('order-management')}"><i class="fas fa-list"></i>&nbsp;Orders Management</a>
+    <a (click)="navToLink('beverage-management')" [ngClass]="{'active': router.url.includes('beverage-management')}"><i class="fas fa-coffee"></i>&nbsp;Beverage Management</a>
 </div>
       <!-- <app-user-profile></app-user-profile> -->
