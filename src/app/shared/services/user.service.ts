@@ -11,7 +11,7 @@ export class UserService {
   constructor(private db: AngularFirestore, private afAuth: AngularFireAuth) { }
 
   getListOfUsers() {
-    return this.db.collection('/user').get();
+    return this.db.collection('/user').snapshotChanges();
   }
 
   getUserDataByUid(uid: string){
