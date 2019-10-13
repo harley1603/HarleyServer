@@ -10,10 +10,10 @@
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
-                <li class="active"><a (click)="navTo('/')">Home</a></li>
-                <li><a  (click)="navTo('/dashboard/menu')">Menu</a></li>
-                <li><a (click)="navTo('/dashboard/about')">About Us</a></li>
-                <li><a (click)="navTo('/dashboard/contact')">Contact</a></li>
+                <li [ngClass]="{'active': currentUrl === '' || currentUrl === '/' }"><a (click)="navTo('/')">Home</a></li>
+                <li [ngClass]="{'active': currentUrl === '/dashboard/menu'}"><a  (click)="navTo('/dashboard/menu')">Menu</a></li>
+                <li [ngClass]="{'active': currentUrl === '/dashboard/about'}"><a (click)="navTo('/dashboard/about')">About Us</a></li>
+                <li [ngClass]="{'active': currentUrl === '/dashboard/contact'}"><a (click)="navTo('/dashboard/contact')">Contact</a></li>
             </ul>
             <ul *ngIf="!user.uid" class="nav navbar-nav navbar-right">
                 <li>

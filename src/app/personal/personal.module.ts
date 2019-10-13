@@ -10,11 +10,13 @@ import { UserManagementComponent } from './user-management/user-management.compo
 import { ShippingAddressDetailComponent } from './user-profile/shipping-address-detail/shipping-address-detail.component';
 import { ShippingAddressComponent } from './user-profile/shipping-address/shipping-address.component';
 import { UserDetailComponent } from './user-management/user-detail/user-detail.component';
+import { OrderManagementComponent } from './order-management/order-management.component';
+import { BeverageManagementComponent } from './beverage-management/beverage-management.component';
 
 
 
 @NgModule({
-  declarations: [PersonalComponent, SidebarComponent, UserProfileComponent, UserManagementComponent, ShippingAddressDetailComponent, ShippingAddressComponent, UserDetailComponent],
+  declarations: [PersonalComponent, SidebarComponent, UserProfileComponent, UserManagementComponent, ShippingAddressDetailComponent, ShippingAddressComponent, UserDetailComponent, OrderManagementComponent, BeverageManagementComponent],
   imports: [
     ReactiveFormsModule,
     PersonalRoutingModule,

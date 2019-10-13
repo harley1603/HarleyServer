@@ -9,10 +9,12 @@ declare var $: any;
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
+  currentUrl = '';
   constructor(private user: User, private loginService: LoginService, private router: Router) {
   }
 
   ngOnInit() {
+    this.currentUrl = this.router.url;
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -54,6 +56,33 @@ export class HeaderComponent implements OnInit {
   }
 
   navTo(link: string){
-    this.router.navigate([link]);
+    this.currentUrl = link;
+    let activatedRouteUrl = this.router.url;
+    console.log(activatedRouteUrl);
+    if (activatedRouteUrl.includes('dashboard') || activatedRouteUrl == '/') {
+      switch (link) {
+        case '/':
+          this.scrollToElement('bs-carousel');
+          this.router.navigate([link]);
+          break;
+        case '/dashboard/menu':
+          this.scrollToElement('menu');
+          this.router.navigate([link]);
+          break;
+        case '/dashboard/about':
+          this.scrollToElement('about');
+          this.router.navigate([link]);
+          break;
+        case '/dashboard/contact':
+          this.scrollToElement('contact');
+          this.router.navigate([link]);
+          break;
+        default: 
+          this.router.navigate([link]);
+      }
+    }
+    else {
+      this.router.navigate([link]);
+    }
   }
 }
