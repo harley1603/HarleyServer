@@ -85,7 +85,6 @@ export class UserManagementComponent implements OnInit {
   }
 
   updateUserDetail(user: User){
-    this.spinner.show();
     switch (this.userDetail.mode) {
       case CrudType.CREATE:
         // this.loginService.signUp(user.email, user.password).then( result => {
@@ -106,8 +105,13 @@ export class UserManagementComponent implements OnInit {
         // this.userService.updateUserByUid(user.uid, user);
         break;
       case CrudType.UPDATE:
-        this.userService.updateUserByUid(user.uid, user).then(result => {
+        this.spinner.show();
+        this.userService.updateUserByUid(user.uid, user, user.user_role).then(result => {
           console.log('Updated user successfully');
+          this.spinner.hide();
+        }).catch(err => {
+          console.log(err.message);
+          this.spinner.hide();
         });
         break;
       case CrudType.DELETE:
@@ -117,6 +121,5 @@ export class UserManagementComponent implements OnInit {
         break;
     }
     $('#modal-user').modal('hide');
-    this.spinner.hide();
   }
 }

@@ -16,7 +16,7 @@
                   <td *ngFor="let title of user.content">
                     <span class="label" 
                       *ngIf="title.status" 
-                      [ngClass]="{'label-primary': title.title == 'Active', 'label-danger': title.title =='Blocked'}">
+                      [ngClass]="{'label-info': title.title == 'Active', 'label-danger': title.title =='Blocked'}">
                       {{ title.title }}
                     </span>
                     <div *ngIf="!title.status" >{{ title.title}}</div>

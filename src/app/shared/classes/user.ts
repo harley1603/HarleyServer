@@ -70,7 +70,7 @@ export class User {
                 roleTitle = 'Customer';
                 break;
             case ROLE.USER:
-                roleTitle = 'Customer';
+                roleTitle = 'User';
                 break;
             default:
                 break;

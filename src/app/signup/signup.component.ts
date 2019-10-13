@@ -71,7 +71,8 @@ export class SignupComponent implements OnInit {
       first_name: this.getValueFromFormName('firstName'),
       last_name: this.getValueFromFormName('lastName'),
       email: this.getValueFromFormName('email'),
-      password: this.getValueFromFormName('password')
+      password: this.getValueFromFormName('password'),
+      status: 'Active'
     }
     return data;
   }
