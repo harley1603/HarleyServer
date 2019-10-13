@@ -70,7 +70,7 @@ export class User {
                 roleTitle = 'Customer';
                 break;
             case ROLE.USER:
-                roleTitle = 'Customer';
+                roleTitle = 'User';
                 break;
             default:
                 break;
@@ -80,7 +80,10 @@ export class User {
             { title: user.last_name },
             { title: user.email ? user.email : this.email },
             { title: user.phone ? user.phone : this.phone },
-            { title: user.status ? user.status : 'Blocked'},
+            { 
+                title: user.status ? user.status : 'Blocked',
+                status: true
+            },
             { title: roleTitle },
         ];
     }

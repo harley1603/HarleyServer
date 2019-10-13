@@ -11,7 +11,7 @@ export class UserService {
   constructor(private db: AngularFirestore, private afAuth: AngularFireAuth) { }
 
   getListOfUsers() {
-    return this.db.collection('/user').get();
+    return this.db.collection('/user').snapshotChanges();
   }
 
   getUserDataByUid(uid: string){
@@ -28,7 +28,7 @@ export class UserService {
         phone: data.phone || '',
         birthday: data.birthday ? data.birthday : '' ,
         shipping_address: data.shipping_address ? data.shipping_address.map((address) => Object.assign({}, address)) : {},
-        role: role || 2
+        role: +role || 2
       });
       await this.afAuth.auth.currentUser.updateProfile({
         displayName: data.display_name ? data.display_name: data.first_name + " " + data.last_name
