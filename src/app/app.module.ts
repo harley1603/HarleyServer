@@ -25,18 +25,22 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { ContactCompoment } from './contact/contact.component';
 import { AboutCompoment } from './about/about.component';
 import { HttpClientModule }    from '@angular/common/http';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+ 
+import { ToastrModule } from 'ngx-toastr';
 @NgModule({
   declarations: [AppComponent, LoginComponent, HeaderComponent, DashboardComponent, MenuComponent, ChatbotComponent, SignupComponent, ContactCompoment, AboutCompoment],
-  imports: [BrowserModule, AppRoutingModule, ReactiveFormsModule
-  ,AngularFireModule.initializeApp(environment.firebase)
-  ,AngularFireAuthModule
-  , AngularFirestoreModule
-  , AngularFireStorageModule
-  , AngularFireMessagingModule
-  ,PersonalModule,
+  imports: [BrowserModule, AppRoutingModule, ReactiveFormsModule,
+  AngularFireModule.initializeApp(environment.firebase),
+  AngularFireAuthModule,
+  AngularFirestoreModule,
+  AngularFireStorageModule,
+  AngularFireMessagingModule,
+  PersonalModule,
   NgxSpinnerModule,
-  HttpClientModule
+  HttpClientModule,
+  BrowserAnimationsModule, // required animations module
+  ToastrModule.forRoot() // ToastrModule added
 ],
   providers: [],
   bootstrap: [AppComponent]

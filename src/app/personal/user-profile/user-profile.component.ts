@@ -9,6 +9,7 @@ import { LoginService } from 'src/app/login/login.service';
 import { CrudType } from 'src/app/shared/enums/crud-type.enum';
 import { Address } from 'src/app/shared/classes/address';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 declare var $: any;
 
 @Component({
@@ -41,7 +42,8 @@ export class UserProfileComponent implements OnInit {
     private userService: UserService,
     private formBuilder: FormBuilder,
     private spinner: NgxSpinnerService,
-    private router: Router
+    private router: Router,
+    private toastr: ToastrService
   ) {
 
    }
@@ -56,7 +58,7 @@ export class UserProfileComponent implements OnInit {
     //Add 'implements AfterViewInit' to the class.
     let self = this;
     $('.input-group.date').datepicker({
-      'format': 'dd/mm/yyyy',
+      'format': 'dd-mm-yyyy',
       'autoclose': true,
       'startDate': '-200y',
       'endDate': '0d'
@@ -65,6 +67,7 @@ export class UserProfileComponent implements OnInit {
         if (self.validateDate(e.target.value)){
           self.setValueFromFormName('birthday', e.target.value);
         }
+        else { e.target.value = ""}
       }
     });
   }
@@ -77,7 +80,8 @@ export class UserProfileComponent implements OnInit {
       firstName: [''],
       lastName: [''],
       phoneNumber: [''],
-      birthday: ['']
+      birthday: [''],
+      status: ['']
     });
 
     this.changePasswordForm = this.formBuilder.group({
@@ -98,7 +102,8 @@ export class UserProfileComponent implements OnInit {
         firstName: this.user.first_name,
         lastName: this.user.last_name,
         phoneNumber: this.user.phone,
-        birthday: this.user.birthday
+        birthday: this.user.birthday,
+        status: this.user.status
       });
       this.shippingAddress.listAddress = this.user.shipping_address;
       this.spinner.hide();
@@ -121,9 +126,10 @@ export class UserProfileComponent implements OnInit {
     this.userService.updateUserByUid(uid, data).then((result) => {
       this.spinner.hide();
       this.reloadComponent();
-      alert('Updated user successfully');
+      this.toastr.success("Updated user successfully");
     }, err => {
       console.error(err);
+      this.toastr.error("Error has occured. Please try again.");
     });
   }
 

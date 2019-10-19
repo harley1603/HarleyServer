@@ -60,7 +60,7 @@ export class User {
         this.status = user.status ? user.status : 'Blocked';
         this.avatar = user.photo_url ? user.photo_url : this.avatar;
         this.user_role = user.role ? user.role : this.user_role;
-        this.shipping_address = user.shipping_address ? user.shipping_address : [];
+        this.shipping_address = user.shipping_address ? Object.keys(user.shipping_address).map(key => user.shipping_address[key] ) : [];
         let roleTitle = '';
         switch (this.user_role) {
             case ROLE.ADMIN:

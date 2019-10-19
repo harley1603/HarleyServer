@@ -3,9 +3,15 @@ import { PersonalComponent } from './personal.component';
 import { Routes, RouterModule } from '@angular/router';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { UserManagementComponent } from './user-management/user-management.component';
+import { BeverageManagementComponent } from './beverage-management/beverage-management.component';
+import { BeverageDetailComponent } from './beverage-management/beverage-detail/beverage-detail.component';
 const routes: Routes = [
-    // { path: 'profile', component: UserProfileComponent},
-    // { path: 'user-management/user', component: UserManagementComponent}
+    { path: 'profile', component: UserProfileComponent},
+    { path: 'user-management/user', component: UserManagementComponent},
+    // Beverage
+    { path: 'beverage-management', component: BeverageManagementComponent },
+    { path: 'beverage-management/:mode', component: BeverageDetailComponent},
+    { path: 'beverage-management/:mode/:code', component: BeverageDetailComponent}
   ];
 
 @NgModule({
