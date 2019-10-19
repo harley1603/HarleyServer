@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { User } from '../classes/user';
+import { stringify } from '@angular/compiler/src/util';
 
 @Injectable({
   providedIn: 'root'
@@ -27,7 +28,7 @@ export class UserService {
         email: data.email,
         phone: data.phone || '',
         birthday: data.birthday ? data.birthday : '' ,
-        shipping_address: data.shipping_address ? data.shipping_address.map((address) => Object.assign({}, address)) : {},
+        shipping_address: data.shipping_address ? data.shipping_address.map((address) => Object.assign({}, address)) : [],
         role: +role || 2
       });
       await this.afAuth.auth.currentUser.updateProfile({
@@ -36,5 +37,17 @@ export class UserService {
     } catch (error) {
       console.log(error);
     }
+  }
+
+  activeUser(uid: string, user: any) {
+    return this.db.collection('/user').doc(uid).update({
+      status: 'Active'
+    })
+  }
+
+  blockUser(uid: string, user: any) {
+    return this.db.collection('/user').doc(uid).update({
+      status: 'Blocked'
+    })
   }
 }

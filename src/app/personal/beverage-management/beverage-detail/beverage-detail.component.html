@@ -1,19 +1,31 @@
-<div class="col-sm-12 col-md-12 col-lg-12">
+<div class="col-sm-12 col-md-12 col-lg-12" [ngClass]="{'view': mode === CrudType.VIEW}">
   <h2 class="title">{{ title }} Beverage</h2>
   <!-- <div class="col-sm-12 col-md-12 col-lg-12">
     <img src="../../../assets/images/hong-tra-dao.jpg" class="img-responsive" alt="Image" width="300" height="300" />
   </div> -->
 
-  <div class="col-sm-12 col-md-12 col-lg-12">
+  <div class="col-sm-12 col-md-12 col-lg-12" >
     <form class="form-horizontal" [formGroup]="beverageForm">
       <div class="col-sm-6 col-md-6 col-lg-6">
+          <div class="form-group">
+            <label class="control-label col-sm-4">Beverage Code<span class="required">*</span></label>
+            <div class="col-sm-8">
+              <!-- <input type="text" class="form-control" placeholder="Enter Beverage Name" formControlName="beverageName" /> -->
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Enter Beverage Code"
+                formControlName="beverageCode"
+              />
+            </div>
+          </div>
+        </div>
+      <div class="col-sm-6 col-md-6 col-lg-6">
         <div class="form-group">
-          <label class="control-label col-sm-3">Beverage Name<span class="required">*</span></label>
-          <div class="col-sm-9">
+          <label class="control-label col-sm-4">Beverage Name<span class="required">*</span></label>
+          <div class="col-sm-8">
             <!-- <input type="text" class="form-control" placeholder="Enter Beverage Name" formControlName="beverageName" /> -->
-            <p *ngIf="mode === CrudType.VIEW"><b>Hồng Trà</b></p>
             <input
-              *ngIf="mode !== CrudType.VIEW"
               type="text"
               class="form-control"
               placeholder="Enter Beverage name"
@@ -24,13 +36,9 @@
       </div>
       <div class="col-sm-6 col-md-6 col-lg-6">
         <div class="form-group">
-          <label class="control-label col-sm-3">Description</label>
-          <div class="col-sm-9">
-            <p *ngIf="mode === CrudType.VIEW">
-              Rich Oolong milk tea is served with chewy pearls, sweet egg custard pudding and fresh starling dew
-            </p>
+          <label class="control-label col-sm-4">Description</label>
+          <div class="col-sm-8">
             <input
-              *ngIf="mode != CrudType.VIEW"
               type="text"
               class="form-control"
               placeholder="Enter Description"
@@ -41,11 +49,11 @@
       </div>
       <div class="col-sm-6 col-md-6 col-lg-6">
         <div class="form-group">
-          <label class="control-label col-sm-3">Type<span class="required">*</span></label>
-          <div class="col-sm-9">
-            <select class="form-control" formControlName="type" (change)="onSelectOption($event, 'type')">
+          <label class="control-label col-sm-4">Type<span class="required">*</span></label>
+          <div class="col-sm-8">
+            <select class="form-control" formControlName="type">
               <option value="" selected disabled>Select Type</option>
-              <option *ngFor="let type of types" [value]="type">{{ type }}</option>
+              <option *ngFor="let type of typeOfBeverage" [value]="type">{{ type }}</option>
             </select>
           </div>
         </div>
@@ -57,10 +65,13 @@
 
   <div class="col-sm-12 col-md-12 col-lg-12">
     <!-- Form -->
-    <form class="form-inline" [formGroup]="beverageSizeForm">
+    <form class="form-inline" [formGroup]="beverageSizeForm" *ngIf="mode !== CrudType.VIEW">
       <div class="form-group margin-l-10">
         <label>Size<span class="required">*</span>&nbsp;</label>
-        <input formControlName="size" type="text" class="form-control" />
+        <select class="form-control" formControlName="size">
+          <option value="" selected disabled>Select Size</option>
+          <option *ngFor="let size of sizeOfBeverages" [value]="size">{{ size }}</option>
+        </select>
       </div>
       <div class="form-group margin-10">
         <label>Price<span class="required">*</span>&nbsp;</label>
@@ -70,39 +81,36 @@
         <label>Amount Of Sugar&nbsp;</label>
         <input formControlName="amountOfSugar" type="text" class="form-control" />
       </div>
-      <button type="button" class="btn btn-primary margin-10">Add</button>
+      <button type="button" class="btn btn-primary margin-10" (click)="addNewSize()">Add</button>
       <button type="button" class="btn btn-danger" style="margin-bottom: 10px;">Delete</button>
     </form>
     <div class="col-sm-12 col-md-12 col-lg-12">
       <table class="table">
         <thead>
           <tr>
-            <th>
+            <th *ngIf="mode !== CrudType.VIEW">
               <input type="checkbox" value="" />
             </th>
             <th *ngFor="let header of sizeHeaders">{{ header }}</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>
+          <tr *ngFor="let item of listOfSizes">
+            <td *ngIf="mode !== CrudType.VIEW">
               <input type="checkbox" value="" />
             </td>
-            <td>M</td>
-            <td>57.000</td>
-            <td>30.1</td>
-          </tr>
-          <tr>
-            <td>
-              <input type="checkbox" value="" />
-            </td>
-            <td>L</td>
-            <td>63.000</td>
-            <td>40.4</td>
+            <td>{{ item.size }}</td>
+            <td>{{ item.price | currency:'VND ':'code' }}</td>
+            <td>{{ item.amount_of_sugar }}</td>
           </tr>
         </tbody>
       </table>
     </div>
+    
+    <div *ngIf="listOfSizes.length == 0"  class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <div class="no-data">No Data Available</div>
+    </div>
+    
   </div>
 
   <!-- <div id="modal-beverage-detail" class="modal fade" role="dialog">
@@ -150,3 +158,9 @@
           </div>
         </div> -->
 </div>
+
+<div class="footer">
+  <button type="button" class="btn btn-default margin-l-10" style="margin-left: 30px" (click)="back()"><i class="fas fa-caret-left"></i> Back</button>
+  <button *ngIf="mode !== CrudType.VIEW" type="button" class="btn btn-success margin-l-10" (click)="saveBeverage()">Save</button>
+</div>
+

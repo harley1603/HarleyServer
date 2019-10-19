@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CrudType } from 'src/app/shared/enums/crud-type.enum';
 import { Router } from '@angular/router';
+import { BeverageService } from 'src/app/shared/services/beverage.service';
+import { Beverage } from 'src/app/shared/classes/beverage';
 
 @Component({
   selector: 'app-beverage-management',
@@ -11,9 +13,11 @@ export class BeverageManagementComponent implements OnInit {
   CrudType = CrudType;
   title = "View";
   mode = CrudType.VIEW;
-  constructor(private router: Router) { }
+  listOfBeverages: Beverage[];
+  constructor(private router: Router, private beverageService: BeverageService) { }
 
   ngOnInit() {
+    this.initBeverages();
   }
 
   openDetailModal(crudType) {
@@ -38,5 +42,23 @@ export class BeverageManagementComponent implements OnInit {
       default:
         break;
     }
+  }
+
+  initBeverages(): void {
+    this.beverageService.getListOfBeverages().subscribe(snapshot => {
+      this.listOfBeverages = [];
+      snapshot.forEach(beverage => {
+        let temp = new Beverage();
+        const code = beverage.payload.doc.id;
+        const data = beverage.payload.doc.data();
+        temp.code = code;
+        temp.setBeverageDetail(data);
+        this.listOfBeverages.push(temp);
+      })
+    })
+  }
+
+  navigateBeverage(mode, code) {
+    this.router.navigateByUrl(`/personal/beverage-management/${mode}/${code}`);
   }
 }

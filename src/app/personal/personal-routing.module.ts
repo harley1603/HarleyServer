@@ -11,7 +11,7 @@ const routes: Routes = [
     // Beverage
     { path: 'beverage-management', component: BeverageManagementComponent },
     { path: 'beverage-management/:mode', component: BeverageDetailComponent},
-    { path: 'beverage-management/:mode/:id', component: BeverageDetailComponent}
+    { path: 'beverage-management/:mode/:code', component: BeverageDetailComponent}
   ];
 
 @NgModule({

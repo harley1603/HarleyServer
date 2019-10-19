@@ -4,6 +4,7 @@ import { UserService } from 'src/app/shared/services/user.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { CrudType } from 'src/app/shared/enums/crud-type.enum';
 import { LoginService } from 'src/app/login/login.service';
+import { ToastrService } from 'ngx-toastr';
 // Jquery
 declare var $: any;
 
@@ -24,7 +25,8 @@ export class UserManagementComponent implements OnInit {
   }
   
   constructor(private userService: UserService, private spinner: NgxSpinnerService,
-    private loginService: LoginService) { }
+    private loginService: LoginService,
+    private toastr: ToastrService) { }
 
   ngOnInit() {
     this.bindUser();
@@ -69,9 +71,13 @@ export class UserManagementComponent implements OnInit {
         this.userDetail.title = CrudType.UPDATE_TITLE;
         this.userDetail.mode = CrudType.UPDATE;
         break;
-      case CrudType.DISABLE:
-        this.userDetail.title = CrudType.DISABLE_TITLE;
-        this.userDetail.mode = CrudType.DISABLE;
+      case CrudType.BLOCK:
+        this.userDetail.title = CrudType.BLOCK_TITLE;
+        this.userDetail.mode = CrudType.BLOCK;
+        break;
+      case CrudType.ACTIVE:
+        this.userDetail.title = CrudType.ACTIVE_TITLE;
+        this.userDetail.mode = CrudType.ACTIVE;
         break;
       default:
         break;
@@ -116,6 +122,24 @@ export class UserManagementComponent implements OnInit {
         break;
       case CrudType.DELETE:
         // this.userDetail.listAddress.splice(this.userDetail.selectedIndex, 1);
+        break;
+      case CrudType.BLOCK:
+        this.spinner.show();
+        this.userService.blockUser(user.uid, user).then(result => {
+          this.toastr.success("Blocked the user.");
+        }).catch(err => {
+          this.toastr.error("Error has occured. Please try again.");
+          console.error(err);
+        })
+        break;
+      case CrudType.ACTIVE:
+        this.spinner.show();
+        this.userService.activeUser(user.uid, user).then(result => {
+          this.toastr.success("Actived the user.");
+        }).catch(err => {
+          this.toastr.error("Error has occured. Please try again.");
+          console.error(err);
+        })
         break;
       default:
         break;
