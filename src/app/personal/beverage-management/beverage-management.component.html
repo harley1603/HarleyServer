@@ -1,12 +1,12 @@
-<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+<div class="12 col-sm-12 col-md-12 col-lg-12">
     <h2 class="title">
         Beverage Management
         <button type="button" class="btn btn-success" style="float:right" data-toggle="modal" data-target="#modal-beverage-detail" (click)="openDetailModal(CrudType.CREATE)"><i class="fas fa-user-plus"></i> Add Beverage</button>
     </h2>
     
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <div class="12 col-sm-12 col-md-12 col-lg-12">
         
-        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 item-beverage ">
+        <div class="3 col-sm-3 col-md-3 col-lg-3 item-beverage ">
             
             <img src="../../../assets/images/hong-tra-dao.jpg" class="img-responsive" alt="Image">
             <label>Hong tra</label>
@@ -20,7 +20,7 @@
                 </ul>
               </div>
         </div>
-        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 item-beverage">
+        <div class="3 col-sm-3 col-md-3 col-lg-3 item-beverage">
             
             <img src="../../../assets/images/hong-tra-dao.jpg" class="img-responsive" alt="Image">
             <label>Hong tra</label>
@@ -34,7 +34,7 @@
                 </ul>
               </div>
         </div>
-        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 item-beverage">
+        <div class="3 col-sm-3 col-md-3 col-lg-3 item-beverage">
             
             <img src="../../../assets/images/hong-tra-dao.jpg" class="img-responsive" alt="Image">
             <label>Hong tra</label>
@@ -47,7 +47,7 @@
                   <li><a href="#">Delete</a></li>
                 </ul>
               </div>
-        </div><div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 item-beverage">
+        </div><div class="3 col-sm-3 col-md-3 col-lg-3 item-beverage">
             
             <img src="../../../assets/images/hong-tra-dao.jpg" class="img-responsive" alt="Image">
             <label>Hong tra</label>
@@ -60,7 +60,7 @@
                   <li><a href="#">Delete</a></li>
                 </ul>
               </div>
-        </div><div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 item-beverage">
+        </div><div class="3 col-sm-3 col-md-3 col-lg-3 item-beverage">
             
             <img src="../../../assets/images/hong-tra-dao.jpg" class="img-responsive" alt="Image">
             <label>Hong tra</label>
@@ -73,7 +73,7 @@
                   <li><a href="#">Delete</a></li>
                 </ul>
               </div>
-        </div><div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 item-beverage">
+        </div><div class="3 col-sm-3 col-md-3 col-lg-3 item-beverage">
             
             <img src="../../../assets/images/hong-tra-dao.jpg" class="img-responsive" alt="Image">
             <label>Hong tra</label>
@@ -86,7 +86,7 @@
                   <li><a href="#">Delete</a></li>
                 </ul>
               </div>
-        </div><div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 item-beverage">
+        </div><div class="3 col-sm-3 col-md-3 col-lg-3 item-beverage">
             
             <img src="../../../assets/images/hong-tra-dao.jpg" class="img-responsive" alt="Image">
             <label>Hong tra</label>
@@ -99,7 +99,7 @@
                   <li><a href="#">Delete</a></li>
                 </ul>
               </div>
-        </div><div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 item-beverage">
+        </div><div class="3 col-sm-3 col-md-3 col-lg-3 item-beverage">
             
             <img src="../../../assets/images/hong-tra-dao.jpg" class="img-responsive" alt="Image">
             <label>Hong tra</label>
@@ -116,51 +116,7 @@
     </div>
     
 <!-- Modal -->
-<div id="modal-beverage-detail" class="modal fade" role="dialog">
-  <div class="modal-dialog">
 
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">{{ title }} Beverage</h4>
-      </div>
-      <div class="modal-body">
-          <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                <img src="../../../assets/images/hong-tra-dao.jpg" class="img-responsive" alt="Image">
-          </div>
-        <p *ngIf="mode === CrudType.VIEW"><b>Hồng Trà</b></p>
-        <input *ngIf="mode !== CrudType.VIEW" type="text" value="Hong Tra">
-        <p> Rich Oolong milk tea is served with chewy pearls, sweet egg custard pudding and fresh starling dew</p>
-        <table class="table">
-                <thead>
-                  <tr>
-                    <th>Size</th>
-                    <th>Giá Tiền</th>
-                    <th>Lượng Đường</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>M</td>
-                    <td>57.000</td>
-                    <td>30.1</td>
-                  </tr>
-                  <tr>
-                    <td>L</td>
-                    <td>63.000</td>
-                    <td>40.4</td>
-                  </tr>
-                </tbody>
-              </table>  
-    </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-
-  </div>
-</div>
 <div id="modal-beverage-delete" class="modal fade" role="dialog">
         <div class="modal-dialog">
       

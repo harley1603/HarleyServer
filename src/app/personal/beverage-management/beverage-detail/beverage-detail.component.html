@@ -1,0 +1,152 @@
+<div class="col-sm-12 col-md-12 col-lg-12">
+  <h2 class="title">{{ title }} Beverage</h2>
+  <!-- <div class="col-sm-12 col-md-12 col-lg-12">
+    <img src="../../../assets/images/hong-tra-dao.jpg" class="img-responsive" alt="Image" width="300" height="300" />
+  </div> -->
+
+  <div class="col-sm-12 col-md-12 col-lg-12">
+    <form class="form-horizontal" [formGroup]="beverageForm">
+      <div class="col-sm-6 col-md-6 col-lg-6">
+        <div class="form-group">
+          <label class="control-label col-sm-3">Beverage Name<span class="required">*</span></label>
+          <div class="col-sm-9">
+            <!-- <input type="text" class="form-control" placeholder="Enter Beverage Name" formControlName="beverageName" /> -->
+            <p *ngIf="mode === CrudType.VIEW"><b>Hồng Trà</b></p>
+            <input
+              *ngIf="mode !== CrudType.VIEW"
+              type="text"
+              class="form-control"
+              placeholder="Enter Beverage name"
+              formControlName="beverageName"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-6 col-lg-6">
+        <div class="form-group">
+          <label class="control-label col-sm-3">Description</label>
+          <div class="col-sm-9">
+            <p *ngIf="mode === CrudType.VIEW">
+              Rich Oolong milk tea is served with chewy pearls, sweet egg custard pudding and fresh starling dew
+            </p>
+            <input
+              *ngIf="mode != CrudType.VIEW"
+              type="text"
+              class="form-control"
+              placeholder="Enter Description"
+              formControlName="description"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-6 col-lg-6">
+        <div class="form-group">
+          <label class="control-label col-sm-3">Type<span class="required">*</span></label>
+          <div class="col-sm-9">
+            <select class="form-control" formControlName="type" (change)="onSelectOption($event, 'type')">
+              <option value="" selected disabled>Select Type</option>
+              <option *ngFor="let type of types" [value]="type">{{ type }}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <h2 class="title">List Of Sizes</h2>
+
+  <div class="col-sm-12 col-md-12 col-lg-12">
+    <!-- Form -->
+    <form class="form-inline" [formGroup]="beverageSizeForm">
+      <div class="form-group margin-l-10">
+        <label>Size<span class="required">*</span>&nbsp;</label>
+        <input formControlName="size" type="text" class="form-control" />
+      </div>
+      <div class="form-group margin-10">
+        <label>Price<span class="required">*</span>&nbsp;</label>
+        <input formControlName="price" type="text" class="form-control" />
+      </div>
+      <div class="form-group margin-10">
+        <label>Amount Of Sugar&nbsp;</label>
+        <input formControlName="amountOfSugar" type="text" class="form-control" />
+      </div>
+      <button type="button" class="btn btn-primary margin-10">Add</button>
+      <button type="button" class="btn btn-danger" style="margin-bottom: 10px;">Delete</button>
+    </form>
+    <div class="col-sm-12 col-md-12 col-lg-12">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>
+              <input type="checkbox" value="" />
+            </th>
+            <th *ngFor="let header of sizeHeaders">{{ header }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <input type="checkbox" value="" />
+            </td>
+            <td>M</td>
+            <td>57.000</td>
+            <td>30.1</td>
+          </tr>
+          <tr>
+            <td>
+              <input type="checkbox" value="" />
+            </td>
+            <td>L</td>
+            <td>63.000</td>
+            <td>40.4</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- <div id="modal-beverage-detail" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+        
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">{{ title }} Beverage</h4>
+              </div>
+              <div class="modal-body">
+                  <div class="col-sm-4 col-md-4 col-lg-4">
+                        <img src="../../../assets/images/hong-tra-dao.jpg" class="img-responsive" alt="Image">
+                  </div>
+                <p *ngIf="mode === CrudType.VIEW"><b>Hồng Trà</b></p>
+                <input *ngIf="mode !== CrudType.VIEW" type="text" value="Hong Tra">
+                <p> Rich Oolong milk tea is served with chewy pearls, sweet egg custard pudding and fresh starling dew</p>
+                <table class="table">
+                        <thead>
+                          <tr>
+                            <th>Size</th>
+                            <th>Giá Tiền</th>
+                            <th>Lượng Đường</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>M</td>
+                            <td>57.000</td>
+                            <td>30.1</td>
+                          </tr>
+                          <tr>
+                            <td>L</td>
+                            <td>63.000</td>
+                            <td>40.4</td>
+                          </tr>
+                        </tbody>
+                      </table>  
+            </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+        
+          </div>
+        </div> -->
+</div>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CrudType } from 'src/app/shared/enums/crud-type.enum';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-beverage-management',
@@ -10,7 +11,7 @@ export class BeverageManagementComponent implements OnInit {
   CrudType = CrudType;
   title = "View";
   mode = CrudType.VIEW;
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
   }
@@ -20,6 +21,7 @@ export class BeverageManagementComponent implements OnInit {
       case CrudType.CREATE:
         this.title = CrudType.ADD_TITLE;
         this.mode = CrudType.CREATE;
+        this.router.navigate(['personal/beverage-management/create']);
         break;
       case CrudType.UPDATE:
         this.title = CrudType.UPDATE_TITLE;

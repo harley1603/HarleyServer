@@ -9,6 +9,7 @@ import { MenuComponent } from './menu/menu.component';
 import { AboutCompoment } from './about/about.component';
 import { OrderManagementComponent } from './personal/order-management/order-management.component';
 import { BeverageManagementComponent } from './personal/beverage-management/beverage-management.component';
+import { BeverageDetailComponent } from './personal/beverage-management/beverage-detail/beverage-detail.component';
 
 
 
@@ -20,13 +21,14 @@ const routes: Routes = [
       { path: 'about', component: AboutCompoment},
       { path: 'contact', component: ContactCompoment}
     ] },
-  { path: 'personal', component: PersonalComponent, 
-    children: [
-      { path: 'profile', component: UserProfileComponent},
-      { path: 'user-management/user', component: UserManagementComponent},
-      { path: 'order-management', component: OrderManagementComponent},
-      { path: 'beverage-management', component: BeverageManagementComponent}
-    ] 
+  { path: 'personal', component: PersonalComponent, loadChildren: './personal/personal.module#PersonalModule'
+    // children: [
+    //   { path: 'profile', component: UserProfileComponent},
+    //   { path: 'user-management/user', component: UserManagementComponent},
+    //   { path: 'order-management', component: OrderManagementComponent},
+    //   { path: 'beverage-management', component: BeverageManagementComponent},
+    //   // { path: 'beverage-detail', component: BeverageDetailComponent}
+    // ] 
   },
   { path: 'contact', component: ContactCompoment},
   { path: 'about', component: AboutCompoment},

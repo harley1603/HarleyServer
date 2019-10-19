@@ -66,3 +66,19 @@ body {
 .dropdown-menu > li > a {
   cursor: pointer;
 }
+
+.margin-10 {
+  margin-left: 10px !important;
+  margin-right: 10px !important;
+  margin-bottom: 10px !important;
+}
+
+.margin-l-10 {
+  margin-left: 10px;
+  margin-bottom: 10px !important;
+}
+
+.margin-r-10 {
+  margin-right: 10px;
+  margin-bottom: 10px !important;
+}

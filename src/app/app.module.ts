@@ -34,7 +34,7 @@ import { HttpClientModule }    from '@angular/common/http';
   , AngularFirestoreModule
   , AngularFireStorageModule
   , AngularFireMessagingModule
-  ,PersonalModule,
+  , PersonalModule,
   NgxSpinnerModule,
   HttpClientModule
 ],
