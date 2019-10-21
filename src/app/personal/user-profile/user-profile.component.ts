@@ -18,7 +18,7 @@ declare var $: any;
   styleUrls: ['./user-profile.component.scss']
 })
 export class UserProfileComponent implements OnInit {
-  shippingAddressHeaders = ['No.','Receiver', 'Phone Number', 'Street', 'Ward', 'District', 'City',''];
+  shippingAddressHeaders = ['No.', 'Address Name', 'Receiver', 'Phone Number', 'Street', 'Ward', 'District', 'City',''];
   userForm: FormGroup;
 
   changePasswordForm: FormGroup;

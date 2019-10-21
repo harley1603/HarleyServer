@@ -5,6 +5,20 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Utils } from 'src/app/shared/enums/utils';
 import { UserService } from 'src/app/shared/services/user.service';
+import { User } from 'src/app/shared/classes/user';
+import { ROLE } from 'src/app/shared/enums/role.enum';
+import { Address } from 'src/app/shared/classes/address';
+import { OptionType } from 'src/app/shared/enums/option-type.enum';
+import { BeverageService } from 'src/app/shared/services/beverage.service';
+import { Beverage } from 'src/app/shared/classes/beverage';
+import { BeverageOrderLine } from 'src/app/shared/classes/models/beverage-order-line';
+import { BeverageSize } from 'src/app/shared/classes/models/beverage-size';
+import { Order } from 'src/app/shared/classes/order';
+import { TimeService } from 'src/app/shared/services/time.service';
+import { CalculationService } from 'src/app/shared/services/calculation.service';
+import { OrderService } from 'src/app/shared/services/order.service';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-order-detail',
   templateUrl: './order-detail.component.html',
@@ -12,17 +26,37 @@ import { UserService } from 'src/app/shared/services/user.service';
 })
 export class OrderDetailComponent implements OnInit {
   CrudType = CrudType;
+  OptionType = OptionType;
+  orderLinesHeader = ['Beverage Code', 'Beverage Name', 'Size', 'Quantity', 'Price', 'Amount'];
   orderForm: FormGroup;
+  beverageInputForm: FormGroup;
   mode: number;
   title: string;
-  customer: [];
+  orderTypes = [
+    'Direct',
+    'Remote'
+  ];
+  customers: User[];
+  shippingAddresses: Address[];
+  beverages: Beverage[];
+  beverageSizes: BeverageSize[];
+  orderLines: BeverageOrderLine[] = [];
+  errorForm = false;
   constructor(private location: Location, private formBuilder: FormBuilder,
+    private spinner: NgxSpinnerService,
+    private toastr: ToastrService,
     private route: ActivatedRoute,
-    private userService: UserService) { }
+    private userService: UserService,
+    private beverageService: BeverageService,
+    private user: User,
+    private timeService: TimeService,
+    private calculationService: CalculationService,
+    private orderService: OrderService) { }
 
   ngOnInit() {
     this.initForm();
     this.initCustomer();
+    this.initBeverages();
     this.route.params.subscribe(params => {
       if (params.mode == Utils.PATH_UPDATE) {
         this.mode = CrudType.UPDATE;
@@ -33,7 +67,10 @@ export class OrderDetailComponent implements OnInit {
         this.initData(params.code);
       } else {
         this.mode = CrudType.CREATE;
-        this.title = CrudType.ADD_TITLE
+        this.title = CrudType.ADD_TITLE;
+        this.orderForm.patchValue({
+          status: 'Create'
+        })
       }
     });
   }
@@ -41,7 +78,22 @@ export class OrderDetailComponent implements OnInit {
   initForm(): void {
     this.orderForm = this.formBuilder.group({
       orderNo: ['', Validators.required],
-    })
+      orderType: ['', Validators.required],
+      customerId: ['', Validators.required],
+      shippingAddressId: ['', Validators.required],
+      phone: [''],
+      receiverName: [''],
+      fullShippingAddress: [''],
+      handledBy: ['', Validators.required],
+      status: [''],
+      addressName: ['', Validators.required],
+    });
+
+    this.beverageInputForm = this.formBuilder.group({
+      beverageCode: ['', Validators.required],
+      size: ['', Validators.required],
+      quantity: ['', Validators.required]
+    });
   }
 
   initData(id: string): void {
@@ -49,11 +101,157 @@ export class OrderDetailComponent implements OnInit {
   }
 
   initCustomer(): void {
-    // this.userService.getListOfUsers().subscribe(users => {
-    // })
+    this.userService.getListOfUsers().subscribe((users) => {
+      this.customers = [];
+      users.forEach(user => {
+        let data = user.payload.doc.data();
+        let id = user.payload.doc.id;
+        let tempUser = new User();
+        tempUser.setUserDetail(data);
+        tempUser.uid = id;
+        if (tempUser.user_role && tempUser.user_role === ROLE.CUSTOMER) {
+          this.customers.push(tempUser);
+        }
+      })
+    })
   }
-  
+
+  initBeverages(){
+    this.beverageService.getListOfBeverages().subscribe(beverages => {
+      this.beverages = [];
+      beverages.forEach(beverage => {
+        let data = beverage.payload.doc.data();
+        let id = beverage.payload.doc.id;
+        let tempBeverage = new Beverage();
+        tempBeverage.code = id;
+        tempBeverage.setBeverageDetail(data);
+        this.beverages.push(tempBeverage);
+      })
+    })
+  }
+
   back(): void {
     this.location.back();
   }
+
+  onSelectOption(event, name) {
+    switch (name) {
+      case OptionType.CUSTOMER:
+        let customerId = this.getValueFromOrderForm('customerId');
+        this.bindShippingAddresses(customerId);
+        this.orderForm.patchValue({
+          addressName: null,
+          fullShippingAddress: null
+        })
+        break;
+      case OptionType.SHIPPING_ADDRESS:
+        let addressName = this.getValueFromOrderForm('addressName');
+        const shippingAddress = this.getShippingAddress(addressName);
+        if (shippingAddress) {
+          let receiver = shippingAddress.receiverName;
+          let phone = shippingAddress.phoneNumber;
+          let fullAddress = this.getFullShippingAddress(shippingAddress);
+          this.setValueToFormControl('fullShippingAddress', fullAddress);
+        }
+        break;
+      case OptionType.BEVERAGE:
+        let beverageCode = this.getValueFromBeverageInputForm('beverageCode');
+        const beverage = this.getBeverageByCode(beverageCode);
+        this.beverageSizes = beverage.listOfSizes;
+      default:
+        break;
+    }
+  }
+
+  getValueFromOrderForm(name: string) {
+    return this.orderForm.controls[name].value;
+  }
+
+
+  setValueToFormControl(name: string, value: any) {
+    this.orderForm.controls[name].setValue(value);
+  }
+
+  getValueFromBeverageInputForm(name: string) {
+    return this.beverageInputForm.controls[name].value;
+  }
+
+  bindShippingAddresses(customerId: string) {
+    const customer = this.customers.find(customer => customer.uid === customerId);
+    this.shippingAddresses = [];
+    this.shippingAddresses = customer.shipping_address;
+  }
+
+  getShippingAddress(addressName: string) {
+    return this.shippingAddresses.find(address => addressName === address.addressName);
+  }
+
+  getFullShippingAddress(shippingAddress: Address) {
+    let ward = shippingAddress.ward ? ', ' + shippingAddress.ward : '';
+    return shippingAddress.street + ward + "," + shippingAddress.district + "," + shippingAddress.city;
+  }
+  getBeverageByCode(beverageCode: string) {
+    return this.beverages.find(beverage => beverage.code === beverageCode);
+  }
+
+  addOrderLine(): void {
+    if (this.beverageInputForm.invalid) {
+      this.errorForm  = true;
+      return;
+    }
+
+    //Prepare Order Line Data
+    let beverageCode = this.getValueFromBeverageInputForm('beverageCode');
+    const beverage = this.getBeverageByCode(beverageCode);
+    let beverageOrderLine = new BeverageOrderLine();
+    beverageOrderLine.beverageCode = beverageCode;
+    beverageOrderLine.beverageName = beverage.name;
+    const size = this.getValueFromBeverageInputForm('size');
+    const beverageSize = beverage.listOfSizes.find(beverageSize => beverageSize.size === size);
+    beverageOrderLine.size = size;
+    beverageOrderLine.quantity = this.getValueFromBeverageInputForm('quantity');
+    beverageOrderLine.price = beverageSize.price;
+
+    this.orderLines.push(beverageOrderLine);
+  }
+
+  save(): void {
+    this.spinner.show();
+    let data = this.getDataUpload();
+    switch (this.mode) {
+      case CrudType.CREATE:
+        this.orderService.updateOrder(data).then(result => {
+          this.spinner.hide();
+          this.toastr.success('Create Order successfully');
+          this.location.back();
+        }).catch(err => {
+          this.spinner.hide();
+          this.toastr.error('Error has occured. Please try again.');
+          console.log(err);
+        })
+        break;
+      default:
+        break;
+    }
+  }
+
+  getDataUpload(): Order {
+    let data = new Order();
+    let orderType = this.getValueFromOrderForm('orderType');
+    if (orderType === 'Remote') {
+      data.orderType = orderType;
+      data.status = 'Unhandled';
+      data.createdBy = this.user.display_name;
+      data.createdDate = this.timeService.getCurrentDateTime();
+      data.customerId = this.getValueFromOrderForm('customerId');
+      data.grandTotal = this.calculationService.calculateGrandTotal(this.orderLines);
+      data.orderLines = this.orderLines;
+      data.shipperName = 'Nghiên';
+      const addressName = this.getValueFromOrderForm('addressName');
+      data.shippingAddress = this.getShippingAddress(addressName);
+    }
+    return data;
+  }
+
+  createOrder
 }
