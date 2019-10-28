@@ -64,7 +64,7 @@ export class OrderDetailComponent implements OnInit {
         this.initData(params.id);
       } else if (params.mode == Utils.PATH_VIEW) {
         this.mode = CrudType.VIEW;
-        this.initData(params.code);
+        this.initData(params.id);
       } else {
         this.mode = CrudType.CREATE;
         this.title = CrudType.ADD_TITLE;
@@ -97,7 +97,18 @@ export class OrderDetailComponent implements OnInit {
   }
 
   initData(id: string): void {
-
+    this.spinner.show();
+    this.orderService.getOrderById(id).subscribe(order => {
+      const value = order.data();
+      this.orderForm.patchValue({
+        // beverageCode: beverage.id,
+        // beverageName: value.name,
+        // description: value.description,
+        // type: value.type 
+      });
+      // this.listOfSizes = value.list_of_size || [];
+      this.spinner.hide();
+    })
   }
 
   initCustomer(): void {
@@ -243,7 +254,9 @@ export class OrderDetailComponent implements OnInit {
       data.status = 'Unhandled';
       data.createdBy = this.user.display_name;
       data.createdDate = this.timeService.getCurrentDateTime();
-      data.customerId = this.getValueFromOrderForm('customerId');
+      let customerId = this.getValueFromOrderForm('customerId');
+      data.customerId = customerId
+      data.customer = this.customers.find(customer => customer.uid === customerId);
       data.grandTotal = this.calculationService.calculateGrandTotal(this.orderLines);
       data.orderLines = this.orderLines;
       data.shipperName = 'Nghiên';

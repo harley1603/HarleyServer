@@ -21,7 +21,7 @@ export class BeverageDetailComponent implements OnInit {
   beverageSizeForm: FormGroup;
   typeOfBeverage = [
     "Milk Tea",
-    "Fruit Tea",
+    "Tea",
     "Smoothie",
     "Coffee"
   ];
@@ -63,7 +63,7 @@ export class BeverageDetailComponent implements OnInit {
     this.beverageForm = this.formBuilder.group({
       beverageCode: ['', Validators.required],
       beverageName: ['', Validators.required],
-      description: ['', Validators.required],
+      description: [''],
       type: ['', Validators.required]
     })
   }

@@ -11,31 +11,29 @@
                 <th *ngFor="let header of headers">{{ header }}</th>
               </tr>
             </thead>
-            <!-- <tbody>
+            <tbody>
                 <tr *ngFor="let order of orders">
-                  <td *ngFor="let title of order.content">
-                    <span class="label" 
-                      *ngIf="title.status" 
-                      [ngClass]="{'label-info': title.title == 'Active', 'label-danger': title.title =='Blocked'}">
-                      {{ title.title }}
-                    </span>
-                    <div *ngIf="!title.status" >{{ title.title}}</div>
+                    <td>{{ order.orderNo }}</td>
+                    <td>Not Available</td>
+                    <td>{{ order.customerId }}</td>
+                    <td>{{ order.grandTotal }}</td>
+                    <td>{{ order.status }}</td>
+                    <td>{{ order.createdBy }}</td>
+                    <td>{{ order.createdDate }}</td>
+                    <td>
+                      <div class="btn-group">
+                          <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" (click)="selectOrder(item, i)">
+                          Action
+                          </button>
+                          <ul class="dropdown-menu">
+                              <li><a (click)="navigateOrder('view',order.orderNo)">View</a></li>
+                              <li><a (click)="navigateOrder('update',order.orderNo)">Edit</a></li>
+                              <li><a (click)="deleteBeverage()">Cancel</a></li>
+                          </ul>
+                      </div>
                   </td>
-                    <td>        
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" (click)="selectUser(user, i)">
-                            Action
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a (click)="showUserDetailModal(CrudType.VIEW)">View Detail</a></li>
-                                <li><a (click)="showUserDetailModal(CrudType.UPDATE)">Edit</a></li>
-                                <li><a *ngIf="user.status && user.status == 'Active'" (click)="showUserDetailModal(CrudType.BLOCK)">Block</a></li>
-                                <li><a *ngIf="user.status && user.status == 'Blocked'" (click)="showUserDetailModal(CrudType.ACTIVE)">Active</a></li>
-                            </ul>
-                        </div>
-                    </td>
                 </tr>
-            </tbody> -->
+            </tbody>
         </table>
     </div>
 </div>
