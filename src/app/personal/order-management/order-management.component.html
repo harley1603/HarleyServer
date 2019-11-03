@@ -17,7 +17,14 @@
                     <td>Not Available</td>
                     <td>{{ order.customerId }}</td>
                     <td>{{ order.grandTotal }}</td>
-                    <td>{{ order.status }}</td>
+                    <td><span class="label" 
+                            [ngClass]="{'label-default': order.status == 'Unhandled',
+                                'label-primary': order.status == 'Handling' || order.status == 'Delivering',
+                                'label-success': order.status == 'Completed',    
+                                'label-danger': order.status =='Canceled'}">
+                      {{ order.status }}
+                    </span>
+                    </td> 
                     <td>{{ order.createdBy }}</td>
                     <td>{{ order.createdDate }}</td>
                     <td>

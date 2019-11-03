@@ -99,14 +99,20 @@ export class OrderDetailComponent implements OnInit {
   initData(id: string): void {
     this.spinner.show();
     this.orderService.getOrderById(id).subscribe(order => {
+      const id = order.id;
       const value = order.data();
+      let customerId = value.customerId; 
       this.orderForm.patchValue({
-        // beverageCode: beverage.id,
-        // beverageName: value.name,
-        // description: value.description,
-        // type: value.type 
+        orderNo: id,
+        orderType: value.orderType,
+        customerId: customerId,
+        addressName: value.shippingAddress.addressName,
+        fullShippingAddress: this.getFullShippingAddress(value.shippingAddress),
+        handledBy: value.handledBy,
+        status: value.status
       });
-      // this.listOfSizes = value.list_of_size || [];
+      this.bindShippingAddresses(customerId);
+      this.orderLines = value.orderLines;
       this.spinner.hide();
     })
   }

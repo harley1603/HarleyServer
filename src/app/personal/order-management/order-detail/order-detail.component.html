@@ -2,7 +2,7 @@
   <h2 class="title">Order Information</h2>
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
     <div class="row bs-wizard" style="border-bottom:0;">
-      <div class="col-xs-3 bs-wizard-step complete">
+      <div class="col-xs-3 bs-wizard-step" [ngClass]="{'complete': orderForm.controls['status'].value !== 'Unhandled'}">
         <div class="text-center bs-wizard-stepnum">Create Order</div>
         <div class="progress">
           <div class="progress-bar"></div>
@@ -11,7 +11,8 @@
         <!-- <div class="bs-wizard-info text-center">Lorem ipsum dolor sit amet.</div> -->
       </div>
 
-      <div class="col-xs-3 bs-wizard-step complete">
+      <div class="col-xs-3 bs-wizard-step" 
+        [ngClass]="{'complete': orderForm.controls['status'].value !== 'Unhandled', 'disabled': orderForm.controls['status'].value === 'Unhandled'}">
         <!-- complete -->
         <div class="text-center bs-wizard-stepnum">Handle Order</div>
         <div class="progress">
@@ -21,7 +22,9 @@
         <!-- <div class="bs-wizard-info text-center">Nam mollis tristique erat vel tristique. Aliquam erat volutpat. Mauris et vestibulum nisi. Duis molestie nisl sed scelerisque vestibulum. Nam placerat tristique placerat</div> -->
       </div>
 
-      <div class="col-xs-3 bs-wizard-step active">
+      <div class="col-xs-3 bs-wizard-step" 
+          [ngClass]="{'complete': orderForm.controls['status'].value !== 'Unhandled' && orderForm.controls['status'].value !== 'Handling',
+                      'disabled': orderForm.controls['status'].value === 'Unhandled' || orderForm.controls['status'].value === 'Handling'}">
         <!-- complete -->
         <div class="text-center bs-wizard-stepnum">Deliver</div>
         <div class="progress">
@@ -106,7 +109,7 @@
         </div>
       </div>
 
-      <div class="col-sm-6 col-md-6 col-lg-6" *ngIf="mode !== CrudType.CREATE">
+      <div class="col-sm-6 col-md-6 col-lg-6" *ngIf="mode !== CrudType.CREATE && orderForm.controls['handledBy'].value">
         <div class="form-group">
           <label class="control-label col-sm-4">Handled By</label>
           <div class="col-sm-8">
