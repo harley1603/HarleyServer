@@ -5,6 +5,7 @@ import { User } from '../shared/classes/user';
 import { UserService } from '../shared/services/user.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 declare var $: any;
 @Component({
   selector: "app-login",
@@ -25,7 +26,8 @@ export class LoginComponent implements OnInit {
   constructor(public loginService: LoginService, private user: User, 
     private userService: UserService, 
     private router: Router,
-    private spinner: NgxSpinnerService) 
+    private spinner: NgxSpinnerService,
+    private toastr: ToastrService) 
   {
     this.initForm();
     let userStorage = JSON.parse(localStorage.getItem('user'));
@@ -61,6 +63,7 @@ export class LoginComponent implements OnInit {
       this.spinner.hide();
       if (result) {
         this.user.setUser(result.user);
+        this.toastr.success('Login successfully.');
         $('#login-modal').modal('hide');
         this.loginForm.reset();
       }

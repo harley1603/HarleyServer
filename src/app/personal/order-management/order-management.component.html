@@ -16,7 +16,7 @@
                     <td>{{ order.orderNo }}</td>
                     <td>Not Available</td>
                     <td>{{ order.customerId }}</td>
-                    <td>{{ order.grandTotal }}</td>
+                    <td>{{ order.grandTotal | currency:'VND ':'code'}}</td>
                     <td><span class="label" 
                             [ngClass]="{'label-default': order.status == 'Unhandled',
                                 'label-primary': order.status == 'Handling' || order.status == 'Delivering',
@@ -35,7 +35,7 @@
                           <ul class="dropdown-menu">
                               <li><a (click)="navigateOrder('view',order.orderNo)">View</a></li>
                               <li><a (click)="navigateOrder('update',order.orderNo)">Edit</a></li>
-                              <li><a (click)="deleteBeverage()">Cancel</a></li>
+                              <li *ngIf="order.status !== 'Cancel'"><a (click)="deleteBeverage()">Cancel</a></li>
                           </ul>
                       </div>
                   </td>

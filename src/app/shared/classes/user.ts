@@ -58,7 +58,7 @@ export class User {
         this.uid = user.uid ? user.uid : this.uid;
         this.phone = user.phone ? user.phone : this.phone;
         this.status = user.status ? user.status : 'Blocked';
-        this.avatar = user.photo_url ? user.photo_url : this.avatar;
+        this.avatar = user.photo_url ? user.photo_url : this.avatar ? this.avatar : '';
         this.user_role = user.role ? user.role : this.user_role;
         this.shipping_address = user.shipping_address ? Object.keys(user.shipping_address).map(key => user.shipping_address[key] ) : [];
         let roleTitle = '';

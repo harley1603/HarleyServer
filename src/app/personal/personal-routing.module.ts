@@ -7,6 +7,7 @@ import { BeverageManagementComponent } from './beverage-management/beverage-mana
 import { BeverageDetailComponent } from './beverage-management/beverage-detail/beverage-detail.component';
 import { OrderManagementComponent } from './order-management/order-management.component';
 import { OrderDetailComponent } from './order-management/order-detail/order-detail.component';
+import { MyOrderComponent } from './my-order/my-order.component';
 const routes: Routes = [
     { path: 'profile', component: UserProfileComponent},
     { path: 'user-management/user', component: UserManagementComponent},
@@ -17,7 +18,12 @@ const routes: Routes = [
     // My Order
     { path: 'order-management', component: OrderManagementComponent },
     { path: 'order-management/:mode', component: OrderDetailComponent},
-    { path: 'order-management/:mode/:id', component: OrderDetailComponent}
+    { path: 'order-management/:mode/:id', component: OrderDetailComponent},
+
+    // My Order
+    { path: 'my-order', component: MyOrderComponent },
+    // { path: 'order-management/:mode', component: OrderDetailComponent},
+    // { path: 'order-management/:mode/:id', component: OrderDetailComponent}
   ];
 
 @NgModule({

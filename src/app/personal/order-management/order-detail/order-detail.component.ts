@@ -19,6 +19,7 @@ import { CalculationService } from 'src/app/shared/services/calculation.service'
 import { OrderService } from 'src/app/shared/services/order.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
+import { UtilsService } from 'src/app/shared/services/utils.service';
 @Component({
   selector: 'app-order-detail',
   templateUrl: './order-detail.component.html',
@@ -51,7 +52,8 @@ export class OrderDetailComponent implements OnInit {
     private user: User,
     private timeService: TimeService,
     private calculationService: CalculationService,
-    private orderService: OrderService) { }
+    private orderService: OrderService,
+    private utilsService: UtilsService) { }
 
   ngOnInit() {
     this.initForm();
@@ -69,7 +71,7 @@ export class OrderDetailComponent implements OnInit {
         this.mode = CrudType.CREATE;
         this.title = CrudType.ADD_TITLE;
         this.orderForm.patchValue({
-          status: 'Create'
+          status: 'Unhandled'
         })
       }
     });
@@ -99,20 +101,22 @@ export class OrderDetailComponent implements OnInit {
   initData(id: string): void {
     this.spinner.show();
     this.orderService.getOrderById(id).subscribe(order => {
-      const id = order.id;
-      const value = order.data();
+      // const id = order.orderNo;
+      // const value = order;
+      const id = order.payload.id;
+      const value = order.payload.data() as Order;
       let customerId = value.customerId; 
       this.orderForm.patchValue({
         orderNo: id,
         orderType: value.orderType,
         customerId: customerId,
-        addressName: value.shippingAddress.addressName,
-        fullShippingAddress: this.getFullShippingAddress(value.shippingAddress),
+        addressName: value.shippingAddress ? value.shippingAddress.addressName : '',
+        fullShippingAddress: value.shippingAddress ? this.getFullShippingAddress(value.shippingAddress) : '',
         handledBy: value.handledBy,
         status: value.status
       });
       this.bindShippingAddresses(customerId);
-      this.orderLines = value.orderLines;
+      this.orderLines = value.orderLines ? value.orderLines : [];
       this.spinner.hide();
     })
   }
@@ -143,7 +147,8 @@ export class OrderDetailComponent implements OnInit {
         tempBeverage.code = id;
         tempBeverage.setBeverageDetail(data);
         this.beverages.push(tempBeverage);
-      })
+      });
+      this.beverages.sort((a,b) => a.name > b.name ? 1 : -1)
     })
   }
 
@@ -196,7 +201,7 @@ export class OrderDetailComponent implements OnInit {
   bindShippingAddresses(customerId: string) {
     const customer = this.customers.find(customer => customer.uid === customerId);
     this.shippingAddresses = [];
-    this.shippingAddresses = customer.shipping_address;
+    this.shippingAddresses = customer ? customer.shipping_address : [];
   }
 
   getShippingAddress(addressName: string) {
@@ -237,6 +242,7 @@ export class OrderDetailComponent implements OnInit {
     let data = this.getDataUpload();
     switch (this.mode) {
       case CrudType.CREATE:
+        data.orderNo = this.utilsService.generateOrderNo();
         this.orderService.updateOrder(data).then(result => {
           this.spinner.hide();
           this.toastr.success('Create Order successfully');
@@ -244,9 +250,19 @@ export class OrderDetailComponent implements OnInit {
         }).catch(err => {
           this.spinner.hide();
           this.toastr.error('Error has occured. Please try again.');
-          console.log(err);
-        })
+          console.error(err);
+        });
         break;
+      case CrudType.UPDATE:
+        this.orderService.updateOrder(data).then(result => {
+          this.spinner.hide();
+          this.toastr.success('Updated Order successfully', 'Order Management');
+          this.location.back();
+        }).catch(err => {
+          this.spinner.hide();
+          this.toastr.error('Error has occured. Please try again.');
+          console.error(err);
+        })
       default:
         break;
     }
@@ -256,12 +272,13 @@ export class OrderDetailComponent implements OnInit {
     let data = new Order();
     let orderType = this.getValueFromOrderForm('orderType');
     if (orderType === 'Remote') {
+      data.orderNo = this.getValueFromOrderForm('orderNo');
       data.orderType = orderType;
       data.status = 'Unhandled';
       data.createdBy = this.user.display_name;
       data.createdDate = this.timeService.getCurrentDateTime();
       let customerId = this.getValueFromOrderForm('customerId');
-      data.customerId = customerId
+      data.customerId = customerId;
       data.customer = this.customers.find(customer => customer.uid === customerId);
       data.grandTotal = this.calculationService.calculateGrandTotal(this.orderLines);
       data.orderLines = this.orderLines;
@@ -272,5 +289,25 @@ export class OrderDetailComponent implements OnInit {
     return data;
   }
 
-  createOrder
+  handleOrder() {
+    const orderNo = this.getValueFromOrderForm('orderNo');
+    const user = this.user;
+    this.orderService.handleOrder(orderNo, user).then(() => {
+      this.toastr.info('Handling order...');
+    }).catch(err => {
+      this.toastr.error('Error has occurred. Please check again');
+      console.error(err);
+    })
+  }
+
+  deliverOrder(): void {
+    const orderNo = this.getValueFromOrderForm('orderNo');
+    const user = this.user;
+    this.orderService.deliverOrder(orderNo, user).then(() => {
+      this.toastr.info('Delivering order...');
+    }).catch(err => {
+      this.toastr.error('Error has occurred. Please check again');
+      console.error(err);
+    })
+  }
 }

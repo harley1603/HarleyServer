@@ -11,6 +11,8 @@ export class Order {
     customer: User;
     createdBy: string;
     createdDate: string;
+    handledBy: string;
+    handledDate: string;
     shipperName: string;
     shippingAddress: Address;
     grandTotal: number;

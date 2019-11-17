@@ -35,8 +35,8 @@
                 </a>
                 <ul class="dropdown-menu black">
                     <li><a (click)="navTo('/personal/profile')"><i class="fas fa-user-circle"></i>  My Profile</a></li>
-                    <li><a href="#"><i class="fas fa-coffee"></i> My Orders</a></li>
-                    <li><a href="#" (click)="logout()"><i class="fas fa-sign-out-alt"></i>  Logout</a></li>
+                    <li><a (click)="navTo('/personal/my-order')"><i class="fas fa-coffee"></i> My Orders</a></li>
+                    <li><a (click)="navTo('')" (click)="logout()"><i class="fas fa-sign-out-alt"></i>  Logout</a></li>
                     </ul>
                 </li>
             </ul>
