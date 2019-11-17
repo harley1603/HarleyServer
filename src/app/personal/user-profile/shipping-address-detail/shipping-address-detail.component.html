@@ -9,17 +9,23 @@
             <h4 class="modal-title">{{ title }} Shipping Address</h4>
         </div>
         <div class="modal-body" [ngClass]="{'view': mode === CrudType.VIEW}">
-            <form class="form-horizontal" [formGroup] = 'shippingAddressDetailForm'>        
+            <form class="form-horizontal" [formGroup] = 'shippingAddressDetailForm'>
+                <div class="form-group text-left">
+                    <label class="control-label col-sm-3">Address Name<span class="required">*</span></label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" placeholder="Enter address name" formControlName="addressName">
+                    </div>
+                </div>
                 <div class="form-group text-left">
                     <label class="control-label col-sm-3">Receiver Name<span class="required">*</span></label>
                     <div class="col-sm-9">
-                        <input type="email" class="form-control" placeholder="Enter receiver name" formControlName="receiverName">
+                        <input type="text" class="form-control" placeholder="Enter receiver name" formControlName="receiverName">
                     </div>
                 </div>
                 <div class="form-group text-left">
                     <label class="control-label col-sm-3">Phone Number<span class="required">*</span></label>
                     <div class="col-sm-9">
-                        <input type="email" class="form-control" placeholder="Enter phone number" formControlName="phoneNumber">
+                        <input type="text" class="form-control" placeholder="Enter phone number" formControlName="phoneNumber">
                     </div>
                 </div>
                 <div class="form-group text-left">

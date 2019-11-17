@@ -1,0 +1,220 @@
+<div class="col-sm-12 col-md-12 col-lg-12" [ngClass]="{ view: mode === CrudType.VIEW || orderForm.controls['status'].value !== 'Unhandled'}">
+  <h2 class="title">Order Information</h2>
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <div class="row bs-wizard" style="border-bottom:0;">
+      <div class="col-xs-3 bs-wizard-step" [ngClass]="{'complete': orderForm.controls['status'].value !== 'Unhandled'}">
+        <div class="text-center bs-wizard-stepnum">Create Order</div>
+        <div class="progress">
+          <div class="progress-bar"></div>
+        </div>
+        <span class="bs-wizard-dot"></span>
+        <!-- <div class="bs-wizard-info text-center">Lorem ipsum dolor sit amet.</div> -->
+      </div>
+
+      <div class="col-xs-3 bs-wizard-step" 
+        [ngClass]="{'active': orderForm.controls.status.value === 'Handling',
+        'complete': orderForm.controls['status'].value !== 'Unhandled',
+        'disabled': orderForm.controls['status'].value === 'Unhandled' }">
+        <!-- complete -->
+        <div class="text-center bs-wizard-stepnum">Handle Order</div>
+        <div class="progress">
+          <div class="progress-bar"></div>
+        </div>
+        <span class="bs-wizard-dot"></span>
+        <!-- <div class="bs-wizard-info text-center">Nam mollis tristique erat vel tristique. Aliquam erat volutpat. Mauris et vestibulum nisi. Duis molestie nisl sed scelerisque vestibulum. Nam placerat tristique placerat</div> -->
+      </div>
+
+      <div class="col-xs-3 bs-wizard-step" 
+          [ngClass]="{'active': orderForm.controls.status.value === 'Delivering',
+                    'complete': orderForm.controls['status'].value === 'Paid',
+                      'disabled': orderForm.controls['status'].value === 'Unhandled' || orderForm.controls['status'].value === 'Handling'}">
+        <!-- complete -->
+        <div class="text-center bs-wizard-stepnum">Deliver</div>
+        <div class="progress">
+          <div class="progress-bar"></div>
+        </div>
+        <span class="bs-wizard-dot"></span>
+        <!-- <div class="bs-wizard-info text-center">Integer semper dolor ac auctor rutrum. Duis porta ipsum vitae mi bibendum bibendum</div> -->
+      </div>
+
+      <div class="col-xs-3 bs-wizard-step disabled">
+        <!-- active -->
+        <div class="text-center bs-wizard-stepnum">Payment</div>
+        <div class="progress">
+          <div class="progress-bar"></div>
+        </div>
+        <a href="#" class="bs-wizard-dot"></a>
+        <!-- <div class="bs-wizard-info text-center"> Curabitur mollis magna at blandit vestibulum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae</div> -->
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-12 col-md-12 col-lg-12">
+    <form class="form-horizontal" [formGroup]="orderForm">
+      <div class="col-sm-6 col-md-6 col-lg-6" *ngIf="mode !== CrudType.CREATE">
+        <div class="form-group">
+          <label class="control-label col-sm-4">Order No.<span class="required">*</span></label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" readonly placeholder="Enter Order No." formControlName="orderNo" />
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-6 col-md-6 col-lg-6">
+        <div class="form-group">
+          <label class="control-label col-sm-4">Order Type<span class="required">*</span>
+          </label>
+          <div class="col-sm-8">
+            <select class="form-control" formControlName="orderType">
+              <option value="" selected disabled>Select Type</option>
+              <option *ngFor="let type of orderTypes" [value]="type">{{
+                type
+              }}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-6 col-md-6 col-lg-6">
+        <div class="form-group">
+          <label class="control-label col-sm-4">Customer<span class="required">*</span></label>
+          <div class="col-sm-8">
+            <select class="form-control" formControlName="customerId" (change)="onSelectOption($event, OptionType.CUSTOMER)">
+              <option value="" selected disabled>Select Customer</option>
+              <option *ngFor="let customer of customers" [value]="customer.uid">{{
+                customer.display_name
+              }}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-6 col-lg-6" >
+        <div class="form-group">
+          <label class="control-label col-sm-4">Shipping Address</label>
+          <div class="col-sm-8">
+            <select class="form-control" formControlName="addressName" (change)="onSelectOption($event, OptionType.SHIPPING_ADDRESS)">
+              <option value="" selected disabled>Select Shipping Address</option>
+              <option *ngFor="let address of shippingAddresses" [value]="address.addressName">{{
+                  address.addressName
+              }}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-6 col-md-6 col-lg-6" *ngIf="orderForm.controls.fullShippingAddress.value">
+        <div class="form-group">
+          <label class="control-label col-sm-4">Full Shipping Address</label>
+          <div class="col-sm-8">
+            <textarea class="form-control" rows="5" formControlName="fullShippingAddress"></textarea>
+            <!-- <label style="margin-bottom: 29px"><b>{{ orderForm.controls.fullShippingAddress.value }}</b></label> -->
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-6 col-md-6 col-lg-6" *ngIf="mode !== CrudType.CREATE && orderForm.controls['handledBy'].value">
+        <div class="form-group">
+          <label class="control-label col-sm-4">Handled By</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" readonly placeholder="Handler" formControlName="handledBy" />
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-6 col-md-6 col-lg-6 view" >
+        <div class="form-group">
+          <label class="control-label col-sm-4">Status</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" placeholder="Status" formControlName="status" />
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <h2 class="title">Order Lines</h2>
+
+  <div class="col-sm-12 col-md-12 col-lg-12">
+    <!-- Form -->
+    <form class="form-inline" [formGroup]="beverageInputForm" *ngIf="mode !== CrudType.VIEW && orderForm.controls.status.value === 'Unhandled'">
+      <div class="form-group margin-l-10">
+        <label>Beverage<span class="required">*</span>&nbsp;</label>
+        <select class="form-control" formControlName="beverageCode" (change)="onSelectOption($event, OptionType.BEVERAGE)">
+          <option value="" selected disabled>Select Beverage</option>
+          <option *ngFor="let beverage of beverages" [value]="beverage.code">{{
+            beverage.name
+          }}</option>
+        </select>
+      </div>
+      <div class="form-group margin-10">
+        <label>Size<span class="required">*</span>&nbsp;</label>
+        <select class="form-control" formControlName="size">
+          <option value="" selected disabled>Select Size</option>
+          <option *ngFor="let size of beverageSizes" [value]="size.size">{{
+              size.size
+            }}</option>
+        </select>
+      </div>
+      <div class="form-group margin-10">
+        <label>Quantity&nbsp;</label>
+        <input formControlName="quantity" type="number" class="form-control" />
+      </div>
+      <button type="button" class="btn btn-primary margin-10" (click)="addOrderLine()">
+        Add
+      </button>
+      <button type="button" class="btn btn-danger" style="margin-bottom: 10px;">
+        Delete
+      </button>
+    </form>
+    <div class="col-sm-12 col-md-12 col-lg-12">
+      <table class="table">
+        <thead>
+          <tr>
+            <th *ngIf="mode !== CrudType.VIEW">
+              <input type="checkbox" value="" />
+            </th>
+            <th *ngFor="let header of orderLinesHeader">{{ header }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of orderLines">
+            <td *ngIf="mode !== CrudType.VIEW">
+              <input type="checkbox" value="" />
+            </td>
+            <td>{{ item.beverageCode }}</td>
+            <td>{{ item.beverageName }}</td>
+            <td>{{ item.size }}</td>
+            <td>{{ item.quantity }}</td>
+            <td>{{ item.price | currency:'VND ':'code' }}</td>
+            <td>{{ (item.quantity * item.price) | currency:'VND ':'code'  }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    
+    <div
+      *ngIf="orderLines.length == 0"
+      class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
+    >
+      <div class="no-data">No Data Available</div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <button type="button" class="btn btn-default margin-l-10" style="margin-left: 30px" (click)="back()">
+    <i class="fas fa-caret-left"></i> Back
+  </button>
+  <button *ngIf="mode !== CrudType.VIEW && orderForm.controls['status'].value === 'Unhandled'" type="button" class="btn btn-success margin-l-10" (click)="save()">
+    Save
+  </button>
+  <button *ngIf="mode === CrudType.VIEW && orderForm.controls['status'].value === 'Unhandled' " type="button" class="btn btn-info margin-l-10" (click)="handleOrder()">
+    Handle
+  </button>
+  <button *ngIf="orderForm.controls['status'].value === 'Handling' && orderForm.controls.orderType.value === 'Remote'" type="button" class="btn btn-info margin-l-10" (click)="deliverOrder()">
+    Deliver <i class="fa fa-truck"></i>
+  </button> 
+  <button *ngIf="orderForm.controls['status'].value === 'Handling' || orderForm.controls['status'].value === 'Delivering'" type="button" class="btn btn-info margin-l-10" (click)="deliverOrder()">
+    <i class="fa fa-check"></i> Done
+  </button> 
+</div>

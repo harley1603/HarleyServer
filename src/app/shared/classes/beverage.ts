@@ -1,9 +1,11 @@
+import { BeverageSize } from './models/beverage-size';
+
 export class Beverage {
     code: string;
     name: string;
     description: string;
     type: string;
-    listOfSizes: any[];
+    listOfSizes: BeverageSize[];
     constructor(code?: string, name?: string, description?: string, type?: string, listOfSizes?: any[]) {
         this.code = code;
         this.name = name;

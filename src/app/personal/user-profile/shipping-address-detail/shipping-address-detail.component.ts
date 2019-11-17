@@ -64,6 +64,7 @@ export class ShippingAddressDetailComponent implements OnInit {
 
   initForm(): void {
     this.shippingAddressDetailForm = this.formBuilder.group({
+      addressName: ['', Validators.required],
       receiverName: ['', Validators.required],
       phoneNumber: ['', Validators.required],
       city: ['', Validators.required],
@@ -155,7 +156,7 @@ export class ShippingAddressDetailComponent implements OnInit {
     //   return ward.id == this.getValueFromFormName('ward');
     // });
     // let wardName = ward.title || '';
-
+    data.addressName = this.getValueFromFormName('addressName');
     data.receiverName = this.getValueFromFormName('receiverName');
     data.phoneNumber = this.getValueFromFormName('phoneNumber');
     data.city = this.getValueFromFormName('city');

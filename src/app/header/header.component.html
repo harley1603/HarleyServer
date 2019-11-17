@@ -6,7 +6,10 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>                          
         </button>
-            <a class="navbar-brand" (click)="navTo('/')">Harley Milk Tea</a>
+            <a class="navbar-brand" (click)="navTo('/')"><img src="../../assets/images/branch.png" style="width: auto;
+                height: 57px;
+                margin-top: -17px;
+                margin-left: 20px;"></a>
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
@@ -32,8 +35,8 @@
                 </a>
                 <ul class="dropdown-menu black">
                     <li><a (click)="navTo('/personal/profile')"><i class="fas fa-user-circle"></i>  My Profile</a></li>
-                    <li><a href="#"><i class="fas fa-coffee"></i> My Orders</a></li>
-                    <li><a href="#" (click)="logout()"><i class="fas fa-sign-out-alt"></i>  Logout</a></li>
+                    <li><a (click)="navTo('/personal/my-order')"><i class="fas fa-coffee"></i> My Orders</a></li>
+                    <li><a (click)="navTo('')" (click)="logout()"><i class="fas fa-sign-out-alt"></i>  Logout</a></li>
                     </ul>
                 </li>
             </ul>

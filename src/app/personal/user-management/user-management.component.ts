@@ -113,11 +113,12 @@ export class UserManagementComponent implements OnInit {
       case CrudType.UPDATE:
         this.spinner.show();
         this.userService.updateUserByUid(user.uid, user, user.user_role).then(result => {
-          console.log('Updated user successfully');
           this.spinner.hide();
+          this.toastr.success('Updated user successfully');
         }).catch(err => {
           console.log(err.message);
           this.spinner.hide();
+          this.toastr.error('An Error has occured. Please try again!');
         });
         break;
       case CrudType.DELETE:

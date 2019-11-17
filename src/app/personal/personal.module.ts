@@ -13,11 +13,13 @@ import { UserDetailComponent } from './user-management/user-detail/user-detail.c
 import { OrderManagementComponent } from './order-management/order-management.component';
 import { BeverageManagementComponent } from './beverage-management/beverage-management.component';
 import { BeverageDetailComponent } from './beverage-management/beverage-detail/beverage-detail.component';
+import { MyOrderComponent } from './my-order/my-order.component';
+import { OrderDetailComponent } from './order-management/order-detail/order-detail.component';
 
 
 
 @NgModule({
-  declarations: [PersonalComponent, SidebarComponent, UserProfileComponent, UserManagementComponent, ShippingAddressDetailComponent, ShippingAddressComponent, UserDetailComponent, OrderManagementComponent, BeverageManagementComponent, BeverageDetailComponent],
+  declarations: [PersonalComponent, SidebarComponent, UserProfileComponent, UserManagementComponent, ShippingAddressDetailComponent, ShippingAddressComponent, UserDetailComponent, OrderManagementComponent, BeverageManagementComponent, BeverageDetailComponent, MyOrderComponent, OrderDetailComponent],
   imports: [
     ReactiveFormsModule,
     PersonalRoutingModule,
