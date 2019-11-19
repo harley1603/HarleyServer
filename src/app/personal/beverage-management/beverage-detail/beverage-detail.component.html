@@ -14,6 +14,7 @@
               <input
                 type="text"
                 class="form-control"
+                [readonly]=" mode !== CrudType.CREATE"
                 placeholder="Enter Beverage Code"
                 formControlName="beverageCode"
               />

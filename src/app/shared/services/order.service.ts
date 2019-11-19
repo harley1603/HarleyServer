@@ -68,7 +68,14 @@ export class OrderService {
       status: 'Delivering'
     })
   }
+
   getListOfOrders(){
     return this.db.collection('/order').snapshotChanges();
+  }
+
+  doneOrder(orderNo: string, user: User) {
+    return this.db.collection('/order').doc(orderNo).update({
+      status: 'Paid'
+    })
   }
 }

@@ -1,161 +1,174 @@
 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-    <h2 class="title">
-        General Information
-    </h2> 
+  <h2 class="title">
+    General Information
+  </h2>
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <form class="form-horizontal" [formGroup]="userForm">
+      <div class="col-md-10 col-lg-6">
+        <div class="form-group">
+          <label class="control-label col-sm-3 col-md-4" for="email">Display Name</label>
+          <div class="col-sm-9 col-md-8">
+            <input type="email" class="form-control" placeholder="Enter display name" formControlName="displayName">
+          </div>
+        </div>
+      </div>
+      <div class="col-md-10 col-lg-6">
+        <div class="form-group">
+          <label class="control-label col-sm-3 col-md-4" for="email">Email</label>
+          <div class="col-sm-9 col-md-8">
+            <input type="email" class="form-control" placeholder="Enter email" readonly formControlName="email">
+          </div>
+        </div>
+      </div>
+      <div class="col-md-10 col-lg-6">
+        <div class="form-group">
+          <label class="control-label col-sm-3 col-md-4" for="email">First Name</label>
+          <div class="col-sm-9 col-md-8">
+            <input type="email" class="form-control" placeholder="Enter First Name" formControlName="firstName">
+          </div>
+        </div>
+      </div>
+      <div class="col-md-10 col-lg-6">
+        <div class="form-group">
+          <label class="control-label col-sm-3 col-md-4" for="email">Last Name</label>
+          <div class="col-sm-9 col-md-8">
+            <input type="email" class="form-control" placeholder="Enter Last Name" formControlName="lastName">
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-10 col-lg-6">
+        <div class="form-group">
+          <label class="control-label col-sm-3 col-md-4" for="email">Phone Number</label>
+          <div class="col-sm-9 col-md-8">
+            <input type="email" class="form-control" placeholder="Enter phone number" formControlName="phoneNumber">
+          </div>
+        </div>
+      </div>
+      <div class="col-md-10 col-lg-6">
+        <div class="form-group">
+          <label class="control-label col-sm-3 col-md-4">Birthday</label>
+          <div class="col-sm-9 col-md-8 input-group date" date-format="dd-mm-yyyy"
+            style="padding-left: 15px; padding-right: 15px">
+            <input type="text" class="form-control" placeholder="Select Birthday" formControlName="birthday">
+            <div class="input-group-addon">
+              <span class="glyphicon glyphicon-calendar"></span>
+            </div>
+          </div>
+          <div> {{ birthdayError }}</div>
+        </div>
+      </div>
+    </form>
+
+
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-        <form class="form-horizontal" [formGroup]="userForm">
-                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                        <div class="form-group">
-                            <label class="control-label col-sm-3" for="email">Display Name</label>
-                            <div class="col-sm-9">
-                                <input type="email" class="form-control" placeholder="Enter display name" formControlName="displayName">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                        <div class="form-group">
-                            <label class="control-label col-sm-3" for="email">Email</label>
-                            <div class="col-sm-9">
-                                <input type="email" class="form-control" placeholder="Enter email" readonly formControlName="email">
-                            </div>
-                        </div>
-                    </div>
-            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                <div class="form-group">
-                    <label class="control-label col-sm-3" for="email">First Name</label>
-                    <div class="col-sm-9">
-                        <input type="email" class="form-control" placeholder="Enter First Name" formControlName="firstName">
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                <div class="form-group">
-                    <label class="control-label col-sm-3" for="email">Last Name</label>
-                    <div class="col-sm-9">
-                        <input type="email" class="form-control" placeholder="Enter Last Name" formControlName="lastName">
-                    </div>
-                </div>
-            </div>
-           
-            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                <div class="form-group">
-                    <label class="control-label col-sm-3" for="email">Phone Number</label>
-                    <div class="col-sm-9">
-                        <input type="email" class="form-control" placeholder="Enter phone number" formControlName="phoneNumber">
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                <div class="form-group">
-                    <label class="control-label col-sm-3">Birthday</label>
-                    <div class="col-sm-9 input-group date" date-format="dd-mm-yyyy" style="padding-left: 15px; padding-right: 15px">
-                        <input type="text" class="form-control" placeholder="Select Birthday" formControlName="birthday">
-                        <div class="input-group-addon">
-                            <span class="glyphicon glyphicon-calendar" ></span>
-                        </div>
-                    </div>
-                    <div> {{ birthdayError }}</div>
-                </div>
-            </div>
-        </form>
-
-        
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <button type="button" class="btn btn-warning" data-toggle="collapse" data-target="#change-password-form" (click)="clearPasswordForm()" style="margin-bottom: 10px; margin-left: -10px;">Change Password</button>
-        </div>
-
-        <div id="change-password-form" class="collapse" style="width:50%; padding-left: 15px; padding-right: 15px;" >
-            <form class="form-horizontal" [formGroup] = "changePasswordForm">
-                <div class="form-group">
-                    <label class="control-label col-sm-3">Old Password<span class="required">*</span></label>
-                    <div class="col-sm-9">
-                        <input type="password" class="form-control" placeholder="Enter old password" formControlName="oldPassword">
-                    </div>
-                    <div class="alert alert-danger" *ngIf="errorChangePassword && changePasswordForm.controls.oldPassword.hasError('required')">Old Password is required.</div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-sm-3">New Password<span class="required">*</span></label>
-                    <div class="col-sm-9">
-                        <input type="password" class="form-control" placeholder="Enter new password" formControlName="newPassword">
-                    </div>
-                    <div class="alert alert-danger" *ngIf="errorChangePassword && changePasswordForm.controls.newPassword.hasError('required')">New Password is required.</div>
-                </div>
-                <div class="form-group has-feedback" 
-                    [ngClass]="{'has-success': changePasswordForm.controls['newPassword'].value && changePasswordForm.controls['newPassword'].value === changePasswordForm.controls['confirmPassword'].value}"
-                    [ngClass]="{'has-error': changePasswordForm.controls['confirmPassword'].value && changePasswordForm.controls['newPassword'].value !== changePasswordForm.controls['confirmPassword'].value}">
-                    <label class="control-label col-sm-3">Confirm Password<span class="required">*</span></label>
-                    <div class="col-sm-9">
-                        <input type="password" class="form-control" placeholder="Confirm new password" formControlName="confirmPassword">
-                        <span [ngClass]="{'glyphicon glyphicon-ok form-control-feedback': changePasswordForm.controls['newPassword'].value && changePasswordForm.controls['newPassword'].value === changePasswordForm.controls['confirmPassword'].value}"
-                        [ngClass]="{'glyphicon glyphicon-remove form-control-feedback': changePasswordForm.controls['confirmPassword'].value && changePasswordForm.controls['newPassword'].value !== changePasswordForm.controls['confirmPassword'].value}">
-                    </span>
-                    </div>
-                    
-                </div>
-                <div class="alert alert-danger" *ngIf="errorChangePassword && errorMessage">
-                    {{ errorMessage }}
-                </div>
-                <div class="alert alert-success" *ngIf="successChangePassword">
-                    Changed password successfully.
-                  </div>
-                <div class="col-sm-9" style="float:right;">
-                    <button type="button" class="btn btn-success" (click)="changePassword()">Change</button>
-                </div>
-            </form>
-        </div>
+      <button type="button" class="btn btn-warning" data-toggle="collapse" data-target="#change-password-form"
+        (click)="clearPasswordForm()" style="margin-bottom: 10px; margin-left: -10px;">Change Password</button>
     </div>
 
-    <!-- Address -->
-    <h2 class="title">
-        Shipping Address
-    </h2>
-    
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-        <button type="button" class="btn btn-success" style="margin-bottom:10px" (click)="showShippingAddressModal(CrudType.CREATE)"><i class="fas fa-truck"></i> Add New</button>
-        <button type="button" class="btn btn-success" style="margin-bottom:10px" *ngIf="selectedAddress"><i class="fas fa-minus-square"></i> Delete</button>
-        <table class="table table-hover table-bordered" *ngIf="shippingAddress.listAddress && shippingAddress.listAddress.length > 0 ; else noShippingAddress">
-            <thead>
-                <tr>
-                    <th *ngFor="let header of shippingAddressHeaders"> {{ header }}</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let item of shippingAddress.listAddress; let i=index">
-                    <td>{{ i + 1 }}</td>
-                    <td>{{ item.addressName }}</td>
-                    <td>{{ item.receiverName }}</td>
-                    <td>{{ item.phoneNumber }}</td>
-                    <td>{{ item.street }}</td>
-                    <td>{{ item.ward }}</td>
-                    <td>{{ item.district }}</td>
-                    <td>{{ item.city }}</td>
-                    <td>
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" (click)="selectShippingAddress(item, i)">
-                            Action
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a (click)="showShippingAddressModal(CrudType.VIEW)">View</a></li>
-                                <li><a (click)="showShippingAddressModal(CrudType.UPDATE)">Edit</a></li>
-                                <li><a (click)="showShippingAddressModal(CrudType.DELETE)">Delete</a></li>
-                            </ul>
-                        </div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <ng-template #noShippingAddress><p class="no-available"><b>No Available</b></p></ng-template>
+    <div id="change-password-form" class="collapse col-xs-12 col-sm-12 col-md-10 col-lg-6" style="padding-left: 15px; padding-right: 15px;">
+      <form class="form-horizontal" [formGroup]="changePasswordForm">
+        <div class="form-group">
+          <label class="control-label col-sm-3 col-md-4">Old Password<span class="required">*</span></label>
+          <div class="col-sm-9 col-md-8">
+            <input type="password" class="form-control" placeholder="Enter old password" formControlName="oldPassword">
+          </div>
+          <div class="alert alert-danger"
+            *ngIf="errorChangePassword && changePasswordForm.controls.oldPassword.hasError('required')">Old
+            Password is required.</div>
+        </div>
+        <div class="form-group">
+          <label class="control-label col-sm-3 col-md-4">New Password<span class="required">*</span></label>
+          <div class="col-sm-9 col-md-8">
+            <input type="password" class="form-control" placeholder="Enter new password" formControlName="newPassword">
+          </div>
+          <div class="alert alert-danger"
+            *ngIf="errorChangePassword && changePasswordForm.controls.newPassword.hasError('required')">New
+            Password is required.</div>
+        </div>
+        <div class="form-group has-feedback"
+          [ngClass]="{'has-success': changePasswordForm.controls['newPassword'].value && changePasswordForm.controls['newPassword'].value === changePasswordForm.controls['confirmPassword'].value}"
+          [ngClass]="{'has-error': changePasswordForm.controls['confirmPassword'].value && changePasswordForm.controls['newPassword'].value !== changePasswordForm.controls['confirmPassword'].value}">
+          <label class="control-label col-sm-3 col-md-4">Confirm Password<span class="required">*</span></label>
+          <div class="col-sm-9 col-md-8">
+            <input type="password" class="form-control" placeholder="Confirm new password"
+              formControlName="confirmPassword">
+            <span
+              [ngClass]="{'glyphicon glyphicon-ok form-control-feedback': changePasswordForm.controls['newPassword'].value && changePasswordForm.controls['newPassword'].value === changePasswordForm.controls['confirmPassword'].value}"
+              [ngClass]="{'glyphicon glyphicon-remove form-control-feedback': changePasswordForm.controls['confirmPassword'].value && changePasswordForm.controls['newPassword'].value !== changePasswordForm.controls['confirmPassword'].value}">
+            </span>
+          </div>
+
+        </div>
+        <div class="alert alert-danger" *ngIf="errorChangePassword && errorMessage">
+          {{ errorMessage }}
+        </div>
+        <div class="alert alert-success" *ngIf="successChangePassword">
+          Changed password successfully.
+        </div>
+        <div class="col-sm-9 col-md-8" style="float:right;">
+          <button type="button" class="btn btn-success" (click)="changePassword()">Change</button>
+        </div>
+      </form>
     </div>
+  </div>
+
+  <!-- Address -->
+  <h2 class="title">
+    Shipping Address
+  </h2>
+
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <button type="button" class="btn btn-success" style="margin-bottom:10px"
+      (click)="showShippingAddressModal(CrudType.CREATE)"><i class="fas fa-truck"></i> Add New</button>
+    <button type="button" class="btn btn-success" style="margin-bottom:10px" *ngIf="selectedAddress"><i
+        class="fas fa-minus-square"></i> Delete</button>
+    <div class="table-responsive">
+      <table class="table table-hover table-bordered"
+        *ngIf="shippingAddress.listAddress && shippingAddress.listAddress.length > 0 ; else noShippingAddress">
+        <thead>
+          <tr>
+            <th *ngFor="let header of shippingAddressHeaders"> {{ header }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of shippingAddress.listAddress; let i=index">
+            <td>{{ i + 1 }}</td>
+            <td>{{ item.addressName }}</td>
+            <td>{{ item.receiverName }}</td>
+            <td>{{ item.phoneNumber }}</td>
+            <td>{{ item.street }}</td>
+            <td>{{ item.ward }}</td>
+            <td>{{ item.district }}</td>
+            <td>{{ item.city }}</td>
+            <td>
+              <div class="btn-group">
+                <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown"
+                  (click)="selectShippingAddress(item, i)">
+                  Action
+                </button>
+                <ul class="dropdown-menu">
+                  <li><a (click)="showShippingAddressModal(CrudType.VIEW)">View</a></li>
+                  <li><a (click)="showShippingAddressModal(CrudType.UPDATE)">Edit</a></li>
+                  <li><a (click)="showShippingAddressModal(CrudType.DELETE)">Delete</a></li>
+                </ul>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <ng-template #noShippingAddress>
+      <p class="no-available"><b>No Available</b></p>
+    </ng-template>
+  </div>
 </div>
 <div class="footer">
-    <button type="button" class="btn btn-success" (click)="saveForm()" style="margin-left: 30px">Save</button>
+  <button type="button" class="btn btn-success" (click)="saveForm()" style="margin-left: 30px">Save</button>
 </div>
 
 
 <!-- Shipping Address Detail -->
-<app-shipping-address-detail 
-    [title]="shippingAddress.title" 
-    [mode]="shippingAddress.mode"
-    [selectedAddress] = "shippingAddress.selectedAddress"
-    (updateData)="updateShippingAddress($event)">
+<app-shipping-address-detail [title]="shippingAddress.title" [mode]="shippingAddress.mode"
+  [selectedAddress]="shippingAddress.selectedAddress" (updateData)="updateShippingAddress($event)">
 </app-shipping-address-detail>

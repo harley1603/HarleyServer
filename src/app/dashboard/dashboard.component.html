@@ -1,59 +1,56 @@
-<div
-  class="carousel fade-carousel slide"
-  data-ride="carousel"
-  data-interval="4000"
-  id="bs-carousel"
->
-  <!-- Overlay -->
-  <div class="overlay"></div> 
+<div style="background: url(../assets/template/images/bg_4.jpg) no-repeat fixed;">
 
-  <!-- Indicators -->
-  <ol class="carousel-indicators">
-    <li data-target="#bs-carousel" data-slide-to="0" class="active"></li>
-    <li data-target="#bs-carousel" data-slide-to="1"></li>
-    <li data-target="#bs-carousel" data-slide-to="2"></li>
-  </ol>
+  <div class="carousel fade-carousel slide" data-ride="carousel" data-interval="4000" id="bs-carousel">
+    <!-- Overlay -->
+    <div class="overlay"></div>
 
-  <!-- Wrapper for slides -->
-  <div class="carousel-inner">
-    <div class="item slides active">
-      <div class="slide-1" style="opacity: 0.5;"></div>
-      <div class="hero">
-        <div>
-          <h1>Peach Tea for a peaceful day</h1>
-          <h3>Get start your next awesome project</h3>
-        </div>
-        <button class="btn btn-order btn-lg" role="button">
-          Order Now
-        </button>
-      </div>
-    </div>
-    <div class="item slides">
-      <div class="slide-2" style="opacity: 0.5;"></div>
-      <div class="hero">
-        <div>
-          <h1>We are smart</h1>
-          <h3>Get start your next awesome project</h3>
-        </div>
-        <button class="btn btn-order btn-lg" role="button">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+      <li data-target="#bs-carousel" data-slide-to="0" class="active"></li>
+      <li data-target="#bs-carousel" data-slide-to="1"></li>
+      <li data-target="#bs-carousel" data-slide-to="2"></li>
+    </ol>
+
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner">
+      <div class="item slides active">
+        <div class="slide-1" style="opacity: 0.5;"></div>
+        <div class="hero">
+          <div>
+            <h1>Peach Tea for a peaceful day</h1>
+            <h3>Get start your next awesome project</h3>
+          </div>
+          <button class="btn btn-order btn-lg" role="button">
             Order Now
-        </button>
-      </div>
-    </div>
-    <div class="item slides">
-      <div class="slide-3" style="opacity: 0.5;"></div>
-      <div class="hero">
-        <div>
-          <h1>We are amazing</h1>
-          <h3>Get start your next awesome project</h3>
+          </button>
         </div>
-        <button class="btn btn-order btn-lg" role="button">
+      </div>
+      <div class="item slides">
+        <div class="slide-2" style="opacity: 0.5;"></div>
+        <div class="hero">
+          <div>
+            <h1>We are smart</h1>
+            <h3>Get start your next awesome project</h3>
+          </div>
+          <button class="btn btn-order btn-lg" role="button">
             Order Now
-        </button>
+          </button>
+        </div>
+      </div>
+      <div class="item slides">
+        <div class="slide-3" style="opacity: 0.5;"></div>
+        <div class="hero">
+          <div>
+            <h1>We are amazing</h1>
+            <h3>Get start your next awesome project</h3>
+          </div>
+          <button class="btn btn-order btn-lg" role="button">
+            Order Now
+          </button>
+        </div>
       </div>
     </div>
-  </div>
-  <a class="left carousel-control" href="#bs-carousel" data-slide="prev">
+    <a class="left carousel-control" href="#bs-carousel" data-slide="prev">
       <span class="glyphicon glyphicon-chevron-left"></span>
       <span class="sr-only">Previous</span>
     </a>
@@ -61,90 +58,84 @@
       <span class="glyphicon glyphicon-chevron-right"></span>
       <span class="sr-only">Next</span>
     </a>
-</div>
+  </div>
 
-<div style="position: fixed; bottom: 0px; right:0px; z-index: 2;">
-  <button
-    type="button"
-    (click)="changePopup()"
-    class="side-button"
-    [ngClass]="{'side-button-dialog': isShown === true}"
-    
-    >
-    <img src="../../assets/images/dialog_icon.png" class="img-responsive" alt="Image" width="50" height="50" *ngIf="isShown === false">
-  <img src="../../assets/images/angle-arrow-down.png" class="img-responsive" alt="Image" width="20" height="20" *ngIf="isShown === true">
-  <!-- {{ displayButton }} -->
-  </button>
-  <iframe
-    style="    display: flex;"
-    *ngIf="isShown === true"
-    allow="microphone;"
-    width="300"
-    height="400"
-    src="https://console.dialogflow.com/api-client/demo/embedded/a1669dd2-9cf7-4600-ac8f-b0431a613465"
-  >
-  </iframe>
-</div>
-<section class="ftco-intro">
-	<div class="container-wrap">
-		<div class="wrap d-md-flex">
-			<div class="info">
-				<div class="row no-gutters">
-					<div class="col-md-4 d-flex ftco-animate">
-						<div class="icon"><span class="icon-phone"></span></div>
-						<div class="text">
-              <h3>+85 935 570 445</h3>
-              <p>Nguyên Đẹp Trai</p>
-							<!-- <p>A small river named Duden flows</p> -->
-						</div>
-					</div>
-					<div class="col-md-4 d-flex ftco-animate">
-						<div class="icon"><span class="icon-my_location"></span></div>
-						<div class="text">
-							<h3>254 Nguyen Van Linh Street</h3>
-							<p>Hai Chau District, Da Nang City</p>
-						</div>
-					</div>
-					<div class="col-md-4 d-flex ftco-animate">
-						<div class="icon"><span class="icon-clock-o"></span></div>
-						<div class="text">
-							<h3>Open Monday - Sunday</h3>
-							<p>7:00am - 10:30pm</p>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="social d-md-flex pl-md-5 p-4 align-items-center">
-				<ul class="social-icon">
-		  <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
-		  <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
-		  <li class="ftco-animate"><a href="#"><span class="icon-instagram"></span></a></li>
-		</ul>
-			</div>
-		</div>
-	</div>
-</section>
+  <div style="position: fixed; bottom: 0px; right:0px; z-index: 2;">
+    <button type="button" (click)="changePopup()" class="side-button"
+      [ngClass]="{'side-button-dialog': isShown === true}">
+      <img src="../../assets/images/dialog_icon.png" class="img-responsive" alt="Image" width="50" height="50"
+        *ngIf="isShown === false">
+      <img src="../../assets/images/angle-arrow-down.png" class="img-responsive" alt="Image" width="20" height="20"
+        *ngIf="isShown === true">
+      <!-- {{ displayButton }} -->
+    </button>
+    <iframe style="    display: flex;" *ngIf="isShown === true" allow="microphone;" width="300" height="400"
+      src="https://console.dialogflow.com/api-client/demo/embedded/a1669dd2-9cf7-4600-ac8f-b0431a613465">
+    </iframe>
+  </div>
+  <section class="ftco-intro">
+    <div class="container-wrap">
+      <div class="wrap d-md-flex">
+        <div class="info">
+          <div class="row no-gutters">
+            <div class="col-md-4 d-flex ftco-animate">
+              <div class="icon"><span class="icon-phone"></span></div>
+              <div class="text">
+                <h3>+85 935 570 445</h3>
+                <p>Nguyên Đẹp Trai</p>
+                <!-- <p>A small river named Duden flows</p> -->
+              </div>
+            </div>
+            <div class="col-md-4 d-flex ftco-animate">
+              <div class="icon"><span class="icon-my_location"></span></div>
+              <div class="text">
+                <h3>254 Nguyen Van Linh Street</h3>
+                <p>Hai Chau District, Da Nang City</p>
+              </div>
+            </div>
+            <div class="col-md-4 d-flex ftco-animate">
+              <div class="icon"><span class="icon-clock-o"></span></div>
+              <div class="text">
+                <h3>Open Monday - Sunday</h3>
+                <p>7:00am - 10:30pm</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="social d-md-flex pl-md-5 p-4 align-items-center">
+          <ul class="social-icon">
+            <!-- <li class="ftco-animate"><a href="https://www.instagram.com/nghien1603/" target="blank"><span class="icon-twitter"></span></a></li> -->
+            <li class="ftco-animate"><a href="https://www.facebook.com/harleyserver1603/" target="blank"><span
+                  class="icon-facebook"></span></a></li>
+            <li class="ftco-animate"><a href="https://www.instagram.com/nghien1603/" target="blank"><span
+                  class="icon-instagram"></span></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<section class="ftco-about d-md-flex">
-	<div class="one-half img" style="background-image: url(../../assets/images/about.jpg);"></div>
-	<div class="one-half ftco-animate">
-	<div class="heading-section ftco-animate ">
-	  <h2 class="mb-4">Welcome to <img style="position: inherit;
-      top: -6px;" width="40" src="data:image/svg+xml;base64,
-      PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGlkPSJvdXRsaW5lIiB2aWV3Qm94PSIwIDAgNjQgNjQiIHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIiBjbGFzcz0iIj48Zz48cGF0aCBkPSJNMzUsMkgyOWExLDEsMCwwLDAtMSwxdjguMDUxQTExLjAxLDExLjAxLDAsMCwwLDE4LjA1MSwyMUgxN2ExLDEsMCwwLDAtMSwxdjRhMSwxLDAsMCwwLDEsMWgxVjQ1YTM3LjgwOCwzNy44MDgsMCwwLDAsMiwxMi4xNTNWNjFhMSwxLDAsMCwwLDEsMUg0M2ExLDEsMCwwLDAsMS0xVjU3LjE1M0EzNy44MDgsMzcuODA4LDAsMCwwLDQ2LDQ1VjQ0YTEsMSwwLDAsMC0yLDB2MWEzNS4zMywzNS4zMywwLDAsMS0uMzU2LDUuMDIyLDMuOTc5LDMuOTc5LDAsMCwwLTEuODY4LS45NDRBMy45NjIsMy45NjIsMCwwLDAsNDIsNDcuODEyLDMuOTgzLDMuOTgzLDAsMCwwLDM1LDQ1LjJhMy45NDUsMy45NDUsMCwwLDAtNiwwLDMuOTcsMy45NywwLDAsMC02Ljc3NSwzLjg4MywzLjk2OSwzLjk2OSwwLDAsMC0xLjg2OS45NDRBMzUuMzMsMzUuMzMsMCwwLDEsMjAsNDVWMjdINDR2OWExLDEsMCwwLDAsMiwwVjI3aDFhMSwxLDAsMCwwLDEtMVYyMmExLDEsMCwwLDAtMS0xSDQ1Ljk0OUExMS4wMSwxMS4wMSwwLDAsMCwzNiwxMS4wNTFWM0ExLDEsMCwwLDAsMzUsMlpNMjYsNTUuNjE4YTQuMDUxLDQuMDUxLDAsMCwwLC4zODIuMzgyaC0uNzY0QTQuMDUxLDQuMDUxLDAsMCwwLDI2LDU1LjYxOFpNMzguMzgyLDU2aC0uNzY0QTQuMDUxLDQuMDUxLDAsMCwwLDM4LDU1LjYxOCw0LjA1MSw0LjA1MSwwLDAsMCwzOC4zODIsNTZaTTMyLDU1LjYxOGE0LjA1MSw0LjA1MSwwLDAsMCwuMzgyLjM4MmgtLjc2NEE0LjA1MSw0LjA1MSwwLDAsMCwzMiw1NS42MThaTTM1LDUxYTIsMiwwLDEsMS0yLDJBMiwyLDAsMCwxLDM1LDUxWm0tNiwwYTIsMiwwLDEsMS0yLDJBMiwyLDAsMCwxLDI5LDUxWm0xMyw5SDIyVjU4SDQyWm0xLTdhMiwyLDAsMSwxLTItMkEyLDIsMCwwLDEsNDMsNTNabS01LTcuMTg4YTIsMiwwLDEsMS0yLDJBMiwyLDAsMCwxLDM4LDQ1LjgxMlptLTYsMGEyLDIsMCwxLDEtMiwyQTIsMiwwLDAsMSwzMiw0NS44MTJabS02LDBhMiwyLDAsMSwxLTIsMkEyLDIsMCwwLDEsMjYsNDUuODEyWk0yMyw1MWEyLDIsMCwxLDEtMiwyQTIsMiwwLDAsMSwyMyw1MVptNy0zOGg0djhIMzBabTQtOXY3SDMwVjRabS02LDkuMDYxVjIxSDIwLjA1NUE5LjAxNCw5LjAxNCwwLDAsMSwyOCwxMy4wNjFaTTQ2LDI1SDE4VjIzSDQ2Wm0tMi4wNTUtNEgzNlYxMy4wNjFBOS4wMTQsOS4wMTQsMCwwLDEsNDMuOTQ1LDIxWiIgZGF0YS1vcmlnaW5hbD0iIzAwMDAwMCIgY2xhc3M9ImFjdGl2ZS1wYXRoIiBkYXRhLW9sZF9jb2xvcj0iIzAwMDAwMCIgc3R5bGU9ImZpbGw6I0Y0QUYxNCI+PC9wYXRoPjxjaXJjbGUgY3g9IjQ1IiBjeT0iNDAiIHI9IjEiIGRhdGEtb3JpZ2luYWw9IiMwMDAwMDAiIGNsYXNzPSJhY3RpdmUtcGF0aCIgZGF0YS1vbGRfY29sb3I9IiMwMDAwMDAiIHN0eWxlPSJmaWxsOiNGNEFGMTQiPjwvY2lyY2xlPjwvZz4gPC9zdmc+" /> 
-      <span style="color: #FAC564;">Harley Milk Tea</span></h2>
-	  <!-- <h2 class="mb-4">Welcome to <span class="flaticon-pizza">Pizza</span> A Restaurant</h2> -->
-	</div>
-	<div>
-			  <p>On her way she met a copy. The copy warned the Little Blind Text, that where it came from it would have been rewritten a thousand times and everything that was left from its origin would be the word "and" and the Little Blind Text should turn around and return to its own, safe country. But nothing the copy said could convince her and so it didn’t take long until a few insidious Copy Writers ambushed her, made her drunk with Longe and Parole and dragged her into their agency, where they abused her for their.</p>
-		  </div>
-	</div>
-</section>
-<div id='menu'>
-  <app-menu></app-menu>
+  <section class="ftco-about d-md-flex">
+    <div class="one-half img" style="background-image: url(../../assets/images/about.jpg);"></div>
+    <div class="one-half ftco-animate">
+      <div class="heading-section ftco-animate ">
+        <h2 class="mb-4">Welcome to <img style="position: inherit;
+      top: -6px;" width="40"
+            src="data:image/svg+xml;base64,
+      PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGlkPSJvdXRsaW5lIiB2aWV3Qm94PSIwIDAgNjQgNjQiIHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIiBjbGFzcz0iIj48Zz48cGF0aCBkPSJNMzUsMkgyOWExLDEsMCwwLDAtMSwxdjguMDUxQTExLjAxLDExLjAxLDAsMCwwLDE4LjA1MSwyMUgxN2ExLDEsMCwwLDAtMSwxdjRhMSwxLDAsMCwwLDEsMWgxVjQ1YTM3LjgwOCwzNy44MDgsMCwwLDAsMiwxMi4xNTNWNjFhMSwxLDAsMCwwLDEsMUg0M2ExLDEsMCwwLDAsMS0xVjU3LjE1M0EzNy44MDgsMzcuODA4LDAsMCwwLDQ2LDQ1VjQ0YTEsMSwwLDAsMC0yLDB2MWEzNS4zMywzNS4zMywwLDAsMS0uMzU2LDUuMDIyLDMuOTc5LDMuOTc5LDAsMCwwLTEuODY4LS45NDRBMy45NjIsMy45NjIsMCwwLDAsNDIsNDcuODEyLDMuOTgzLDMuOTgzLDAsMCwwLDM1LDQ1LjJhMy45NDUsMy45NDUsMCwwLDAtNiwwLDMuOTcsMy45NywwLDAsMC02Ljc3NSwzLjg4MywzLjk2OSwzLjk2OSwwLDAsMC0xLjg2OS45NDRBMzUuMzMsMzUuMzMsMCwwLDEsMjAsNDVWMjdINDR2OWExLDEsMCwwLDAsMiwwVjI3aDFhMSwxLDAsMCwwLDEtMVYyMmExLDEsMCwwLDAtMS0xSDQ1Ljk0OUExMS4wMSwxMS4wMSwwLDAsMCwzNiwxMS4wNTFWM0ExLDEsMCwwLDAsMzUsMlpNMjYsNTUuNjE4YTQuMDUxLDQuMDUxLDAsMCwwLC4zODIuMzgyaC0uNzY0QTQuMDUxLDQuMDUxLDAsMCwwLDI2LDU1LjYxOFpNMzguMzgyLDU2aC0uNzY0QTQuMDUxLDQuMDUxLDAsMCwwLDM4LDU1LjYxOCw0LjA1MSw0LjA1MSwwLDAsMCwzOC4zODIsNTZaTTMyLDU1LjYxOGE0LjA1MSw0LjA1MSwwLDAsMCwuMzgyLjM4MmgtLjc2NEE0LjA1MSw0LjA1MSwwLDAsMCwzMiw1NS42MThaTTM1LDUxYTIsMiwwLDEsMS0yLDJBMiwyLDAsMCwxLDM1LDUxWm0tNiwwYTIsMiwwLDEsMS0yLDJBMiwyLDAsMCwxLDI5LDUxWm0xMyw5SDIyVjU4SDQyWm0xLTdhMiwyLDAsMSwxLTItMkEyLDIsMCwwLDEsNDMsNTNabS01LTcuMTg4YTIsMiwwLDEsMS0yLDJBMiwyLDAsMCwxLDM4LDQ1LjgxMlptLTYsMGEyLDIsMCwxLDEtMiwyQTIsMiwwLDAsMSwzMiw0NS44MTJabS02LDBhMiwyLDAsMSwxLTIsMkEyLDIsMCwwLDEsMjYsNDUuODEyWk0yMyw1MWEyLDIsMCwxLDEtMiwyQTIsMiwwLDAsMSwyMyw1MVptNy0zOGg0djhIMzBabTQtOXY3SDMwVjRabS02LDkuMDYxVjIxSDIwLjA1NUE5LjAxNCw5LjAxNCwwLDAsMSwyOCwxMy4wNjFaTTQ2LDI1SDE4VjIzSDQ2Wm0tMi4wNTUtNEgzNlYxMy4wNjFBOS4wMTQsOS4wMTQsMCwwLDEsNDMuOTQ1LDIxWiIgZGF0YS1vcmlnaW5hbD0iIzAwMDAwMCIgY2xhc3M9ImFjdGl2ZS1wYXRoIiBkYXRhLW9sZF9jb2xvcj0iIzAwMDAwMCIgc3R5bGU9ImZpbGw6I0Y0QUYxNCI+PC9wYXRoPjxjaXJjbGUgY3g9IjQ1IiBjeT0iNDAiIHI9IjEiIGRhdGEtb3JpZ2luYWw9IiMwMDAwMDAiIGNsYXNzPSJhY3RpdmUtcGF0aCIgZGF0YS1vbGRfY29sb3I9IiMwMDAwMDAiIHN0eWxlPSJmaWxsOiNGNEFGMTQiPjwvY2lyY2xlPjwvZz4gPC9zdmc+" />
+          <span style="color: #FAC564;">Harley Milk Tea</span></h2>
+        <!-- <h2 class="mb-4">Welcome to <span class="flaticon-pizza">Pizza</span> A Restaurant</h2> -->
+      </div>
+      <div>
+        <p>Harley Milk Tea is one of the best milk tea store in Danang city with enthused and friendly staffs.</p>
+      </div>
+    </div>
+  </section>
+  <div style="height:4em; background-color: #fac564"></div>
+  <div id='menu'>
+    <app-menu></app-menu>
+  </div>
+  <div id='about'>
+    <app-about></app-about>
+  </div>
 </div>
-<div id='about'>
-  <app-about></app-about>
-</div>
-
-

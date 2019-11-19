@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { BeverageService } from '../shared/services/beverage.service';
+import { Beverage } from '../shared/classes/beverage';
 declare var $: any;
 @Component({
   selector: 'app-menu',
@@ -18,16 +20,53 @@ export class MenuComponent implements OnInit {
   ];
 
   imgPlaceRight = true;
-  menu = [];
+  menu = {
+    listOfMilkTeas: new Array<Beverage>(),
+    listOfTeas: new Array<Beverage>(),
+    listOfSmoothies: new Array<Beverage>(),
+    listOfCoffees: new Array<Beverage>(),
+  };
 
-  constructor() {  }
+  constructor(private beverageService: BeverageService) {  }
 
   ngOnInit() {
-    this.menu = this.processMenu();
+    this.initBeverages();
   }
   
   ngAfterViewInit() {
     this.contentWayPoint();
+  }
+
+  initBeverages(): void {
+    this.beverageService.getListOfBeverages().subscribe(snapshot => {
+      this.menu.listOfMilkTeas = [];
+      this.menu.listOfCoffees = [];
+      this.menu.listOfTeas = [];
+      this.menu.listOfSmoothies = [];
+      snapshot.forEach(beverage => {
+        let temp = new Beverage();
+        const code = beverage.payload.doc.id;
+        const data = beverage.payload.doc.data();
+        temp.code = code;
+        temp.setBeverageDetail(data);
+        switch (temp.type) {
+          case 'Smoothie':
+            this.menu.listOfSmoothies.push(temp);
+            break;
+          case 'Fruit Tea':
+            this.menu.listOfTeas.push(temp);
+            break;
+          case 'Milk Tea':
+            this.menu.listOfMilkTeas.push(temp);
+            break;
+          case 'Coffee':
+            this.menu.listOfCoffees.push(temp);
+            break;
+          default:
+            break;
+        }
+      })
+    })
   }
 
   processMenu(){

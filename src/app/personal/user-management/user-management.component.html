@@ -1,52 +1,52 @@
-<div class="12 col-sm-12 col-md-12 col-lg-12">
-    <h2 class="title">
-        User Management
-        <button type="button" class="btn btn-success" style="float:right" (click)="showUserDetailModal(CrudType.CREATE)"><i class="fas fa-user-plus"></i> Add User</button>
-    </h2>
-    
-    <div class="12 col-sm-12 col-md-12 col-lg-12">
-        <table class="table table-hover" style="margin-left: 10px;">
-            <thead>
-              <tr>
-                <th *ngFor="let header of headers">{{ header }}</th>
-              </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let user of users">
-                  <td *ngFor="let title of user.content">
-                    <span class="label" 
-                      *ngIf="title.status" 
-                      [ngClass]="{'label-info': title.title == 'Active', 'label-danger': title.title =='Blocked'}">
-                      {{ title.title }}
-                    </span>
-                    <div *ngIf="!title.status" >{{ title.title}}</div>
-                  </td>
-                    <td>        
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" (click)="selectUser(user, i)">
-                            Action
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a (click)="showUserDetailModal(CrudType.VIEW)">View Detail</a></li>
-                                <li><a (click)="showUserDetailModal(CrudType.UPDATE)">Edit</a></li>
-                                <li><a *ngIf="user.status && user.status == 'Active'" (click)="showUserDetailModal(CrudType.BLOCK)">Block</a></li>
-                                <li><a *ngIf="user.status && user.status == 'Blocked'" (click)="showUserDetailModal(CrudType.ACTIVE)">Active</a></li>
-                            </ul>
-                        </div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+  <h2 class="title">
+    User Management
+    <button type="button" class="btn btn-success" style="float:right" (click)="showUserDetailModal(CrudType.CREATE)"><i
+        class="fas fa-user-plus"></i> Add User</button>
+  </h2>
+
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 table-responsive">
+    <table class="table table-hover" style="margin-left: 10px;">
+      <thead>
+        <tr>
+          <th *ngFor="let header of headers">{{ header }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users">
+          <td *ngFor="let title of user.content">
+            <span class="label" *ngIf="title.status"
+              [ngClass]="{'label-info': title.title == 'Active', 'label-danger': title.title =='Blocked'}">
+              {{ title.title }}
+            </span>
+            <div *ngIf="!title.status">{{ title.title}}</div>
+          </td>
+          <td>
+            <div class="btn-group">
+              <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown"
+                (click)="selectUser(user, i)">
+                Action
+              </button>
+              <ul class="dropdown-menu">
+                <li><a (click)="showUserDetailModal(CrudType.VIEW)">View Detail</a></li>
+                <li><a (click)="showUserDetailModal(CrudType.UPDATE)">Edit</a></li>
+                <li><a *ngIf="user.status && user.status == 'Active'"
+                    (click)="showUserDetailModal(CrudType.BLOCK)">Block</a></li>
+                <li><a *ngIf="user.status && user.status == 'Blocked'"
+                    (click)="showUserDetailModal(CrudType.ACTIVE)">Active</a></li>
+              </ul>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
 
 <!-- User Detail -->
-<app-user-detail
-  [title]="userDetail.title" 
-  [mode]="userDetail.mode"
-  [selectedUser] = "userDetail.selectedUser"
+<app-user-detail [title]="userDetail.title" [mode]="userDetail.mode" [selectedUser]="userDetail.selectedUser"
   (updateData)="updateUserDetail($event)">
-></app-user-detail>
+  ></app-user-detail>
 <!-- Modal -->
 <!-- <div id="modal-user" class="modal fade" role="dialog">
   <div class="modal-dialog">

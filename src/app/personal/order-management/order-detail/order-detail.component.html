@@ -1,4 +1,5 @@
-<div class="col-sm-12 col-md-12 col-lg-12" [ngClass]="{ view: mode === CrudType.VIEW || orderForm.controls['status'].value !== 'Unhandled'}">
+<div class="col-sm-12 col-md-12 col-lg-12"
+  [ngClass]="{ view: mode === CrudType.VIEW || orderForm.controls['status'].value !== 'Unhandled'}">
   <h2 class="title">Order Information</h2>
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
     <div class="row bs-wizard" style="border-bottom:0;">
@@ -11,8 +12,7 @@
         <!-- <div class="bs-wizard-info text-center">Lorem ipsum dolor sit amet.</div> -->
       </div>
 
-      <div class="col-xs-3 bs-wizard-step" 
-        [ngClass]="{'active': orderForm.controls.status.value === 'Handling',
+      <div class="col-xs-3 bs-wizard-step" [ngClass]="{'active': orderForm.controls.status.value === 'Handling',
         'complete': orderForm.controls['status'].value !== 'Unhandled',
         'disabled': orderForm.controls['status'].value === 'Unhandled' }">
         <!-- complete -->
@@ -24,8 +24,8 @@
         <!-- <div class="bs-wizard-info text-center">Nam mollis tristique erat vel tristique. Aliquam erat volutpat. Mauris et vestibulum nisi. Duis molestie nisl sed scelerisque vestibulum. Nam placerat tristique placerat</div> -->
       </div>
 
-      <div class="col-xs-3 bs-wizard-step" 
-          [ngClass]="{'active': orderForm.controls.status.value === 'Delivering',
+      <div class="col-xs-3 bs-wizard-step"
+        [ngClass]="{'active': orderForm.controls.status.value === 'Delivering',
                     'complete': orderForm.controls['status'].value === 'Paid',
                       'disabled': orderForm.controls['status'].value === 'Unhandled' || orderForm.controls['status'].value === 'Handling'}">
         <!-- complete -->
@@ -37,7 +37,8 @@
         <!-- <div class="bs-wizard-info text-center">Integer semper dolor ac auctor rutrum. Duis porta ipsum vitae mi bibendum bibendum</div> -->
       </div>
 
-      <div class="col-xs-3 bs-wizard-step disabled">
+      <div class="col-xs-3 bs-wizard-step" [ngClass]="{'active': orderForm.controls.status.value === 'Paid',
+        'disabled': orderForm.controls['status'].value !== 'Paid' }">
         <!-- active -->
         <div class="text-center bs-wizard-stepnum">Payment</div>
         <div class="progress">
@@ -79,7 +80,8 @@
         <div class="form-group">
           <label class="control-label col-sm-4">Customer<span class="required">*</span></label>
           <div class="col-sm-8">
-            <select class="form-control" formControlName="customerId" (change)="onSelectOption($event, OptionType.CUSTOMER)">
+            <select class="form-control" formControlName="customerId"
+              (change)="onSelectOption($event, OptionType.CUSTOMER)">
               <option value="" selected disabled>Select Customer</option>
               <option *ngFor="let customer of customers" [value]="customer.uid">{{
                 customer.display_name
@@ -88,11 +90,12 @@
           </div>
         </div>
       </div>
-      <div class="col-sm-6 col-md-6 col-lg-6" >
+      <div class="col-sm-6 col-md-6 col-lg-6">
         <div class="form-group">
           <label class="control-label col-sm-4">Shipping Address</label>
           <div class="col-sm-8">
-            <select class="form-control" formControlName="addressName" (change)="onSelectOption($event, OptionType.SHIPPING_ADDRESS)">
+            <select class="form-control" formControlName="addressName"
+              (change)="onSelectOption($event, OptionType.SHIPPING_ADDRESS)">
               <option value="" selected disabled>Select Shipping Address</option>
               <option *ngFor="let address of shippingAddresses" [value]="address.addressName">{{
                   address.addressName
@@ -121,7 +124,7 @@
         </div>
       </div>
 
-      <div class="col-sm-6 col-md-6 col-lg-6 view" >
+      <div class="col-sm-6 col-md-6 col-lg-6 view">
         <div class="form-group">
           <label class="control-label col-sm-4">Status</label>
           <div class="col-sm-8">
@@ -136,10 +139,12 @@
 
   <div class="col-sm-12 col-md-12 col-lg-12">
     <!-- Form -->
-    <form class="form-inline" [formGroup]="beverageInputForm" *ngIf="mode !== CrudType.VIEW && orderForm.controls.status.value === 'Unhandled'">
+    <form class="form-inline" [formGroup]="beverageInputForm"
+      *ngIf="mode !== CrudType.VIEW && orderForm.controls.status.value === 'Unhandled'">
       <div class="form-group margin-l-10">
         <label>Beverage<span class="required">*</span>&nbsp;</label>
-        <select class="form-control" formControlName="beverageCode" (change)="onSelectOption($event, OptionType.BEVERAGE)">
+        <select class="form-control" formControlName="beverageCode"
+          (change)="onSelectOption($event, OptionType.BEVERAGE)">
           <option value="" selected disabled>Select Beverage</option>
           <option *ngFor="let beverage of beverages" [value]="beverage.code">{{
             beverage.name
@@ -191,11 +196,8 @@
         </tbody>
       </table>
     </div>
-    
-    <div
-      *ngIf="orderLines.length == 0"
-      class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
-    >
+
+    <div *ngIf="orderLines.length == 0" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
       <div class="no-data">No Data Available</div>
     </div>
   </div>
@@ -205,16 +207,21 @@
   <button type="button" class="btn btn-default margin-l-10" style="margin-left: 30px" (click)="back()">
     <i class="fas fa-caret-left"></i> Back
   </button>
-  <button *ngIf="mode !== CrudType.VIEW && orderForm.controls['status'].value === 'Unhandled'" type="button" class="btn btn-success margin-l-10" (click)="save()">
+  <button *ngIf="mode !== CrudType.VIEW && orderForm.controls['status'].value === 'Unhandled'" type="button"
+    class="btn btn-success margin-l-10" (click)="save()">
     Save
   </button>
-  <button *ngIf="mode === CrudType.VIEW && orderForm.controls['status'].value === 'Unhandled' " type="button" class="btn btn-info margin-l-10" (click)="handleOrder()">
+  <button *ngIf="mode === CrudType.VIEW && orderForm.controls['status'].value === 'Unhandled' " type="button"
+    class="btn btn-info margin-l-10" (click)="handleOrder()">
     Handle
   </button>
-  <button *ngIf="orderForm.controls['status'].value === 'Handling' && orderForm.controls.orderType.value === 'Remote'" type="button" class="btn btn-info margin-l-10" (click)="deliverOrder()">
+  <button *ngIf="orderForm.controls['status'].value === 'Handling' && orderForm.controls.orderType.value === 'Remote'"
+    type="button" class="btn btn-info margin-l-10" (click)="deliverOrder()">
     Deliver <i class="fa fa-truck"></i>
-  </button> 
-  <button *ngIf="orderForm.controls['status'].value === 'Handling' || orderForm.controls['status'].value === 'Delivering'" type="button" class="btn btn-info margin-l-10" (click)="deliverOrder()">
+  </button>
+  <button
+    *ngIf="orderForm.controls['status'].value === 'Handling' || orderForm.controls['status'].value === 'Delivering'"
+    type="button" class="btn btn-info margin-l-10" (click)="doneOrder()">
     <i class="fa fa-check"></i> Done
-  </button> 
+  </button>
 </div>

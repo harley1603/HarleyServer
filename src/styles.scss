@@ -22,9 +22,6 @@
     src: url('assets/fonts/poppins/Poppins-SemiBold.ttf'); 
   }
 
-// body {
-//   font-family: Poppins-Regular;
-// }
 .black{
     background-color: black;
     color: #ffffff;
@@ -48,6 +45,14 @@
 
 body {
   font-family: Poppins-Regular;
+  // font-family: "Poppins", Arial, sans-serif;
+  background: #FFF;
+  font-size: 15px;
+  line-height: 1.8;
+  font-weight: 300;
+  color: #333333;
+  // background: url(assets/template/images/bg_4.jpg) no-repeat fixed;
+  background-size: cover;
 }
 
 .no-available {
@@ -281,4 +286,9 @@ button.toast-close-button {
   font-weight: bold;
   font-size: 20px;
   text-align: center;
+}
+
+.btn-add {
+  float: right;
+  // margin: 10px 0;
 }
