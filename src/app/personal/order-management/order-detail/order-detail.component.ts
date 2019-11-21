@@ -199,7 +199,7 @@ export class OrderDetailComponent implements OnInit {
   }
 
   bindShippingAddresses(customerId: string) {
-    const customer = this.customers.find(customer => customer.uid === customerId);
+    const customer = this.customers ? this.customers.find(customer => customer.uid === customerId) : new User();
     this.shippingAddresses = [];
     this.shippingAddresses = customer ? customer.shipping_address : [];
   }
@@ -305,6 +305,17 @@ export class OrderDetailComponent implements OnInit {
     const user = this.user;
     this.orderService.deliverOrder(orderNo, user).then(() => {
       this.toastr.info('Delivering order...');
+    }).catch(err => {
+      this.toastr.error('Error has occurred. Please check again');
+      console.error(err);
+    })
+  }
+
+  doneOrder(): void {
+    const orderNo = this.getValueFromOrderForm('orderNo');
+    const user = this.user;
+    this.orderService.doneOrder(orderNo, user).then(() => {
+      this.toastr.success('Completed order.', "Order Management");
     }).catch(err => {
       this.toastr.error('Error has occurred. Please check again');
       console.error(err);

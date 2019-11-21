@@ -3506,3 +3506,33 @@ Copyright (c) 2015 Daniel Eden
   -webkit-animation-name: slideOutUp;
   animation-name: slideOutUp;
 }
+
+.btn.btn-white {
+  background: #fff;
+  border: 1px solid #fff;
+  color: #000;
+}
+.btn.btn-white:hover {
+  border: 1px solid #000;
+  background: #000;
+  color: #fff;
+}
+.btn.btn-white.btn-outline-white {
+  border-color: rgba(255, 255, 255, 0.8);
+  background: none;
+  border-width: 1px;
+  color: #fff;
+}
+.btn.btn-white.btn-outline-white:hover,
+.btn.btn-white.btn-outline-white:focus,
+.btn.btn-white.btn-outline-white:active {
+  background: #fac564;
+  border-color: #fac564;
+  color: #000;
+}
+
+@media (max-width: 991.98px) {
+  .ftco-menu .f-menu-img {
+    height: 300px;
+  }
+}

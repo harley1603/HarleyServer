@@ -3,6 +3,7 @@ import { CrudType } from 'src/app/shared/enums/crud-type.enum';
 import { Router } from '@angular/router';
 import { BeverageService } from 'src/app/shared/services/beverage.service';
 import { Beverage } from 'src/app/shared/classes/beverage';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-beverage-management',
@@ -14,7 +15,7 @@ export class BeverageManagementComponent implements OnInit {
   title = "View";
   mode = CrudType.VIEW;
   listOfBeverages: Beverage[];
-  constructor(private router: Router, private beverageService: BeverageService) { }
+  constructor(private router: Router, private beverageService: BeverageService, private spinner: NgxSpinnerService) { }
 
   ngOnInit() {
     this.initBeverages();
@@ -45,6 +46,7 @@ export class BeverageManagementComponent implements OnInit {
   }
 
   initBeverages(): void {
+    this.spinner.show();
     this.beverageService.getListOfBeverages().subscribe(snapshot => {
       this.listOfBeverages = [];
       snapshot.forEach(beverage => {
@@ -54,7 +56,8 @@ export class BeverageManagementComponent implements OnInit {
         temp.code = code;
         temp.setBeverageDetail(data);
         this.listOfBeverages.push(temp);
-      })
+      });
+      this.spinner.hide();
     })
   }
 

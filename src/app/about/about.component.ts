@@ -9,7 +9,12 @@ export class AboutCompoment implements OnInit {
   isShown: boolean = false;
   displayButton: string = 'Show chat';
 
-
+  listOfService = [
+    "Milk Tea",
+    "Juice Tea",
+    "Smoothie",
+    "Coffee"
+  ]
   imgPlaceRight = true;
 
   constructor() {  }

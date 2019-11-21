@@ -1,10 +1,10 @@
-<div class="12 col-sm-12 col-md-12 col-lg-12">
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
     <h2 class="title">
         Order Management
         <button type="button" class="btn btn-success" style="float:right" (click)="navigateNewOrder()"><i class="fas fa-user-plus"></i> Add Order</button>
     </h2>
     
-    <div class="12 col-sm-12 col-md-12 col-lg-12">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 table-responsive">
         <table class="table table-hover" style="margin-left: 10px;">
             <thead>
               <tr>
@@ -20,7 +20,7 @@
                     <td><span class="label" 
                             [ngClass]="{'label-default': order.status == 'Unhandled',
                                 'label-primary': order.status == 'Handling' || order.status == 'Delivering',
-                                'label-success': order.status == 'Completed',    
+                                'label-success': order.status == 'Paid',    
                                 'label-danger': order.status =='Canceled'}">
                       {{ order.status }}
                     </span>
@@ -34,8 +34,8 @@
                           </button>
                           <ul class="dropdown-menu">
                               <li><a (click)="navigateOrder('view',order.orderNo)">View</a></li>
-                              <li><a (click)="navigateOrder('update',order.orderNo)">Edit</a></li>
-                              <li *ngIf="order.status !== 'Cancel'"><a (click)="deleteBeverage()">Cancel</a></li>
+                              <li *ngIf="order.status == 'Unhandled'"><a (click)="navigateOrder('update',order.orderNo)">Edit</a></li>
+                              <li *ngIf="order.status !== 'Cancel' && order.status !== 'Paid' "><a (click)="deleteBeverage()">Cancel</a></li>
                           </ul>
                       </div>
                   </td>

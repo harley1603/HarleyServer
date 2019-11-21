@@ -57,7 +57,6 @@ export class LoginComponent implements OnInit {
       this.loginFail = true;
     }
     let { email, password } = this.loginForm.value;
-    // this.showLoading = true;
     this.spinner.show();
     this.loginService.login(email, password).then(result => {
       this.spinner.hide();
