@@ -105,7 +105,7 @@ export class OrderDetailComponent implements OnInit {
       // const value = order;
       const id = order.payload.id;
       const value = order.payload.data() as Order;
-      let customerId = value.customerId; 
+      let customerId = value.customerId;
       this.orderForm.patchValue({
         orderNo: id,
         orderType: value.orderType,
@@ -137,7 +137,7 @@ export class OrderDetailComponent implements OnInit {
     })
   }
 
-  initBeverages(){
+  initBeverages() {
     this.beverageService.getListOfBeverages().subscribe(beverages => {
       this.beverages = [];
       beverages.forEach(beverage => {
@@ -148,7 +148,7 @@ export class OrderDetailComponent implements OnInit {
         tempBeverage.setBeverageDetail(data);
         this.beverages.push(tempBeverage);
       });
-      this.beverages.sort((a,b) => a.name > b.name ? 1 : -1)
+      this.beverages.sort((a, b) => a.name > b.name ? 1 : -1)
     })
   }
 
@@ -218,7 +218,7 @@ export class OrderDetailComponent implements OnInit {
 
   addOrderLine(): void {
     if (this.beverageInputForm.invalid) {
-      this.errorForm  = true;
+      this.errorForm = true;
       return;
     }
 
@@ -235,6 +235,7 @@ export class OrderDetailComponent implements OnInit {
     beverageOrderLine.price = beverageSize.price;
 
     this.orderLines.push(beverageOrderLine);
+    this.beverageInputForm.reset();
   }
 
   save(): void {
@@ -242,8 +243,14 @@ export class OrderDetailComponent implements OnInit {
     let data = this.getDataUpload();
     switch (this.mode) {
       case CrudType.CREATE:
-        data.orderNo = this.utilsService.generateOrderNo();
+        if (data.orderType === 'Remote') {
+          data.orderNo = this.utilsService.generateRemoteOrderNo();
+        }
+        else {
+          data.orderNo = this.utilsService.generateDirectOrderNo();
+        }
         this.orderService.updateOrder(data).then(result => {
+          debugger
           this.spinner.hide();
           this.toastr.success('Create Order successfully');
           this.location.back();
@@ -271,17 +278,17 @@ export class OrderDetailComponent implements OnInit {
   getDataUpload(): Order {
     let data = new Order();
     let orderType = this.getValueFromOrderForm('orderType');
+    data.orderNo = this.getValueFromOrderForm('orderNo');
+    data.orderType = orderType;
+    data.status = 'Unhandled';
+    data.createdBy = this.user.display_name;
+    data.createdDate = this.timeService.getCurrentDateTime();
+    let customerId = this.getValueFromOrderForm('customerId');
+    data.customerId = customerId;
+    data.customer = this.customers.find(customer => customer.uid === customerId);
+    data.grandTotal = this.calculationService.calculateGrandTotal(this.orderLines);
+    data.orderLines = this.orderLines;
     if (orderType === 'Remote') {
-      data.orderNo = this.getValueFromOrderForm('orderNo');
-      data.orderType = orderType;
-      data.status = 'Unhandled';
-      data.createdBy = this.user.display_name;
-      data.createdDate = this.timeService.getCurrentDateTime();
-      let customerId = this.getValueFromOrderForm('customerId');
-      data.customerId = customerId;
-      data.customer = this.customers.find(customer => customer.uid === customerId);
-      data.grandTotal = this.calculationService.calculateGrandTotal(this.orderLines);
-      data.orderLines = this.orderLines;
       data.shipperName = 'Nghiên';
       const addressName = this.getValueFromOrderForm('addressName');
       data.shippingAddress = this.getShippingAddress(addressName);

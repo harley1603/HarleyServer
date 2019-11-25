@@ -292,3 +292,7 @@ button.toast-close-button {
   float: right;
   // margin: 10px 0;
 }
+
+.no-resize textarea {
+  resize: none;
+}
