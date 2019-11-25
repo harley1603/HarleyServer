@@ -75,7 +75,14 @@
           </div>
         </div>
       </div>
-
+      <div class="col-sm-6 col-md-6 col-lg-6 view">
+        <div class="form-group">
+          <label class="control-label col-sm-4">Status</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" placeholder="Status" formControlName="status" />
+          </div>
+        </div>
+      </div>
       <div class="col-sm-6 col-md-6 col-lg-6">
         <div class="form-group">
           <label class="control-label col-sm-4">Customer<span class="required">*</span></label>
@@ -90,7 +97,7 @@
           </div>
         </div>
       </div>
-      <div class="col-sm-6 col-md-6 col-lg-6">
+      <div class="col-sm-6 col-md-6 col-lg-6" *ngIf="orderForm.controls['orderType'].value === 'Remote'">
         <div class="form-group">
           <label class="control-label col-sm-4">Shipping Address</label>
           <div class="col-sm-8">
@@ -104,31 +111,20 @@
           </div>
         </div>
       </div>
-
-      <div class="col-sm-6 col-md-6 col-lg-6" *ngIf="orderForm.controls.fullShippingAddress.value">
+      <div class="col-sm-6 col-md-6 col-lg-6" *ngIf="orderForm.controls['orderType'].value === 'Remote' && orderForm.controls.fullShippingAddress.value">
         <div class="form-group">
           <label class="control-label col-sm-4">Full Shipping Address</label>
           <div class="col-sm-8">
-            <textarea class="form-control" rows="5" formControlName="fullShippingAddress"></textarea>
+            <textarea class="form-control no-resize" rows="5" formControlName="fullShippingAddress" readonly></textarea>
             <!-- <label style="margin-bottom: 29px"><b>{{ orderForm.controls.fullShippingAddress.value }}</b></label> -->
           </div>
         </div>
       </div>
-
       <div class="col-sm-6 col-md-6 col-lg-6" *ngIf="mode !== CrudType.CREATE && orderForm.controls['handledBy'].value">
         <div class="form-group">
           <label class="control-label col-sm-4">Handled By</label>
           <div class="col-sm-8">
             <input type="text" class="form-control" readonly placeholder="Handler" formControlName="handledBy" />
-          </div>
-        </div>
-      </div>
-
-      <div class="col-sm-6 col-md-6 col-lg-6 view">
-        <div class="form-group">
-          <label class="control-label col-sm-4">Status</label>
-          <div class="col-sm-8">
-            <input type="text" class="form-control" placeholder="Status" formControlName="status" />
           </div>
         </div>
       </div>
