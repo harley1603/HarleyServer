@@ -5,11 +5,11 @@ import { FormGroup, FormBuilder, ReactiveFormsModule, Validators  } from '@angul
 import { DocumentSnapshot } from '@angular/fire/firestore';
 import { NgxSpinnerService } from 'ngx-spinner';
 import * as moment from 'moment';
-import { LoginService } from 'src/app/login/login.service';
 import { CrudType } from 'src/app/shared/enums/crud-type.enum';
 import { Address } from 'src/app/shared/classes/address';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { AuthService } from 'src/app/shared/services/auth.service';
 declare var $: any;
 
 @Component({
@@ -38,7 +38,7 @@ export class UserProfileComponent implements OnInit {
   }
   constructor(
     private user: User,
-    private loginService: LoginService, 
+    private authService: AuthService, 
     private userService: UserService,
     private formBuilder: FormBuilder,
     private spinner: NgxSpinnerService,
@@ -171,7 +171,7 @@ export class UserProfileComponent implements OnInit {
       this.errorChangePassword = true;
       return;
     }
-    this.loginService.changePassword(this.user.email, oldPassword, newPassword).then( () => {
+    this.authService.changePassword(this.user.email, oldPassword, newPassword).then( () => {
       this.clearPasswordForm();
       this.successChangePassword = true;
     }).catch(err => {

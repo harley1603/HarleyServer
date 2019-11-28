@@ -6,10 +6,10 @@ import { User } from './shared/classes/user';
   styleUrls: ["./app.component.scss"]
 })
 export class AppComponent {
-  constructor(private user: User) {
-    let userStorage = JSON.parse(localStorage.getItem('user'));
-    if (userStorage){
-      this.user.setUser(userStorage);
-    }
+  constructor() {
+    // let userStorage = JSON.parse(localStorage.getItem('user'));
+    // if (userStorage){
+    //   this.user.setUser(userStorage);
+    // }
   }
 }

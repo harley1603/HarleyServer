@@ -1,16 +1,16 @@
 <section class="ftco-section">
-	<div class="container">
-		<div class="row justify-content-center mb-5 pb-3">
-			<div class="col-md-7 heading-section ftco-animate text-center">
-				<h2 class="mb-4">Favourite Beverages</h2>
-				<p class="flip"><span class="deg1"></span><span class="deg2"></span><span class="deg3"></span></p>
-				<p class="mt-5">You deserve good things, like bubble tea.</p>
-			</div>
-		</div>
-	</div>
-	<div class="container-wrap">
-		<div class="row no-gutters d-flex">
-			<!-- <div class="col-lg-4 d-flex ftco-animate" *ngFor="let item of menu; let i = index; let isRight = true">
+  <div class="container">
+    <div class="row justify-content-center mb-5 pb-3">
+      <div class="col-md-7 heading-section ftco-animate text-center">
+        <h2 class="mb-4">Favourite Beverages</h2>
+        <p class="flip"><span class="deg1"></span><span class="deg2"></span><span class="deg3"></span></p>
+        <p class="mt-5">You deserve good things, like bubble tea.</p>
+      </div>
+    </div>
+  </div>
+  <div class="container-wrap">
+    <div class="row no-gutters d-flex">
+      <!-- <div class="col-lg-4 d-flex ftco-animate" *ngFor="let item of menu; let i = index; let isRight = true">
 				<div class="services-wrap d-flex">
 
 					<a *ngIf="item.isRight === true " href="#" class="img"
@@ -26,120 +26,127 @@
 				</div>
 			</div> -->
 
-		</div>
-	</div>
+    </div>
+  </div>
 
-	<div class="container">
-		<div class="row justify-content-center mb-5 pb-3 mt-5 pt-5">
-			<div class="col-md-7 heading-section text-center ftco-animate">
-				<h2 class="mb-4">Our Menu Pricing</h2>
-				<p class="flip"><span class="deg1"></span><span class="deg2"></span><span class="deg3"></span></p>
-				<p class="mt-5">"You can't buy happiness, but you can buy tea and that's kind of the same thing." </p>
-			</div>
-		</div>
-		<div class="row">
-			<section class="ftco-menu">
-				<div class="container-fluid">
-					<div class="row d-md-flex">
-						<!-- <div class="col-lg-4 ftco-animate img f-menu-img mb-5 mb-md-0" style="background-image: url(../../assets/images/menu/about.jpg);">
+  <div class="container">
+    <div class="row justify-content-center mb-5 pb-3 mt-5 pt-5">
+      <div class="col-md-7 heading-section text-center ftco-animate">
+        <h2 class="mb-4">Our Menu Pricing</h2>
+        <p class="flip"><span class="deg1"></span><span class="deg2"></span><span class="deg3"></span></p>
+        <p class="mt-5">"You can't buy happiness, but you can buy tea and that's kind of the same thing." </p>
+      </div>
+    </div>
+    <div class="row">
+      <section class="ftco-menu">
+        <div class="container-fluid">
+          <div class="row d-md-flex">
+            <!-- <div class="col-lg-4 ftco-animate img f-menu-img mb-5 mb-md-0" style="background-image: url(../../assets/images/menu/about.jpg);">
 										</div> -->
-						<div class="col-lg-12 ftco-animate p-md-5">
-							<div class="row">
-								<div class="col-md-12 nav-link-wrap mb-5">
-									<div style="justify-content: center;" class="nav ftco-animate nav-pills" id="v-pills-tab"
-										role="tablist" aria-orientation="vertical">
-										<a class="nav-link active" data-toggle="pill" href="#v-pills-1" role="tab" aria-controls="v-pills-1"
-											aria-selected="true">Milk Tea</a>
+            <div class="col-lg-12 ftco-animate p-md-5">
+              <div class="row">
+                <div class="col-md-12 nav-link-wrap mb-5">
+                  <div style="justify-content: center;" class="nav ftco-animate nav-pills" id="v-pills-tab"
+                    role="tablist" aria-orientation="vertical">
+                    <a class="nav-link " [ngClass]="{'active': menuAt === Menu.MILK_TEA}" data-toggle="pill"
+                      href="#v-pills-1" role="tab" aria-controls="v-pills-1" aria-selected="true"
+                      (click)="menuAt = Menu.MILK_TEA;">Milk Tea</a>
 
-										<a class="nav-link" data-toggle="pill" href="#v-pills-2" role="tab" aria-controls="v-pills-2"
-											aria-selected="false">Tea</a>
+                    <a class="nav-link" [ngClass]="{'active': menuAt === Menu.TEA}" data-toggle="pill" href="#v-pills-2"
+                      role="tab" aria-controls="v-pills-2" aria-selected="false" (click)="menuAt = Menu.TEA;">Tea</a>
 
-										<!-- <a class="nav-link" data-toggle="pill" href="#v-pills-3" role="tab" aria-controls="v-pills-3"
-											aria-selected="false">Smoothie</a> -->
+                    <!-- <a class="nav-link"
+                      [ngClass]="{'active': menuAt === Menu.SMOOTHIE}"
+                      data-toggle="pill" href="#v-pills-3" role="tab" aria-controls="v-pills-3"
+											aria-selected="false"  (click)="menuAt = Menu.SMOOTHIE;">Smoothie</a> -->
 
-										<a class="nav-link" data-toggle="pill" href="#v-pills-4" role="tab" aria-controls="v-pills-4"
-											aria-selected="false">Coffee</a>
-									</div>
-								</div>
-								<div class="col-md-12 d-flex align-items-center">
-									<div class="tab-content ftco-animate" id="v-pills-tabContent">
-										<div class="tab-pane fade show active" id="v-pills-1" role="tabpanel"
-											aria-labelledby="v-pills-1-tab">
-											<div class="row">
-												<div *ngFor="let item of menu.listOfMilkTeas" class="col-xs-6 col-sm-6 col-md-3 text-center">
-													<div class="menu-wrap">
-														<a href="#" class="menu-img img mb-4"
-															style="background-image: url(../../assets/images/menu/pizza-1.jpg);"></a>
-														<div class="text">
-															<h4><a href="#">{{ item.name }}</a></h4>
-															<p>{{ item.description }}</p>
-															<p class="price"><span>$2.90</span></p>
-															<p><a href="#" class="btn btn-white btn-outline-white">Add to cart</a></p>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
+                    <a class="nav-link" [ngClass]="{'active': menuAt === Menu.COFFEE}" data-toggle="pill"
+                      href="#v-pills-4" role="tab" aria-controls="v-pills-4" aria-selected="false"
+                      (click)="menuAt = Menu.COFFEE;">Coffee</a>
+                  </div>
+                </div>
+                <div class="col-md-12 d-flex align-items-center">
+                  <div class="tab-content ftco-animate" id="v-pills-tabContent">
+                    <div class="tab-pane fade" [ngClass]="{'show': menuAt === Menu.MILK_TEA}" id="v-pills-1"
+                      role="tabpanel" aria-labelledby="v-pills-1-tab">
+                      <div class="row">
+                        <div *ngFor="let item of menu.listOfMilkTeas" class="col-xs-6 col-sm-6 col-md-3 text-center">
+                          <div class="menu-wrap">
+                            <a href="#" class="menu-img img mb-4"
+                              style="background-image: url(../../assets/images/menu/pizza-1.jpg);"></a>
+                            <div class="text">
+                              <h4><a href="#">{{ item.name }}</a></h4>
+                              <p>{{ item.description }}</p>
+                              <p class="price"><span>$2.90</span></p>
+                              <p><a href="#" class="btn btn-white btn-outline-white">Add to cart</a></p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
 
-										<div class="tab-pane fade" id="v-pills-2" role="tabpanel" aria-labelledby="v-pills-2-tab">
-											<div class="row">
-												<div *ngFor="let item of menu.listOfTeas" class="col-md-3 text-center">
-													<div class="menu-wrap">
-														<a href="#" class="menu-img img mb-4"
-															style="background-image: url(../../assets/images/menu/drink-1.jpg);"></a>
-														<div class="text">
-															<h4><a href="#">{{ item.name }}</a></h4>
-															<p>{{ item.description }}</p>
-															<p class="price"><span>$2.90</span></p>
-															<p><a href="#" class="btn btn-white btn-outline-white">Add to cart</a></p>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
+                    <div class="tab-pane fade" [ngClass]="{'show': menuAt === Menu.TEA}" id="v-pills-2" role="tabpanel"
+                      aria-labelledby="v-pills-2-tab">
+                      <div class="row">
+                        <div *ngFor="let item of menu.listOfTeas" class="col-md-3 text-center">
+                          <div class="menu-wrap">
+                            <a href="#" class="menu-img img mb-4"
+                              style="background-image: url(../../assets/images/menu/drink-1.jpg);"></a>
+                            <div class="text">
+                              <h4><a href="#">{{ item.name }}</a></h4>
+                              <p>{{ item.description }}</p>
+                              <p class="price"><span>$2.90</span></p>
+                              <p><a href="#" class="btn btn-white btn-outline-white">Add to cart</a></p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
 
-										<div class="tab-pane fade" id="v-pills-3" role="tabpanel" aria-labelledby="v-pills-3-tab">
-											<div class="row">
-												<div *ngFor="let item of menu.listOfSmoothies" class="col-md-3 text-center">
-													<div class="menu-wrap">
-														<a href="#" class="menu-img img mb-4"
-															style="background-image: url(../../assets/images/menu/drink-1.jpg);"></a>
-														<div class="text">
-															<h4><a href="#">{{ item.name }}</a></h4>
-															<p>{{ item.description }}</p>
-															<p class="price"><span>$2.90</span></p>
-															<p><a href="#" class="btn btn-white btn-outline-white">Add to cart</a></p>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
+                    <div class="tab-pane fade" [ngClass]="{'show': menuAt === Menu.SMOOTHIE}" id="v-pills-3"
+                      role="tabpanel" aria-labelledby="v-pills-3-tab">
+                      <div class="row">
+                        <div *ngFor="let item of menu.listOfSmoothies" class="col-md-3 text-center">
+                          <div class="menu-wrap">
+                            <a href="#" class="menu-img img mb-4"
+                              style="background-image: url(../../assets/images/menu/drink-1.jpg);"></a>
+                            <div class="text">
+                              <h4><a href="#">{{ item.name }}</a></h4>
+                              <p>{{ item.description }}</p>
+                              <p class="price"><span>$2.90</span></p>
+                              <p><a href="#" class="btn btn-white btn-outline-white">Add to cart</a></p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
 
-										<div class="tab-pane fade" id="v-pills-4" role="tabpanel" aria-labelledby="v-pills-4-tab">
-											<div class="row">
-												<div *ngFor="let item of menu.listOfCoffees" class="col-md-3 text-center">
-													<div class="menu-wrap">
-														<a href="#" class="menu-img img mb-4"
-															style="background-image: url(../../assets/images/menu/drink-1.jpg);"></a>
-														<div class="text">
-															<h4><a href="#">{{ item.name }}</a></h4>
-															<p>{{ item.description }}</p>
-															<p class="price"><span>$2.90</span></p>
-															<p><a href="#" class="btn btn-white btn-outline-white">Add to cart</a></p>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</section>
-		</div>
-		<!-- <div class="row">
+                    <div class="tab-pane fade" [ngClass]="{'show': menuAt === Menu.COFFEE}" id="v-pills-4"
+                      role="tabpanel" aria-labelledby="v-pills-4-tab">
+                      <div class="row">
+                        <div *ngFor="let item of menu.listOfCoffees" class="col-md-3 text-center">
+                          <div class="menu-wrap">
+                            <a href="#" class="menu-img img mb-4"
+                              style="background-image: url(../../assets/images/menu/drink-1.jpg);"></a>
+                            <div class="text">
+                              <h4><a href="#">{{ item.name }}</a></h4>
+                              <p>{{ item.description }}</p>
+                              <p class="price"><span>$2.90</span></p>
+                              <p><a href="#" class="btn btn-white btn-outline-white">Add to cart</a></p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+    <!-- <div class="row">
 			<div class="col-md-6">
 				<div *ngFor="let item of menu; let i = index">
 					<div class="pricing-entry d-flex ftco-animate" *ngIf="i % 2 === 0">
@@ -173,5 +180,5 @@
 				</div>
 			</div>
 		</div> -->
-	</div>
+  </div>
 </section>
