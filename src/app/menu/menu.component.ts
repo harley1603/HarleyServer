@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BeverageService } from '../shared/services/beverage.service';
 import { Beverage } from '../shared/classes/beverage';
+import { Menu } from '../shared/enums/menu.enum';
 declare var $: any;
 @Component({
   selector: 'app-menu',
@@ -8,16 +9,10 @@ declare var $: any;
   styleUrls: ['./menu.component.scss']
 })
 export class MenuComponent implements OnInit {
+  Menu = Menu;
+  menuAt: number;
   isShown: boolean = false;
   displayButton: string = 'Show chat';
-  menuFromServer = [
-    {id: 1, name:'Italian Pizza', price: 2.90},
-    {id: 2, name:'Greek Pizza', price: 2.90},
-    {id: 3, name:'American Pizza', price: 2.90},
-    {id: 4, name:'Flash Pizza', price: 2.90},
-    {id: 5, name:'Tomatoe Pizza', price: 2.90},
-    {id: 6, name:'Margherita', price: 2.90}
-  ];
 
   imgPlaceRight = true;
   menu = {
@@ -27,7 +22,10 @@ export class MenuComponent implements OnInit {
     listOfCoffees: new Array<Beverage>(),
   };
 
-  constructor(private beverageService: BeverageService) {  }
+  constructor(private beverageService: BeverageService) { 
+    // 
+    this.menuAt = Menu.MILK_TEA;
+   }
 
   ngOnInit() {
     this.initBeverages();
@@ -67,20 +65,6 @@ export class MenuComponent implements OnInit {
         }
       })
     })
-  }
-
-  processMenu(){
-    let menu = [];
-    this.menuFromServer.forEach( (element,index) => {
-      if(index<3){
-        element["isRight"] = true;
-      }
-      else if(index<6){
-        element["isRight"] = false;
-      }
-      menu.push(element);
-    });
-    return menu;
   }
 
   changePopup(){
