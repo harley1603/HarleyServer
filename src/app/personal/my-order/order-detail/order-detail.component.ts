@@ -242,7 +242,12 @@ export class MyorderDetailComponent implements OnInit {
     let data = this.getDataUpload();
     switch (this.mode) {
       case CrudType.CREATE:
-        data.orderNo = this.utilsService.generateOrderNo();
+        if (data.orderType === 'Remote') {
+          data.orderNo = this.utilsService.generateRemoteOrderNo();
+        }
+        else {
+          data.orderNo = this.utilsService.generateDirectOrderNo();
+        }
         this.orderService.updateOrder(data).then(result => {
           this.spinner.hide();
           this.toastr.success('Create Order successfully');

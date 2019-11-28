@@ -2,6 +2,7 @@ import { Component, OnInit, SimpleChanges } from '@angular/core';
 import { User } from '../shared/classes/user';
 import { LoginService } from '../login/login.service';
 import { Router } from '@angular/router';
+import { UserService } from '../shared/services/user.service';
 declare var $: any;
 @Component({
   selector: 'app-header',
@@ -10,7 +11,7 @@ declare var $: any;
 })
 export class HeaderComponent implements OnInit {
   currentUrl = '';
-  constructor(private user: User, private loginService: LoginService, private router: Router) {
+  constructor(public user: UserService, private loginService: LoginService, private router: Router) {
   }
 
   ngOnInit() {
@@ -20,11 +21,11 @@ export class HeaderComponent implements OnInit {
   ngOnChanges(changes: SimpleChanges): void {
     //Called before any other lifecycle hook. Use it to inject dependencies, but avoid any serious work here.
     //Add '${implements OnChanges}' to the class.
-    let userStorage = JSON.parse(localStorage.getItem('user'));
-    if (userStorage){
-      this.user.setUser(userStorage);
-      console.log(this.user);
-    }
+    // let userStorage = JSON.parse(localStorage.getItem('user'));
+    // if (userStorage){
+    //   this.user.setUser(userStorage);
+    //   console.log(this.user);
+    // }
   }
   changeBackground(){
     $(".collapse").on('show.bs.collapse', function(){
@@ -50,9 +51,10 @@ export class HeaderComponent implements OnInit {
     let element = document.getElementById(id);
     element.scrollIntoView({behavior: "smooth"});
   }
+
   logout(){
     this.loginService.logout();
-    this.user.setEmpty();
+    // this.user.setEmpty();
   }
 
   navTo(link: string){
@@ -85,5 +87,8 @@ export class HeaderComponent implements OnInit {
       this.router.navigate([link]);
     }
   }
-  
+
+  openLoginModal(): void {
+    $("#login-modal").modal('show');
+  }
 }
