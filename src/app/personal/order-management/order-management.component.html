@@ -14,8 +14,8 @@
             <tbody>
                 <tr *ngFor="let order of orders">
                     <td>{{ order.orderNo }}</td>
-                    <td>Not Available</td>
-                    <td>{{ order.customerId }}</td>
+                    <td>{{ order.orderType}}</td>
+                    <td>{{ order.customer.display_name }}</td>
                     <td>{{ order.grandTotal | currency:'VND ':'code'}}</td>
                     <td><span class="label" 
                             [ngClass]="{'label-default': order.status == 'Unhandled',

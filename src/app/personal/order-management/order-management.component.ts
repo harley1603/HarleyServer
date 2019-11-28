@@ -12,7 +12,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 })
 export class OrderManagementComponent implements OnInit {
   CrudType = CrudType;
-  headers = ['Order No.', 'Beverage Name', 'Customer Name', 'Amount', 'Status','Created By', 'Created At'];
+  headers = ['Order No.', 'Order Type', 'Customer Name', 'Amount', 'Status','Created By', 'Created At'];
   orders: Order[] = [];
   orderObject = { 
     selectedOrder: new Order(),

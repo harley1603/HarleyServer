@@ -25,33 +25,45 @@ export class OrderService {
       customerId: order.customerId,
       customer: Object.assign({}, order.customer),
       grandTotal: order.grandTotal,
-      orderLines: order.orderLines.map(orderLine => Object.assign({}, orderLine)) ,
+      orderLines: order.orderLines.map(orderLine => Object.assign({}, orderLine)),
       shipperName: order.shipperName,
       shippingAddress: Object.assign({}, order.shippingAddress)
     });
   }
 
-  updateOrder(order: Order) {
-    let ward = order.shippingAddress.ward ? ', ' + order.shippingAddress.ward : '';
-    let fullAddress = order.shippingAddress.street + ward + "," + order.shippingAddress.district + "," + order.shippingAddress.city;
-    return this.db.collection('/order').doc(order.orderNo).set({
-      orderType: order.orderType,
-      status: order.status,
-      createdBy: order.createdBy,
-      createdDate: order.createdDate,
-      customerId: order.customerId,
-      customer: Object.assign({}, order.customer),
-      grandTotal: order.grandTotal,
-      orderLines: order.orderLines.map(orderLine => Object.assign({}, orderLine)) ,
-      shipperName: order.shipperName,
-      shippingAddress: Object.assign({}, order.shippingAddress),
-      shippingInformation: {
-        receiver: order.customer.display_name,
-        phone: order.customer.phone,
-        address: fullAddress,
-        shippingDate: order.createdDate
-      }
-    });
+  async updateOrder(order: Order) {
+    let ward: string;
+    let fullAddress: string = '';
+    if (order.shippingAddress) {
+      ward = order.shippingAddress.ward ? ', ' + order.shippingAddress.ward : '';
+      fullAddress = order.shippingAddress.street + ward + "," + order.shippingAddress.district + "," + order.shippingAddress.city;
+    }
+
+    try {
+      await this.db.collection('/order').doc(order.orderNo).set({
+        orderType: order.orderType,
+        status: order.status,
+        createdBy: order.createdBy,
+        createdDate: order.createdDate,
+        customerId: order.customerId,
+        customer: Object.assign({}, order.customer),
+        grandTotal: order.grandTotal,
+        orderLines: order.orderLines.map(orderLine => Object.assign({}, orderLine)),
+        shipperName: order.shipperName || '',
+        shippingAddress: Object.assign({}, order.shippingAddress),
+        shippingInformation: {
+          receiver: order.customer.display_name,
+          phone: order.customer.phone,
+          address: fullAddress,
+          shippingDate: order.createdDate
+        }
+      });
+      return order;
+    } catch (error) {
+      console.error(error);
+    }
+
+
   }
 
   handleOrder(orderNo: string, user: User) {
@@ -69,7 +81,7 @@ export class OrderService {
     })
   }
 
-  getListOfOrders(){
+  getListOfOrders() {
     return this.db.collection('/order').snapshotChanges();
   }
 
