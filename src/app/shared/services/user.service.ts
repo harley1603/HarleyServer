@@ -2,13 +2,12 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { User } from '../classes/user';
-import { stringify } from '@angular/compiler/src/util';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-
+  currentUser = new User();
   constructor(private db: AngularFirestore, private afAuth: AngularFireAuth) { }
 
   getListOfUsers() {
