@@ -1,11 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormControl } from "@angular/forms";
-import { LoginService } from "./login.service";
 import { User } from '../shared/classes/user';
-import { UserService } from '../shared/services/user.service';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { AuthService } from '../shared/services/auth.service';
 declare var $: any;
 @Component({
   selector: "app-login",
@@ -23,42 +21,38 @@ export class LoginComponent implements OnInit {
     });
   }
   public loginForm: FormGroup;
-  constructor(public loginService: LoginService, private user: User, 
-    private userService: UserService, 
-    private router: Router,
+  constructor(public authService: AuthService, private user: User,
     private spinner: NgxSpinnerService,
-    private toastr: ToastrService) 
-  {
+    private toastr: ToastrService) {
     this.initForm();
-    let userStorage = JSON.parse(localStorage.getItem('user'));
-    if (userStorage){
-      this.user.setUser(userStorage);
-    }
-    else {
-      this.router.navigateByUrl('/');
-    }
+    // let userStorage = JSON.parse(localStorage.getItem('user'));
+    // if (userStorage) {
+    //   this.user.setUser(userStorage);
+    // } else {
+    //   this.router.navigateByUrl('/');
+    // }
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   ngAfterViewInit(): void {
   }
 
-  setValueFromFormName(name: string, value: any){
+  setValueFromFormName(name: string, value: any) {
     return this.loginForm.controls[name].setValue(value);
   }
 
-  getValueFromFormName(name){
+  getValueFromFormName(name) {
     return this.loginForm.controls[name].value;
   }
 
   login() {
-    if (this.loginForm.invalid){
+    if (this.loginForm.invalid) {
       this.loginFail = true;
     }
     let { email, password } = this.loginForm.value;
     this.spinner.show();
-    this.loginService.login(email, password).then(result => {
+    this.authService.login(email, password).then(result => {
       this.spinner.hide();
       if (result) {
         this.user.setUser(result.user);
@@ -73,9 +67,9 @@ export class LoginComponent implements OnInit {
     })
   }
 
-  loginFacebook(){
+  loginFacebook() {
     this.spinner.show();
-    this.loginService.FacebookAuth().then((result) => {
+    this.authService.FacebookAuth().then((result) => {
       this.spinner.hide();
       console.log(result);
     }, (err) => {
@@ -85,9 +79,9 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  keyPress(event: any){
+  keyPress(event: any) {
     this.loginFail = false;
-    if (event.keyCode === 13){
+    if (event.keyCode === 13) {
       this.login();
     }
   }

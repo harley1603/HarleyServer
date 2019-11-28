@@ -28,6 +28,7 @@ import { HttpClientModule }    from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
  
 import { ToastrModule } from 'ngx-toastr';
+import { AuthService } from './shared/services/auth.service';
 @NgModule({
   declarations: [AppComponent, LoginComponent, HeaderComponent, DashboardComponent, MenuComponent, ChatbotComponent, SignupComponent, ContactCompoment, AboutCompoment],
   imports: [BrowserModule, AppRoutingModule, ReactiveFormsModule,
@@ -42,7 +43,7 @@ import { ToastrModule } from 'ngx-toastr';
   BrowserAnimationsModule, // required animations module
   ToastrModule.forRoot() // ToastrModule added
 ],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

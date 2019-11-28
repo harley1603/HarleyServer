@@ -3,8 +3,8 @@ import { User } from 'src/app/shared/classes/user';
 import { UserService } from 'src/app/shared/services/user.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { CrudType } from 'src/app/shared/enums/crud-type.enum';
-import { LoginService } from 'src/app/login/login.service';
 import { ToastrService } from 'ngx-toastr';
+import { AuthService } from 'src/app/shared/services/auth.service';
 // Jquery
 declare var $: any;
 
@@ -25,7 +25,7 @@ export class UserManagementComponent implements OnInit {
   }
   
   constructor(private userService: UserService, private spinner: NgxSpinnerService,
-    private loginService: LoginService,
+    private authService: AuthService,
     private toastr: ToastrService) { }
 
   ngOnInit() {
