@@ -73,6 +73,9 @@ export class OrderService {
     return this.db.collection('/order').snapshotChanges();
   }
 
+  getListOfOrdersbyCustomerID(customerId: string){
+    return this.db.collection('/order', ref => ref.where('customerId','==', customerId)).snapshotChanges();
+  }
   doneOrder(orderNo: string, user: User) {
     return this.db.collection('/order').doc(orderNo).update({
       status: 'Paid'

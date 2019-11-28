@@ -15,11 +15,19 @@ import { BeverageManagementComponent } from './beverage-management/beverage-mana
 import { BeverageDetailComponent } from './beverage-management/beverage-detail/beverage-detail.component';
 import { MyOrderComponent } from './my-order/my-order.component';
 import { OrderDetailComponent } from './order-management/order-detail/order-detail.component';
+import { MyorderDetailComponent } from './my-order/order-detail/order-detail.component';
 
 
 
 @NgModule({
-  declarations: [PersonalComponent, SidebarComponent, UserProfileComponent, UserManagementComponent, ShippingAddressDetailComponent, ShippingAddressComponent, UserDetailComponent, OrderManagementComponent, BeverageManagementComponent, BeverageDetailComponent, MyOrderComponent, OrderDetailComponent],
+  declarations: [PersonalComponent, 
+    SidebarComponent, UserProfileComponent, 
+    UserManagementComponent, ShippingAddressDetailComponent, 
+    ShippingAddressComponent, UserDetailComponent, OrderManagementComponent, 
+    BeverageManagementComponent, BeverageDetailComponent, 
+    MyOrderComponent, 
+    OrderDetailComponent
+  ,MyorderDetailComponent],
   imports: [
     ReactiveFormsModule,
     PersonalRoutingModule,

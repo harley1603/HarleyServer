@@ -1,0 +1,94 @@
+<div class="col-sm-12 col-md-12 col-lg-12"
+  [ngClass]="{ view: mode === CrudType.VIEW || orderForm.controls['status'].value !== 'Unhandled'}">
+  
+
+  <h2 class="title">Order Lines</h2>
+
+  <div class="col-sm-12 col-md-12 col-lg-12">
+    <!-- Form -->
+    <form class="form-inline" [formGroup]="beverageInputForm"
+      *ngIf="mode !== CrudType.VIEW && orderForm.controls.status.value === 'Unhandled'">
+      <div class="form-group margin-l-10">
+        <label>Beverage<span class="required">*</span>&nbsp;</label>
+        <select class="form-control" formControlName="beverageCode"
+          (change)="onSelectOption($event, OptionType.BEVERAGE)">
+          <option value="" selected disabled>Select Beverage</option>
+          <option *ngFor="let beverage of beverages" [value]="beverage.code">{{
+            beverage.name
+          }}</option>
+        </select>
+      </div>
+      <div class="form-group margin-10">
+        <label>Size<span class="required">*</span>&nbsp;</label>
+        <select class="form-control" formControlName="size">
+          <option value="" selected disabled>Select Size</option>
+          <option *ngFor="let size of beverageSizes" [value]="size.size">{{
+              size.size
+            }}</option>
+        </select>
+      </div>
+      <div class="form-group margin-10">
+        <label>Quantity&nbsp;</label>
+        <input formControlName="quantity" type="number" class="form-control" />
+      </div>
+      <button type="button" class="btn btn-primary margin-10" (click)="addOrderLine()">
+        Add
+      </button>
+      <button type="button" class="btn btn-danger" style="margin-bottom: 10px;">
+        Delete
+      </button>
+    </form>
+    <div class="col-sm-12 col-md-12 col-lg-12">
+      <table class="table">
+        <thead>
+          <tr>
+            <th *ngIf="mode !== CrudType.VIEW">
+              <input type="checkbox" value="" />
+            </th>
+            <th *ngFor="let header of orderLinesHeader">{{ header }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of orderLines">
+            <td *ngIf="mode !== CrudType.VIEW">
+              <input type="checkbox" value="" />
+            </td>
+            <td>{{ item.beverageCode }}</td>
+            <td>{{ item.beverageName }}</td>
+            <td>{{ item.size }}</td>
+            <td>{{ item.quantity }}</td>
+            <td>{{ item.price | currency:'VND ':'code' }}</td>
+            <td>{{ (item.quantity * item.price) | currency:'VND ':'code'  }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div *ngIf="orderLines.length == 0" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <div class="no-data">No Data Available</div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <button type="button" class="btn btn-default margin-l-10" style="margin-left: 30px" (click)="back()">
+    <i class="fas fa-caret-left"></i> Back
+  </button>
+  <button *ngIf="mode !== CrudType.VIEW && orderForm.controls['status'].value === 'Unhandled'" type="button"
+    class="btn btn-success margin-l-10" (click)="save()">
+    Save
+  </button>
+  <button *ngIf="mode === CrudType.VIEW && orderForm.controls['status'].value === 'Unhandled' " type="button"
+    class="btn btn-info margin-l-10" (click)="handleOrder()">
+    Handle
+  </button>
+  <button *ngIf="orderForm.controls['status'].value === 'Handling' && orderForm.controls.orderType.value === 'Remote'"
+    type="button" class="btn btn-info margin-l-10" (click)="deliverOrder()">
+    Deliver <i class="fa fa-truck"></i>
+  </button>
+  <button
+    *ngIf="orderForm.controls['status'].value === 'Handling' || orderForm.controls['status'].value === 'Delivering'"
+    type="button" class="btn btn-info margin-l-10" (click)="doneOrder()">
+    <i class="fa fa-check"></i> Done
+  </button>
+</div>
