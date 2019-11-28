@@ -13,7 +13,7 @@ import { User } from 'src/app/shared/classes/user';
 })
 export class MyOrderComponent implements OnInit {
   CrudType = CrudType;
-  headers = ['Order No.', 'Beverage Name', 'Customer Name', 'Amount', 'Status','Created By', 'Created At'];
+  headers = ['Order No.', 'Customer Name', 'Amount', 'Status','Created By', 'Created At'];
   orders: Order[] = [];
   orderObject = { 
     selectedOrder: new Order(),
