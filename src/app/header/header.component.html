@@ -18,7 +18,7 @@
                 <li [ngClass]="{'active': currentUrl === '/dashboard/about'}"><a (click)="navTo('/dashboard/about')">About Us</a></li>
                 <li [ngClass]="{'active': currentUrl === '/dashboard/contact'}"><a (click)="navTo('/dashboard/contact')">Contact</a></li>
             </ul>
-            <ul *ngIf="!user.uid" class="nav navbar-nav navbar-right">
+            <ul *ngIf="!user.currentUser.uid" class="nav navbar-nav navbar-right">
                 <li>
                 <a href="#signup-modal" data-toggle="modal"><span class="glyphicon glyphicon-user"></span> Sign Up</a>
                 </li>
@@ -28,10 +28,10 @@
                 >
                 </li>
             </ul>
-            <ul *ngIf="user.uid" class="nav navbar-nav navbar-right dropdown">
+            <ul *ngIf="user.currentUser.uid" class="nav navbar-nav navbar-right dropdown">
                 <li>
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                    <img class="avatar" [src]="user.avatar ? user.avatar: '../../assets/images/user-avatar.jpg'"> {{ user.display_name }} <span class="caret"></span>
+                    <img class="avatar" [src]="user.currentUser.avatar ? user.currentUser.avatar: '../../assets/images/user-avatar.jpg'"> {{ user.currentUser.display_name }} <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu black">
                     <li><a (click)="navTo('/personal/profile')"><i class="fas fa-user-circle"></i>  My Profile</a></li>
