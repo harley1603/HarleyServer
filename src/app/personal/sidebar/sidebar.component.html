@@ -8,11 +8,14 @@
   border-bottom: 1px solid #f39c12;
   margin-bottom: 10px;
   ">
-    <img class="avatar" [src]="user.avatar ? user.avatar: '../../assets/images/user-avatar.jpg'"
-        width="160" 
-        height="160"
-        style="border-radius: 80px"/>
-    <h4>{{ user.display_name }}</h4>
+  <div style="width: 160px; height: 160px">
+
+    <img class="avatar" [src]="authService.user && authService.user.avatar ? authService.user.avatar: '../../assets/images/user-avatar.jpg'"
+      width="160" height="auto"
+    style="border-radius: 80px"/>
+    <div class="update-image"></div>
+  </div>
+    <h4 *ngIf="authService.user as user">{{ user.display_name }}</h4>
   </div>
     <a (click)="navToLink('profile')" [ngClass]="{'active': router.url.includes('profile')}" class="active"><i class="fa fa-fw fa-user "></i>&nbsp;My Profile</a>
     <a (click)="navToLink('user-management/user')" [ngClass]="{'active': router.url.includes('user-management/user')}"><i class="fas fa-users"></i>&nbsp;User Management</a>

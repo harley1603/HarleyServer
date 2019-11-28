@@ -5,6 +5,7 @@ import { PersonalComponent } from './personal/personal.component';
 import { ContactCompoment } from './contact/contact.component';
 import { MenuComponent } from './menu/menu.component';
 import { AboutCompoment } from './about/about.component';
+import { AuthGuard } from './auth.guard';
 
 const routes: Routes = [
   { path: '', component: DashboardComponent },
@@ -14,8 +15,7 @@ const routes: Routes = [
       { path: 'about', component: AboutCompoment},
       { path: 'contact', component: ContactCompoment}
     ] },
-  // { path: 'dashboard/menu', component: MenuComponent },
-  { path: 'personal', component: PersonalComponent, loadChildren: './personal/personal.module#PersonalModule' },
+  { path: 'personal', component: PersonalComponent, loadChildren: './personal/personal.module#PersonalModule', canActivate: [AuthGuard], canActivateChild: [AuthGuard] },
   { path: 'contact', component: ContactCompoment},
   { path: 'about', component: AboutCompoment},
 ];

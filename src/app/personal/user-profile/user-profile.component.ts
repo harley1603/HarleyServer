@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/shared/services/user.service';
 import { User } from 'src/app/shared/classes/user';
-import { FormGroup, FormBuilder, ReactiveFormsModule, Validators  } from '@angular/forms';
+import { FormGroup, FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { DocumentSnapshot } from '@angular/fire/firestore';
 import { NgxSpinnerService } from 'ngx-spinner';
 import * as moment from 'moment';
@@ -10,6 +10,7 @@ import { Address } from 'src/app/shared/classes/address';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/shared/services/auth.service';
+import { Utils } from 'src/app/shared/enums/utils';
 declare var $: any;
 
 @Component({
@@ -18,9 +19,8 @@ declare var $: any;
   styleUrls: ['./user-profile.component.scss']
 })
 export class UserProfileComponent implements OnInit {
-  shippingAddressHeaders = ['No.', 'Address Name', 'Receiver', 'Phone Number', 'Street', 'Ward', 'District', 'City',''];
+  shippingAddressHeaders = ['No.', 'Address Name', 'Receiver', 'Phone Number', 'Street', 'Ward', 'District', 'City', ''];
   userForm: FormGroup;
-
   changePasswordForm: FormGroup;
   isError = false;
   // Change password
@@ -37,8 +37,7 @@ export class UserProfileComponent implements OnInit {
     selectedIndex: -1
   }
   constructor(
-    private user: User,
-    private authService: AuthService, 
+    private authService: AuthService,
     private userService: UserService,
     private formBuilder: FormBuilder,
     private spinner: NgxSpinnerService,
@@ -46,7 +45,7 @@ export class UserProfileComponent implements OnInit {
     private toastr: ToastrService
   ) {
 
-   }
+  }
 
   ngOnInit() {
     this.initForm();
@@ -64,15 +63,15 @@ export class UserProfileComponent implements OnInit {
       'endDate': '0d'
     }).on('change', function (e) {
       if (e.target.value) {
-        if (self.validateDate(e.target.value)){
+        if (self.validateDate(e.target.value)) {
           self.setValueFromFormName('birthday', e.target.value);
         }
-        else { e.target.value = ""}
+        else { e.target.value = "" }
       }
     });
   }
 
-  initForm(){
+  initForm() {
     this.userForm = this.formBuilder.group({
       uid: [''],
       displayName: [''],
@@ -91,51 +90,58 @@ export class UserProfileComponent implements OnInit {
     });
   }
 
-  bindUserData(){
-    this.spinner.show();
-    this.userService.getUserDataByUid(this.user.uid).subscribe((result: DocumentSnapshot<any>) => {
-      let userDetail = result.data();
-      this.user.setUserDetail(userDetail);
-      this.userForm.patchValue({
-        displayName: this.user.display_name,
-        email: this.user.email,
-        firstName: this.user.first_name,
-        lastName: this.user.last_name,
-        phoneNumber: this.user.phone,
-        birthday: this.user.birthday,
-        status: this.user.status
-      });
-      this.shippingAddress.listAddress = this.user.shipping_address;
-      this.spinner.hide();
-    });
+  bindUserData() {
+    if (this.authService.user && this.authService.user.uid) {
+      this.spinner.show();
+      try {
+        this.userService.getUserDataByUid(this.authService.user.uid).subscribe((result: DocumentSnapshot<any>) => {
+          let userDetail = result.data();
+          this.authService.user.setUserDetail(userDetail);
+          this.userForm.patchValue({
+            displayName: this.authService.user.display_name,
+            email: this.authService.user.email,
+            firstName: this.authService.user.first_name,
+            lastName: this.authService.user.last_name,
+            phoneNumber: this.authService.user.phone,
+            birthday: this.authService.user.birthday,
+            status: this.authService.user.status
+          });
+          this.shippingAddress.listAddress = this.authService.user.shipping_address;
+          this.spinner.hide();
+        });
+      } catch (error) {
+        this.spinner.hide();
+        console.error(error);
+      }
+    }
   }
 
-  getValueFromFormName(name:string){
+  getValueFromFormName(name: string) {
     return this.userForm.controls[name].value;
   }
 
-  setValueFromFormName(name:string, value: any){
+  setValueFromFormName(name: string, value: any) {
     return this.userForm.controls[name].setValue(value);
   }
 
-  saveForm(): void{
+  saveForm(): void {
     this.spinner.show();
     let data = this.getDataUpload();
-    let uid = this.user.uid;
+    let uid = this.authService.user.uid;
 
     this.userService.updateUserByUid(uid, data).then((result) => {
       this.spinner.hide();
       this.reloadComponent();
-      this.toastr.success("Updated user successfully");
+      this.toastr.success("Updated user successfully", Utils.MODULE_USER_PROFILE);
     }, err => {
       console.error(err);
-      this.toastr.error("Error has occured. Please try again.");
+      this.toastr.error("Error has occured. Please try again.", Utils.MODULE_USER_PROFILE);
     });
   }
 
   getDataUpload(): User {
     let data = new User();
-      data.display_name = this.getValueFromFormName('displayName'),
+    data.display_name = this.getValueFromFormName('displayName'),
       data.email = this.getValueFromFormName('email'),
       data.first_name = this.getValueFromFormName('firstName'),
       data.last_name = this.getValueFromFormName('lastName'),
@@ -145,7 +151,7 @@ export class UserProfileComponent implements OnInit {
     return data;
   }
 
-  validateDate(date: string){
+  validateDate(date: string) {
     return moment(date).isValid();
   }
 
@@ -155,23 +161,23 @@ export class UserProfileComponent implements OnInit {
     this.errorChangePassword = false;
     this.changePasswordForm.reset();
   }
-  
+
   changePassword(): void {
     this.errorChangePassword = false;
     this.errorMessage = '';
     let oldPassword = this.getValueFromPasswordFormName('oldPassword');
     let newPassword = this.getValueFromPasswordFormName('newPassword');
     let confirmPassword = this.getValueFromPasswordFormName('confirmPassword');
-    if (this.changePasswordForm.invalid){
+    if (this.changePasswordForm.invalid) {
       this.errorChangePassword = true;
       return;
     }
-    if (newPassword !== confirmPassword){
+    if (newPassword !== confirmPassword) {
       this.errorMessage = 'Password does not match.'
       this.errorChangePassword = true;
       return;
     }
-    this.authService.changePassword(this.user.email, oldPassword, newPassword).then( () => {
+    this.authService.changePassword(this.authService.user.email, oldPassword, newPassword).then(() => {
       this.clearPasswordForm();
       this.successChangePassword = true;
     }).catch(err => {
@@ -208,7 +214,7 @@ export class UserProfileComponent implements OnInit {
     $('#modal-shipping-address').modal('show');
   }
 
-  updateShippingAddress(address: Address){
+  updateShippingAddress(address: Address) {
     switch (this.shippingAddress.mode) {
       case CrudType.CREATE:
         this.shippingAddress.listAddress.push(address);
@@ -223,7 +229,7 @@ export class UserProfileComponent implements OnInit {
     }
   }
 
-  selectShippingAddress(shippingAddress: Address, index: number){
+  selectShippingAddress(shippingAddress: Address, index: number) {
     this.shippingAddress.selectedAddress = shippingAddress;
     this.shippingAddress.selectedIndex = index;
   }

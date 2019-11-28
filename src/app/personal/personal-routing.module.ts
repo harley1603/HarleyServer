@@ -8,20 +8,21 @@ import { BeverageDetailComponent } from './beverage-management/beverage-detail/b
 import { OrderManagementComponent } from './order-management/order-management.component';
 import { OrderDetailComponent } from './order-management/order-detail/order-detail.component';
 import { MyOrderComponent } from './my-order/my-order.component';
+import { AuthGuard } from '../auth.guard';
 const routes: Routes = [
-    { path: 'profile', component: UserProfileComponent},
-    { path: 'user-management/user', component: UserManagementComponent},
+    { path: 'profile', component: UserProfileComponent, canActivate: [AuthGuard]},
+    { path: 'user-management/user', component: UserManagementComponent, canActivate: [AuthGuard]},
     // Beverage
-    { path: 'beverage-management', component: BeverageManagementComponent },
-    { path: 'beverage-management/:mode', component: BeverageDetailComponent},
-    { path: 'beverage-management/:mode/:code', component: BeverageDetailComponent},
+    { path: 'beverage-management', component: BeverageManagementComponent, canActivate: [AuthGuard] },
+    { path: 'beverage-management/:mode', component: BeverageDetailComponent, canActivate: [AuthGuard]},
+    { path: 'beverage-management/:mode/:code', component: BeverageDetailComponent, canActivate: [AuthGuard]},
     // My Order
-    { path: 'order-management', component: OrderManagementComponent },
-    { path: 'order-management/:mode', component: OrderDetailComponent},
-    { path: 'order-management/:mode/:id', component: OrderDetailComponent},
+    { path: 'order-management', component: OrderManagementComponent, canActivate: [AuthGuard] },
+    { path: 'order-management/:mode', component: OrderDetailComponent, canActivate: [AuthGuard]},
+    { path: 'order-management/:mode/:id', component: OrderDetailComponent, canActivate: [AuthGuard]},
 
     // My Order
-    { path: 'my-order', component: MyOrderComponent },
+    { path: 'my-order', component: MyOrderComponent, canActivate: [AuthGuard] },
     // { path: 'order-management/:mode', component: OrderDetailComponent},
     // { path: 'order-management/:mode/:id', component: OrderDetailComponent}
   ];

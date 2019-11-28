@@ -19,7 +19,7 @@ export class AuthService {
         localStorage.setItem('user', null);
         this.user = null;
       }
-    })
+    });
   }
 
   FacebookAuth() {
@@ -67,5 +67,9 @@ export class AuthService {
     } catch (err) {
       console.error(err);
     }
+  }
+
+  get authenticated(): boolean {
+    return !!this.user && !!this.user.uid;
   }
 }

@@ -43,5 +43,17 @@
     background-color: #f39c12;
     color:#000 !important;
   }
+
+  .update-image {
+    height: 50%;
+    position: absolute;
+    bottom: 0;
+    opacity: 0;
+    transition: 0.5s;
+  }
+  .update-image:hover {
+    transition: 0.5s;
+    opacity: 1;
+  }
   
   

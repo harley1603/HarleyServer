@@ -25,12 +25,6 @@ export class LoginComponent implements OnInit {
     private spinner: NgxSpinnerService,
     private toastr: ToastrService) {
     this.initForm();
-    // let userStorage = JSON.parse(localStorage.getItem('user'));
-    // if (userStorage) {
-    //   this.user.setUser(userStorage);
-    // } else {
-    //   this.router.navigateByUrl('/');
-    // }
   }
 
   ngOnInit() { }

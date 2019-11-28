@@ -14,8 +14,8 @@ export class SignupComponent implements OnInit {
   signUpForm: FormGroup;
   errorForm = false;
   errorMessage = '';
-  constructor(private formBuilder: FormBuilder, 
-    private authService: AuthService, 
+  constructor(private formBuilder: FormBuilder,
+    private authService: AuthService,
     private userService: UserService,
     private spinner: NgxSpinnerService) { }
 
@@ -34,7 +34,7 @@ export class SignupComponent implements OnInit {
   }
 
   signUp(): void {
-    if (this.signUpForm.invalid){
+    if (this.signUpForm.invalid) {
       this.errorForm = true;
       return;
     }
@@ -42,15 +42,14 @@ export class SignupComponent implements OnInit {
     let password = this.getValueFromFormName('password');
     let confirmPassword = this.getValueFromFormName('confirmPassword');
 
-    if (password !== confirmPassword){
+    if (password !== confirmPassword) {
       this.errorForm = true;
       this.errorMessage = 'Password does not match. Please type again.';
       return;
     }
     this.spinner.show();
     let signUpData = this.getDataUpload();
-
-    this.authService.signUp(signUpData.email, signUpData.password).then( result => {
+    this.authService.signUp(signUpData.email, signUpData.password).then(result => {
       let user = result.user;
       this.userService.updateUserByUid(user.uid, signUpData).then(value => {
         console.log('Created Successfully');
@@ -59,11 +58,12 @@ export class SignupComponent implements OnInit {
         $("#signup-modal").modal('hide');
       });
     })
-    .catch(err => {
-      this.errorForm = true;
-      this.errorMessage = err.message;
-      console.error(err.message);
-    });
+      .catch(err => {
+        this.spinner.hide();
+        this.errorForm = true;
+        this.errorMessage = err.message;
+        console.error(err.message);
+      });
   }
 
   getDataUpload(): any {

@@ -7,9 +7,5 @@ import { User } from './shared/classes/user';
 })
 export class AppComponent {
   constructor() {
-    // let userStorage = JSON.parse(localStorage.getItem('user'));
-    // if (userStorage){
-    //   this.user.setUser(userStorage);
-    // }
   }
 }

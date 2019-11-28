@@ -29,6 +29,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
  
 import { ToastrModule } from 'ngx-toastr';
 import { AuthService } from './shared/services/auth.service';
+import { AuthGuard } from './auth.guard';
 @NgModule({
   declarations: [AppComponent, LoginComponent, HeaderComponent, DashboardComponent, MenuComponent, ChatbotComponent, SignupComponent, ContactCompoment, AboutCompoment],
   imports: [BrowserModule, AppRoutingModule, ReactiveFormsModule,
@@ -41,9 +42,12 @@ import { AuthService } from './shared/services/auth.service';
   NgxSpinnerModule,
   HttpClientModule,
   BrowserAnimationsModule, // required animations module
-  ToastrModule.forRoot() // ToastrModule added
+  ToastrModule.forRoot({
+    timeOut: 3000,
+    positionClass: 'toast-top-center'
+  }) // ToastrModule added
 ],
-  providers: [AuthService],
+  providers: [AuthService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
