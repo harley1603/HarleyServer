@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { LoginService } from '../login/login.service';
 import { UserService } from '../shared/services/user.service';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { AuthService } from '../shared/services/auth.service';
 
 declare var $: any;
 @Component({
@@ -15,7 +15,7 @@ export class SignupComponent implements OnInit {
   errorForm = false;
   errorMessage = '';
   constructor(private formBuilder: FormBuilder, 
-    private loginService: LoginService, 
+    private authService: AuthService, 
     private userService: UserService,
     private spinner: NgxSpinnerService) { }
 
@@ -50,7 +50,7 @@ export class SignupComponent implements OnInit {
     this.spinner.show();
     let signUpData = this.getDataUpload();
 
-    this.loginService.signUp(signUpData.email, signUpData.password).then( result => {
+    this.authService.signUp(signUpData.email, signUpData.password).then( result => {
       let user = result.user;
       this.userService.updateUserByUid(user.uid, signUpData).then(value => {
         console.log('Created Successfully');
