@@ -43,5 +43,31 @@
     background-color: #f39c12;
     color:#000 !important;
   }
+
+.avatar {
+  width: 160px;
+    height: 160px;
+    display: flex;
+    flex-direction: column-reverse;
+  img {
+    border-radius: 50%;
+    position: absolute;
+    z-index: 1;
+  }
+  .update-avatar {
+    background-color: #f39c12;
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    opacity: 0;
+    height: 80px;
+    transition: 0.5s;
+    font-size: 17px;
+    border-radius: 0 0 80px 80px;
+  }
+  .update-avatar:hover{
+    opacity: 0.8;
+  }
+}
   
   
