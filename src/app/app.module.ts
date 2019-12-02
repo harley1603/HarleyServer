@@ -41,7 +41,10 @@ import { AuthService } from './shared/services/auth.service';
   NgxSpinnerModule,
   HttpClientModule,
   BrowserAnimationsModule, // required animations module
-  ToastrModule.forRoot() // ToastrModule added
+  ToastrModule.forRoot({
+    timeOut: 3000,
+    positionClass: 'toast-top-center'
+  }) // ToastrModule added
 ],
   providers: [AuthService],
   bootstrap: [AppComponent]

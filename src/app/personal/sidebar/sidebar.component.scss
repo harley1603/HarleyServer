@@ -1,54 +1,58 @@
 /* Style the sidebar - fixed full height */
 .sidebar {
-    height: 100%;
-    width: 200px;
-    position: fixed;
-    left: 0;
-    background-color: #111;
-    // overflow-x: hidden;
-    // overflow-y: hidden;
-    padding-top: 16px;
+  height: 100%;
+  width: 200px;
+  position: fixed;
+  left: 0;
+  background-color: #111;
+  // overflow-x: hidden;
+  // overflow-y: hidden;
+  padding-top: 16px;
+}
+
+/* Style sidebar links */
+.sidebar a {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 16px;
+  color: #818181;
+  display: block;
+}
+
+/* Style links on mouse-over */
+.sidebar a:hover {
+  cursor: pointer;
+  color: #000;
+  background-color: #f39c12;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+}
+/* Style the main content */
+.main {
+  margin-left: 160px; /* Same as the width of the sidenav */
+  padding: 0px 10px;
+}
+
+/* Add media queries for small screens (when the height of the screen is less than 450px, add a smaller padding and font-size) */
+@media screen and (max-height: 450px) {
+  .sidebar {
+    padding-top: 15px;
   }
-  
-  /* Style sidebar links */
   .sidebar a {
-    padding: 6px 8px 6px 16px;
-    text-decoration: none;
     font-size: 16px;
-    color: #818181;
-    display: block;
   }
-  
-  /* Style links on mouse-over */
-  .sidebar a:hover {
-    cursor: pointer;
-    color: #000;
-    background-color: #f39c12;
-    border-top: 1px solid black;
-    border-bottom: 1px solid black;
-  }
-  /* Style the main content */
-  .main {
-    margin-left: 160px; /* Same as the width of the sidenav */
-    padding: 0px 10px;
-  }
-  
-  /* Add media queries for small screens (when the height of the screen is less than 450px, add a smaller padding and font-size) */
-  @media screen and (max-height: 450px) {
-    .sidebar {padding-top: 15px;}
-    .sidebar a {font-size: 16px;}
-  }
-  
-  .active {
-    background-color: #f39c12;
-    color:#000 !important;
-  }
+}
+
+.active {
+  background-color: #f39c12;
+  color: #000 !important;
+}
 
 .avatar {
   width: 160px;
-    height: 160px;
-    display: flex;
-    flex-direction: column-reverse;
+  height: 160px;
+  display: flex;
+  flex-direction: column-reverse;
   img {
     border-radius: 50%;
     position: absolute;
@@ -65,9 +69,13 @@
     font-size: 17px;
     border-radius: 0 0 80px 80px;
   }
-  .update-avatar:hover{
+}
+
+.avatar:hover {
+  .update-avatar {
     opacity: 0.8;
+    label {
+      cursor: pointer;
+    }
   }
 }
-  
-  
