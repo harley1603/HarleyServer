@@ -14,28 +14,30 @@ export class UserService {
     return this.db.collection('/user').snapshotChanges();
   }
 
-  getUserDataByUid(uid: string){
+  getUserDataByUid(uid: string) {
     return this.db.collection(`/user`).doc(uid).get();
   }
 
-  async updateUserByUid(uid:string, data: User, role?) {
+  async updateUserByUid(uid: string, data: User, role?) {
     try {
       await this.db.collection(`/user`).doc(uid).set({
         first_name: data.first_name,
         last_name: data.last_name,
-        display_name: data.display_name ? data.display_name: data.first_name + " " + data.last_name,
+        display_name: data.display_name ? data.display_name : data.first_name + " " + data.last_name,
         email: data.email,
         phone: data.phone || '',
-        birthday: data.birthday ? data.birthday : '' ,
+        birthday: data.birthday ? data.birthday : '',
         shipping_address: data.shipping_address ? data.shipping_address.map((address) => Object.assign({}, address)) : [],
         role: +role || 2,
         status: data.status || 'Active'
       });
-      await this.afAuth.auth.currentUser.updateProfile({
-        displayName: data.display_name ? data.display_name: data.first_name + " " + data.last_name
-      });
+      if (uid === this.afAuth.auth.currentUser.uid) {
+        await this.afAuth.auth.currentUser.updateProfile({
+          displayName: data.display_name ? data.display_name : data.first_name + " " + data.last_name
+        });
+      }
     } catch (error) {
-      console.log(error);
+      throw error;
     }
   }
 

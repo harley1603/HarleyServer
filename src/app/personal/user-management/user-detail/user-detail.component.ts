@@ -40,7 +40,7 @@ export class UserDetailComponent implements OnInit {
         lastName: this.selectedUser.last_name,
         email: this.selectedUser.email,
         phone: this.selectedUser.phone,
-        role: this.selectedUser.user_role,
+        role: this.selectedUser.role,
         status: this.selectedUser.status
       })
     }
@@ -72,7 +72,7 @@ export class UserDetailComponent implements OnInit {
     data.last_name = this.getValueFromFormName('lastName');
     data.email = this.getValueFromFormName('email');
     data.phone = this.getValueFromFormName('phone');
-    data.user_role = this.getValueFromFormName('role');
+    data.role = this.getValueFromFormName('role');
     data.status = this.getValueFromFormName('status');
 
     return data;

@@ -6,12 +6,14 @@ export class Beverage {
     description: string;
     type: string;
     listOfSizes: BeverageSize[];
-    constructor(code?: string, name?: string, description?: string, type?: string, listOfSizes?: any[]) {
+    image_link: string;
+    constructor(code?: string, name?: string, description?: string, type?: string, listOfSizes?: any[], image_link? : string) {
         this.code = code;
         this.name = name;
         this.description = description;
         this.type = type;
         this.listOfSizes = listOfSizes;
+        this.image_link = image_link;
     }
 
     setBeverageDetail(beverage: any) {
@@ -19,5 +21,6 @@ export class Beverage {
         this.description = beverage.description;
         this.type = beverage.type;
         this.listOfSizes = beverage.list_of_size;
+        this.image_link = beverage && beverage.image_link ? beverage.image_link : 'https://image.flaticon.com/icons/png/512/175/175782.png';
     }
 }

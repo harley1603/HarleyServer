@@ -93,21 +93,26 @@ export class UserProfileComponent implements OnInit {
 
   bindUserData(){
     this.spinner.show();
-    this.userService.getUserDataByUid(this.user.uid).subscribe((result: DocumentSnapshot<any>) => {
-      let userDetail = result.data();
-      this.user.setUserDetail(userDetail);
-      this.userForm.patchValue({
-        displayName: this.user.display_name,
-        email: this.user.email,
-        firstName: this.user.first_name,
-        lastName: this.user.last_name,
-        phoneNumber: this.user.phone,
-        birthday: this.user.birthday,
-        status: this.user.status
+    try {
+      this.userService.getUserDataByUid(this.user.uid).subscribe((result: DocumentSnapshot<any>) => {
+        let userDetail = result.data();
+        this.user.setUserDetail(userDetail);
+        this.userForm.patchValue({
+          displayName: this.user.display_name,
+          email: this.user.email,
+          firstName: this.user.first_name,
+          lastName: this.user.last_name,
+          phoneNumber: this.user.phone,
+          birthday: this.user.birthday,
+          status: this.user.status
+        });
+        this.shippingAddress.listAddress = this.user.shipping_address;
+        this.spinner.hide();
       });
-      this.shippingAddress.listAddress = this.user.shipping_address;
+    } catch (error) {
+      console.error(error);
       this.spinner.hide();
-    });
+    }
   }
 
   getValueFromFormName(name:string){
