@@ -15,7 +15,7 @@ export class User {
     birthday: string;
     address: string;
     status: string;
-    user_role: ROLE;
+    role: ROLE;
     avatar: string;
     shipping_address: Address[];
     content: Object[] = [];
@@ -50,7 +50,7 @@ export class User {
     }
 
     setUserDetail(user: any){
-        this.display_name = user.display_name ? user.display_name : this.display_name;
+        this.display_name = user && user.display_name ? user.display_name : this.display_name;
         this.email = user.email ? user.email : this.email;
         this.first_name = user.first_name;
         this.last_name = user.last_name;
@@ -59,10 +59,10 @@ export class User {
         this.phone = user.phone ? user.phone : this.phone;
         this.status = user.status ? user.status : 'Blocked';
         this.avatar = user.photo_url ? user.photo_url : this.avatar ? this.avatar : '';
-        this.user_role = user.role ? user.role : this.user_role;
+        this.role = user.role ? user.role : this.role;
         this.shipping_address = user.shipping_address ? Object.keys(user.shipping_address).map(key => user.shipping_address[key] ) : [];
         let roleTitle = '';
-        switch (this.user_role) {
+        switch (this.role) {
             case ROLE.ADMIN:
                 roleTitle = 'Admin';
                 break;
@@ -76,6 +76,7 @@ export class User {
                 break;
         }
         this.content = [
+            { title: user.uid ? user.uid : this.uid},
             { title: user.first_name },
             { title: user.last_name },
             { title: user.email ? user.email : this.email },

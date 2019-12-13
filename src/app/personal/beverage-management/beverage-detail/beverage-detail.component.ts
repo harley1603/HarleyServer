@@ -114,7 +114,6 @@ export class BeverageDetailComponent implements OnInit {
     data.description = this.getValueFromFormName('description');
     data.type = this.getValueFromFormName('type');
     data.listOfSizes = this.listOfSizes;
-
     return data;
   }
 

@@ -16,4 +16,12 @@
         top: -2px;
         left: 1em;
     }
+    .item-image {
+        width: 190px;
+        height: 190px;
+        transition: box-shadow .3s;
+    }
+    .item-image:hover {
+        box-shadow: 0 0 11px rgba(33,33,33,.3); 
+    }
 }

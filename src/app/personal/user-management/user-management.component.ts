@@ -15,7 +15,7 @@ declare var $: any;
 })
 export class UserManagementComponent implements OnInit {
   CrudType = CrudType;
-  headers = ['First Name', 'Last Name', 'Email', 'Phone', 'Status', 'Role',''];
+  headers = ['UID', 'First Name', 'Last Name', 'Email', 'Phone', 'Status', 'Role',''];
   users: User[] = [];
   userDetail = {
     title : CrudType.ADD_TITLE,
@@ -39,18 +39,8 @@ export class UserManagementComponent implements OnInit {
       users.forEach((user) => {
         let data = user.payload.doc.data();
         let temp = new User();
-        temp.setUserDetail(data);
         temp.uid = user.payload.doc.id;
-
-        // temp.display_name = data.display_name;
-        // temp.first_name = data.first_name;
-        // temp.last_name = data.last_name;
-        // temp.phone = data.phone;
-        // temp.email = data.email;
-        // temp.birthday = data.birthday;
-        // temp.address = data.address;
-        // temp.user_role = data.role;
-        // temp.avatar = data.avatar;
+        temp.setUserDetail(data);
         this.users.push(temp);
       });
       this.spinner.hide();
@@ -93,32 +83,34 @@ export class UserManagementComponent implements OnInit {
   updateUserDetail(user: User){
     switch (this.userDetail.mode) {
       case CrudType.CREATE:
-        // this.loginService.signUp(user.email, user.password).then( result => {
-        //   let user = result.user;
-        //   this.userService.updateUserByUid(user.uid, user).then(value => {
-        //     console.log('Created Successfully');
-        //     this.signUpForm.reset();
-        //     this.spinner.hide();
-        //     $("#signup-modal").modal('hide');
-        //   });
-        // })
-        // .catch(err => {
-        //   this.errorForm = true;
-        //   this.errorMessage = err.message;
-        //   console.error(err.message);
-        // });
-        // this.login
-        // this.userService.updateUserByUid(user.uid, user);
+        this.spinner.show();
+        this.authService.signUp(user.email, '123456').then( result => {
+          let signUpUser = result.user;
+          user.display_name = signUpUser.displayName; 
+          this.userService.updateUserByUid(signUpUser.uid, user).then(value => {
+            this.toastr.success('Created user successfully');
+            this.spinner.hide();
+          }).catch(err => {
+            console.error(err.message);
+            this.spinner.hide();
+            this.toastr.error(err.message, "Error!");
+          });;
+        })
+        .catch(err => {
+          console.error(err.message);
+          this.spinner.hide();
+          this.toastr.error(err.message, "Error!");
+        });
         break;
       case CrudType.UPDATE:
         this.spinner.show();
-        this.userService.updateUserByUid(user.uid, user, user.user_role).then(result => {
+        this.userService.updateUserByUid(user.uid, user, user.role).then(result => {
           this.spinner.hide();
           this.toastr.success('Updated user successfully');
         }).catch(err => {
           console.log(err.message);
           this.spinner.hide();
-          this.toastr.error('An Error has occured. Please try again!');
+          this.toastr.error(err.message, "Error!");
         });
         break;
       case CrudType.DELETE:

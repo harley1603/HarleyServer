@@ -130,7 +130,7 @@ export class OrderDetailComponent implements OnInit {
         let tempUser = new User();
         tempUser.setUserDetail(data);
         tempUser.uid = id;
-        if (tempUser.user_role && tempUser.user_role === ROLE.CUSTOMER) {
+        if (tempUser.role && tempUser.role === ROLE.CUSTOMER) {
           this.customers.push(tempUser);
         }
       })

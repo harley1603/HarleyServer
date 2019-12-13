@@ -9,7 +9,7 @@
 
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="margin-top: 10px">
     <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2 item-beverage " *ngFor="let beverage of listOfBeverages">
-      <img src="../../../assets/images/hong-tra-dao.jpg" class="img-responsive img-rounded" alt="Image" />
+      <img [src]="beverage.image_link" class="img-responsive img-rounded item-image" alt="Image"/>
       <label class="item-size">
         <span class="label label-info" *ngFor="let item of beverage.listOfSizes"
           [ngClass]="{'label-info': item.size === 'M', 'label-warning': item.size === 'L'}">{{ item.size }}</span>
