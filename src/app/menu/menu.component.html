@@ -73,7 +73,7 @@
                         <div *ngFor="let item of menu.listOfMilkTeas" class="col-xs-6 col-sm-6 col-md-3 text-center">
                           <div class="menu-wrap">
                             <a href="#" class="menu-img img mb-4"
-                              style="background-image: url(../../assets/images/menu/pizza-1.jpg);"></a>
+                            [ngStyle]="{'background-image': 'url(' + item.image_link + ')'}"></a>
                             <div class="text">
                               <h4><a href="#">{{ item.name }}</a></h4>
                               <p>{{ item.description }}</p>
@@ -90,8 +90,7 @@
                       <div class="row">
                         <div *ngFor="let item of menu.listOfTeas" class="col-md-3 text-center">
                           <div class="menu-wrap">
-                            <a href="#" class="menu-img img mb-4"
-                              style="background-image: url(../../assets/images/menu/drink-1.jpg);"></a>
+                            <a href="#" class="menu-img img mb-4" [ngStyle]="{'background-image': 'url(' + item.image_link + ')'}"></a>
                             <div class="text">
                               <h4><a href="#">{{ item.name }}</a></h4>
                               <p>{{ item.description }}</p>
@@ -108,8 +107,7 @@
                       <div class="row">
                         <div *ngFor="let item of menu.listOfSmoothies" class="col-md-3 text-center">
                           <div class="menu-wrap">
-                            <a href="#" class="menu-img img mb-4"
-                              style="background-image: url(../../assets/images/menu/drink-1.jpg);"></a>
+                            <a href="#" class="menu-img img mb-4" [ngStyle]="{'background-image': 'url(' + item.image_link + ')'}"></a>
                             <div class="text">
                               <h4><a href="#">{{ item.name }}</a></h4>
                               <p>{{ item.description }}</p>
@@ -126,8 +124,7 @@
                       <div class="row">
                         <div *ngFor="let item of menu.listOfCoffees" class="col-md-3 text-center">
                           <div class="menu-wrap">
-                            <a href="#" class="menu-img img mb-4"
-                              style="background-image: url(../../assets/images/menu/drink-1.jpg);"></a>
+                            <a href="#" class="menu-img img mb-4" [ngStyle]="{'background-image': 'url(' + item.image_link + ')'}"></a>
                             <div class="text">
                               <h4><a href="#">{{ item.name }}</a></h4>
                               <p>{{ item.description }}</p>

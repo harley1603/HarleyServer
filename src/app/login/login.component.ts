@@ -68,7 +68,6 @@ export class LoginComponent implements OnInit {
   }
 
   loginFacebook() {
-    this.spinner.show();
     this.authService.FacebookAuth().then((result) => {
       this.spinner.hide();
       console.log(result);

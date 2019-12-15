@@ -1,7 +1,6 @@
 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
     <h2 class="title">
         My order
-        <
     </h2>
     
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 table-responsive">
@@ -13,11 +12,11 @@
             </thead>
             <tbody>
                 <tr *ngFor="let order of orders">
-                    <td>order.orderNo</td>
+                    <td>{{order.orderNo}}</td>
                     
-                    <td>order.customerId</td>
+                    <td>{{order.customerId}}</td>
                     
-                    <td>order.grandTotal | currency:'VND ':'code'</td>
+                    <td>{{order.grandTotal | currency:'VND ':'code'}}</td>
                   
                     <td><span class="label" 
                             [ngClass]="{'label-default': order.status == 'Unhandled',
@@ -27,9 +26,9 @@
                       {{ order.status }}
                     </span>
                     </td> 
-                    <td>order.createdBy</td>
+                    <td>{{order.createdBy}}</td>
                     
-                    <td>order.createdDate</td>
+                    <td>{{order.createdDate}}</td>
                     
                     <td>
                       <div class="btn-group">
